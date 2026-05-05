@@ -12,7 +12,7 @@ import { AppShell } from "@/components/app-shell";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Diagonally",
+  title: "Math Games Builder",
   description: "Interactive knowledge graph of math standards",
   viewport: "width=device-width, initial-scale=1, maximum-scale=1",
 };

@@ -1,6 +1,6 @@
 rules_version = '2';
 
-// Diagonally Firestore Security Rules
+// Math Games Builder Firestore Security Rules
 // Created: April 16, 2026
 // Purpose: Lock down database access. Previously NO rules existed —
 // any authenticated user could read/write any document.

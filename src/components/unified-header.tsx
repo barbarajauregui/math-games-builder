@@ -51,7 +51,7 @@ export function UnifiedHeader() {
               {/* Left: Logo + name */}
               <Link href="/" className="flex items-center gap-2 shrink-0">
                 <Logo size={22} className="text-blue-400" />
-                <span className="text-sm font-bold text-white hidden md:inline">Diagonally</span>
+                <span className="text-sm font-bold text-white hidden md:inline">Math Games Builder</span>
               </Link>
 
               {/* Center: Nav tabs — hidden below 768px, shown in hamburger menu */}

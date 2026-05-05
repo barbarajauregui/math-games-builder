@@ -324,7 +324,7 @@ export default function GuideDashboard() {
         <div className="max-w-7xl mx-auto px-6 h-14 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <Logo size={28} className="text-blue-400" />
-            <h1 className="text-lg font-bold">Diagonally</h1>
+            <h1 className="text-lg font-bold">Math Games Builder</h1>
             <span className="text-xs bg-emerald-500/20 text-emerald-400 px-2 py-0.5 rounded-full font-medium">
               Guide
             </span>

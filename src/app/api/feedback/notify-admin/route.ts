@@ -21,7 +21,7 @@ export async function POST(req: Request) {
       return Response.json({ ok: true, emailed: false })
     }
 
-    const subject = `[Diagonally] ${type === "bug" ? "Fix request" : "Idea"} from ${fromName}`
+    const subject = `[Math Games Builder] ${type === "bug" ? "Fix request" : "Idea"} from ${fromName}`
     const body = `${fromName} sent a ${type === "bug" ? "fix request" : "idea"}:
 
 ${message}
@@ -35,7 +35,7 @@ ${message}
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        from: "Diagonally <feedback@resend.dev>",
+        from: "Math Games Builder <feedback@resend.dev>",
         to: adminEmail,
         subject,
         text: body,

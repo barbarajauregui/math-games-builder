@@ -161,11 +161,11 @@ Vocabulary:
     label: "Stick Man",
     allowSketch: true,
     spec: `
-✏️ STICK MAN VIBE — hand-drawn notebook aesthetic, using the Diagonally
+✏️ STICK MAN VIBE — hand-drawn notebook aesthetic, using the Math Games Builder
 unified stick figure style:
 
 Color palette (use ONLY these):
-  Background:   #18181b (dark zinc — matches the Diagonally mechanic
+  Background:   #18181b (dark zinc — matches the Math Games Builder mechanic
                 illustration backgrounds, NOT a paper white)
   Figure:       #e4e4e7 (light zinc — the standard stick figure stroke
                 color used across all our mechanic SVGs)
@@ -189,7 +189,7 @@ Effects:
 
 🎨 STICK MAN CHARACTERS — exact specification (matches our mechanic SVGs):
   Use SVG stick figures with these EXACT proportions, identical to the
-  Diagonally mechanic illustrations:
+  Math Games Builder mechanic illustrations:
 
   - Head: a faceless circle, radius 6-8px, stroke #e4e4e7 stroke-width 2,
     NO eyes, NO mouth, NO smile. Just an empty circle.
@@ -224,7 +224,7 @@ Vocabulary:
   Score panel: "Score:" (handwritten feel). Win: "you win!" (lowercase,
   like a kid wrote it).
 
-  This is the Diagonally house style — every game built in Stick Man
+  This is the Math Games Builder house style — every game built in Stick Man
   vibe should feel like it could be one of the mechanic illustrations
   from the moon panels, but playable.
 `,

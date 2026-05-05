@@ -1,7 +1,7 @@
 <wizard-report>
 # PostHog post-wizard report
 
-The wizard has completed a deep integration of PostHog analytics into Diagonally (Next.js 16, App Router). Here is a summary of every change made:
+The wizard has completed a deep integration of PostHog analytics into Math Games Builder (Next.js 16, App Router). Here is a summary of every change made:
 
 **New files created:**
 - `instrumentation-client.ts` — Client-side PostHog initialization using the Next.js 15.3+ `instrumentation-client` pattern. Enables automatic exception capture and session replay.

@@ -21,9 +21,9 @@ export interface RulesByRole {
 export const APP_RULES: RulesByRole = {
   shared: [
     {
-      heading: "What is Diagonally?",
+      heading: "What is Math Games Builder?",
       body: [
-        "Diagonally is a galaxy of math skills. It contains 66 planets (math domains) and 535 moons (math skills — one per Common Core standard).",
+        "Math Games Builder is a galaxy of math skills. It contains 66 planets (math domains) and 535 moons (math skills — one per Common Core standard).",
         "Click a planet to zoom in and explore its moons. Click a moon to learn the concept and build a game.",
         "Learners pick a moon, learn the concept, build a small game that proves the concept works, and earn tokens once a guide approves the game.",
       ],
@@ -108,7 +108,7 @@ export const APP_RULES: RulesByRole = {
     {
       heading: "\"I had a Diagonal Idea!\"",
       body: [
-        "See something that could make Diagonally better? Click the blue feedback button and share your idea!",
+        "See something that could make Math Games Builder better? Click the blue feedback button and share your idea!",
         "If your idea is practical enough for us to build, you win a Diagonal Idea prize:",
         "Diagonal Spark — a good, practical idea (1,000 tokens).",
         "Diagonal Idea — a really impactful idea (5,000 tokens).",

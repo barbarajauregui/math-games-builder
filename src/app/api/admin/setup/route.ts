@@ -14,7 +14,7 @@ async function setupAdmin() {
     const adminDb = getAdminDb()
 
     const adminEmailsRaw = process.env.ADMIN_EMAIL
-    const adminPassword = process.env.ADMIN_PASSWORD || "Diagonally-Admin-2026!"
+    const adminPassword = process.env.ADMIN_PASSWORD || "MathGamesBuilder-Admin-2026!"
     if (!adminEmailsRaw) return Response.json({ error: "ADMIN_EMAIL not set in .env.local" }, { status: 500 })
 
     // Support comma-separated admin emails

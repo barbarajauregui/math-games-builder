@@ -1,15 +1,15 @@
 @AGENTS.md
 
-# Diagonally (formerly Option C)
+# Math Games Builder (formerly Diagonally / Option C)
 
 Educational math app where kids build browser games to master Common Core standards.
 
 ## Quick Reference
 
-- **Live:** https://option-c-pi.vercel.app (Vercel, auto-deploys from main)
-- **Repo:** https://github.com/mrdavola/option-c
+- **Live:** https://math-games-builder.vercel.app (Vercel, auto-deploys from main — pending setup)
+- **Repo:** https://github.com/barbarajauregui/math-games-builder
 - **Local dev:** `cd C:/projects/option-c && npm run dev` -> http://localhost:3000
-- **Firebase project:** option-c-14d3b
+- **Firebase project:** option-c-14d3b (legacy ID, kept — display name is "Math Games Builder")
 
 ## Tech Stack
 
@@ -66,7 +66,7 @@ Major session — many features shipped:
 - Galaxy: moon dots on planets, search bar, color fixes (blue=my grade, purple=previous)
 - Game builder: split-screen redesign (chat left, criteria + game card right)
 - Library: ranking tab, grade label fix, removed pending games
-- Login: "How Diagonally works" bullets
+- Login: "How Math Games Builder works" bullets
 - Feedback: bug icon for Fix, inbox query fix, UID migration for feedback docs
 - Build screen: compact layout (no scroll needed)
 - Logo header added to guide + learner pages
@@ -97,4 +97,4 @@ Major session — many features shipped:
   - Fail tracking: 3 wrong answers = game over (triggers Hint Card)
   - Theme fidelity: card builder choices pass directly to engine API
   - Hint Card content cached in Firestore
-  - Diagonally Blueprint updated with all specs
+  - Math Games Builder Blueprint updated with all specs

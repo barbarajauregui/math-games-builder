@@ -80,7 +80,7 @@ function normalizeName(name: string): string {
 
 // Universe / cosmos themed words for personal codes. All 4-6 letters
 // so codes look like "NOVA-42", "COMET-08", "QUASAR-19" — short,
-// memorable, and tied to the Diagonally galaxy aesthetic.
+// memorable, and tied to the Math Games Builder galaxy aesthetic.
 //
 // Old format was 3-4 digit suffixes (e.g. "STAR-742"). New format is
 // 2-digit suffix (00-99) which gives ~3700 unique codes. Plenty for

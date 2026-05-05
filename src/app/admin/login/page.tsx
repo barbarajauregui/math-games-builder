@@ -77,7 +77,7 @@ export default function AdminLoginPage() {
           <Logo size={48} className="text-blue-400" />
           <div>
             <h1 className="text-2xl font-bold text-white">Admin Login</h1>
-            <p className="text-zinc-400 text-sm mt-1">Sign in to manage Diagonally</p>
+            <p className="text-zinc-400 text-sm mt-1">Sign in to manage Math Games Builder</p>
           </div>
         </div>
 

@@ -567,7 +567,7 @@ export default function AdminDashboardPage() {
         <div className="max-w-7xl mx-auto px-6 h-14 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <Logo size={28} className="text-blue-400" />
-            <h1 className="text-lg font-bold">Diagonally</h1>
+            <h1 className="text-lg font-bold">Math Games Builder</h1>
             <span className="text-xs bg-blue-500/20 text-blue-400 px-2 py-0.5 rounded-full font-medium">
               Admin
             </span>
@@ -884,7 +884,7 @@ export default function AdminDashboardPage() {
             {tab === "blueprint" && (
               <div className="space-y-2">
                 <div className="flex items-center justify-between">
-                  <h2 className="text-lg font-semibold">Diagonally Blueprint</h2>
+                  <h2 className="text-lg font-semibold">Math Games Builder Blueprint</h2>
                   <a
                     href="/api/blueprint"
                     target="_blank"
@@ -898,7 +898,7 @@ export default function AdminDashboardPage() {
                   <iframe
                     src="/api/blueprint"
                     className="w-full h-full border-0"
-                    title="Diagonally Blueprint"
+                    title="Math Games Builder Blueprint"
                   />
                 </div>
               </div>

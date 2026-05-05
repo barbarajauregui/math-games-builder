@@ -3,8 +3,8 @@ interface LogoProps {
   size?: number
 }
 
-// Diagonally bird logo — uses currentColor so it adapts to context.
-// Traced from Diagonally.svg (the official brand asset).
+// Math Games Builder bird logo — uses currentColor so it adapts to context.
+// Traced from logo.svg (the official brand asset).
 export function Logo({ className, size = 24 }: LogoProps) {
   return (
     <svg
