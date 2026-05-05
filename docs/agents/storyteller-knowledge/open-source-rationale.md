@@ -24,7 +24,7 @@ Source: Michael Raspuzzi's fellowship resources, April 2026.
 | BSD 3-Clause | Like MIT + no-endorsement clause | Protecting brand from forks |
 | GPLv2 | Copyleft, less restrictive than v3 | Hardware contexts, broader corporate compatibility |
 
-## Barbara's considerations for Diagonally
+## Barbara's considerations for Math Games Builder
 - THE SECRET (learners build games) is competitive advantage — open sourcing the platform code doesn't reveal this if the pedagogy/workflow is what makes it unique
 - Apache 2.0 protects against patent issues
 - Open source could attract ed-tech builders to contribute

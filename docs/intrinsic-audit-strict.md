@@ -111,7 +111,7 @@ Some concepts genuinely resist intrinsic design (e.g., "is this number prime?" i
 
 ## The 13% Problem
 
-We told ourselves we had 87 great intrinsic games. We actually have 11. This is a foundational issue — the entire premise of Diagonally depends on intrinsic integration, and most of our games don't deliver it.
+We told ourselves we had 87 great intrinsic games. We actually have 11. This is a foundational issue — the entire premise of Math Games Builder depends on intrinsic integration, and most of our games don't deliver it.
 
 The good news: we know how to fix it. The 11 games that ARE intrinsic show us the pattern. We need to hold every other game to that same standard — or honestly call them practice drills, not learning tools.
 

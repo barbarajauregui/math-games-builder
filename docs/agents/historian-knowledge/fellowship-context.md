@@ -7,7 +7,7 @@ Source: Worldwide Venture Fellowship, Spring 2026.
 ### Key dates (for the Blueprint timeline)
 - March 7, 2026: Wayfinder 1.0
 - March 11: Wayfinder 2.0
-- March 17: Option-C 1.0 (now Diagonally)
+- March 17: Option-C 1.0 (now Math Games Builder)
 - March 26: Pilot with 11 learners at Acton Academy Falls Church
 - April 2026: Option-C 2.0 (Galaxy 3D map live)
 - April 13: 87-game overnight rebuild attempt (failed — taught us quality > quantity)

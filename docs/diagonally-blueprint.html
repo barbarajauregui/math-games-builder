@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Diagonally Blueprint — Internal</title>
+<title>Math Games Builder Blueprint — Internal</title>
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body { background: #09090b; color: #e4e4e7; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; padding: 32px 24px; max-width: 900px; margin: 0 auto; line-height: 1.7; }
@@ -37,7 +37,7 @@
 </head>
 <body>
 
-<h1>Diagonally Blueprint</h1>
+<h1>Math Games Builder Blueprint</h1>
 <p style="color: #f87171; font-size: 12px; margin-bottom: 4px;">INTERNAL — DO NOT SHARE OUTSIDE THE TEAM</p>
 <p class="date">Last updated: April 16, 2026</p>
 
@@ -50,7 +50,7 @@
   <p style="color:#fbbf24; font-size:12px; margin-top:8px;">⚠️ Many sections below still describe the deprecated 87-game Phaser architecture. Sections marked <span style="background:#7f1d1d; padding:2px 6px; border-radius:4px; font-size:11px;">LEGACY</span> reflect that older state. Trust the Current State box and Section 19 (History &amp; Lessons) for what's actually true.</p>
 </div>
 
-<p>This document explains how Diagonally works — what every part is called, how the pieces fit together, and what happens behind the scenes. Written for the team, no coding required.</p>
+<p>This document explains how Math Games Builder works — what every part is called, how the pieces fit together, and what happens behind the scenes. Written for the team, no coding required.</p>
 
 <div class="tab-bar" id="tabBar">
   <button onclick="scrollToSection('sec-glossary')" class="active">Glossary</button>
@@ -607,7 +607,7 @@ function scrollToSection(id) {
 <h2 id="sec-science" class="section-group">12. Learning Science — Research Foundations</h2>
 <!-- ============================================ -->
 
-<p>These research findings inform how Diagonally teaches math. Every design decision should trace back to one of these principles.</p>
+<p>These research findings inform how Math Games Builder teaches math. Every design decision should trace back to one of these principles.</p>
 
 <table>
   <tr><th>Principle</th><th>What the research found</th><th>How we apply it</th><th>Source</th></tr>
@@ -618,7 +618,7 @@ function scrollToSection(id) {
   <tr><td><strong>Interleaving</strong></td><td>Research consistently shows that mixing different types of problems (interleaving) dramatically improves long-term retention compared to practicing one type at a time (blocking). Effective from elementary through college across fractions, algebra, calculus, and geometry.</td><td>The galaxy is naturally interleaved — learners explore different math domains. The multiplication tables trainer prioritizes weak facts mixed in with strong ones. Playing games across the Library exposes learners to varied concepts.</td><td><a href="https://www.aft.org/ae/spring2020/agarwal_agostinelli" style="color: #60a5fa;">Interleaving in Math — AFT</a></td></tr>
 </table>
 
-<h3>The Diagonally Learning Flow (research-backed)</h3>
+<h3>The Math Games Builder Learning Flow (research-backed)</h3>
 <ol>
   <li><strong>Animated visual</strong> (3 seconds) — stick figure demonstrates the math concept with actual numbers. One caption sentence. Builds pictorial understanding. <em>(CPA pictorial stage)</em></li>
   <li><strong>Build the game</strong> (~30 seconds) — learner picks components in the arcade cabinet. They're invested because it's THEIR game. <em>(Ownership + motivation)</em></li>
@@ -708,7 +708,7 @@ function scrollToSection(id) {
 <h2 id="sec-agents" class="section-group">14. Agent Team</h2>
 <!-- ============================================ -->
 
-<p>9 AI agents work as a team to build, verify, and maintain Diagonally. Each has a specific role and every agent's output is cross-checked by at least one other agent. Powered by Claude + Superpowers framework.</p>
+<p>9 AI agents work as a team to build, verify, and maintain Math Games Builder. Each has a specific role and every agent's output is cross-checked by at least one other agent. Powered by Claude + Superpowers framework.</p>
 
 <h3>The Orchestrator (Project Manager)</h3>
 <p>Talks to Barbara. Delegates to specialist agents. Cross-checks all work. Catches conflicts. Presents clean results. <strong>Has 3 anti-invention safeguards:</strong> (1) must cite source for every proposal, (2) Mr. Chesure cross-checks before presenting, (3) defaults to asking, not proposing.</p>
@@ -765,7 +765,7 @@ function scrollToSection(id) {
 <h2 class="section-group">15. Math Alignment — How We Guarantee Games Teach the Right Math</h2>
 <!-- ============================================ -->
 
-<p style="color: #4ade80; font-weight: 600;">This is the backbone of Diagonally. Every design decision in this section exists to ensure that when a learner plays a game, they MUST use the exact Common Core math skill to win.</p>
+<p style="color: #4ade80; font-weight: 600;">This is the backbone of Math Games Builder. Every design decision in this section exists to ensure that when a learner plays a game, they MUST use the exact Common Core math skill to win.</p>
 
 <h3>The Problem We Solved</h3>
 <p>During testing, we found a learner building a game for "Understanding Ratios" (6.RP.A.1) — but the game was a Box Packer that tested volume (L x W x H). The AI-generated hint card correctly explained ratios, but the game itself had nothing to do with ratios. A learner could "demonstrate" the standard without ever using ratio reasoning. This makes the app useless.</p>
@@ -823,7 +823,7 @@ function scrollToSection(id) {
   <tr><td style="color:#4ade80">TRULY INTRINSIC (learning)</td><td>~73</td><td>84%</td><td>All rebuilt or originally intrinsic. Pass both Discovery + Self-Revealing Truth.</td></tr>
   <tr><td style="color:#71717a">PRACTICE-ONLY</td><td>14</td><td>16%</td><td>Fluency drills (6 classic overlays + auction/rounding/conversion drills). Unlock post-mastery only.</td></tr>
 </table>
-<p style="color:#4ade80;"><strong>This is the foundation of Diagonally. Every learning game now passes both pedagogical tests.</strong></p>
+<p style="color:#4ade80;"><strong>This is the foundation of Math Games Builder. Every learning game now passes both pedagogical tests.</strong></p>
 
 <h3>Intrinsic Integration Audit — Deep Re-audit (April 13, overnight)</h3>
 <p>Second, more thorough audit via 3 parallel deep code reviews. Key insight: many games have a "fatal 2-phase problem" — they start with intrinsic manipulation but end with a typed-answer/Check button that breaks intrinsicness (player must translate game-world back to symbolic notation, requiring prior knowledge).</p>
@@ -856,7 +856,7 @@ Drag vs click is irrelevant. What matters is whether the physical action maps to
 </table>
 <p><strong>The 11 Truly Intrinsic games:</strong> All 6 Montessori options (golden-beads, hundred-board, stamp-game, fraction-circles, bead-chain, checkerboard-multiply), 2 partitioning options (cut-the-bar, pour-the-liquid), expression-transformer (algebra tiles), and potentially resize-tool, cuisenaire-rods.</p>
 <p><strong>The 7 Fake Intrinsic games (most dangerous):</strong> free-balance, mystery-side (v1), chain-scales, free-collect, conveyor-belt, split-the-loot, stack-to-target. These LOOK like they teach math through interaction, but the interaction is really just counting or selection dressed up as physical manipulation.</p>
-<p style="color:#f87171;"><strong>Honest assessment: Only 13% of our games pass the strict intrinsic test.</strong> This is foundational. The entire premise of Diagonally depends on intrinsic integration — most games don't deliver it yet. But the 11 that DO show us the pattern, and we know how to fix the rest.</p>
+<p style="color:#f87171;"><strong>Honest assessment: Only 13% of our games pass the strict intrinsic test.</strong> This is foundational. The entire premise of Math Games Builder depends on intrinsic integration — most games don't deliver it yet. But the 11 that DO show us the pattern, and we know how to fix the rest.</p>
 <p><strong>Full audit document:</strong> <code>docs/intrinsic-audit-strict.md</code></p>
 
 <h3>Rebuild Status (April 14 — COMPLETE)</h3>
@@ -1300,7 +1300,7 @@ Drag vs click is irrelevant. What matters is whether the physical action maps to
 <p>Based on fellowship advice from Michael Raspuzzi, Dylan, and a guest advisor.</p>
 
 <h3>Part 1: THE SECRET (competitive advantage)</h3>
-<p><strong style="color:#f87171;">NEVER reveal publicly that learners build the games.</strong> This is Diagonally's core innovation. Publicly, we are "a math games platform." The fact that learners are both creators and players is the moat.</p>
+<p><strong style="color:#f87171;">NEVER reveal publicly that learners build the games.</strong> This is Math Games Builder's core innovation. Publicly, we are "a math games platform." The fact that learners are both creators and players is the moat.</p>
 
 <h3>Part 2: Open Source Strategy — Modular</h3>
 <p><strong>Key insight (from Dylan):</strong> Open source PARTS of the app, not all of it. Keep the proprietary workflow private.</p>

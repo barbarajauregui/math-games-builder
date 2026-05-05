@@ -1,4 +1,4 @@
-# Diagonally — Project History & Lessons Learned
+# Math Games Builder — Project History & Lessons Learned
 
 **Written:** April 16, 2026
 **Purpose:** Institutional memory for agents and team members. Captures what we built, what went wrong, what we learned, and why we changed direction. Any agent reading this should understand the full context without needing to read conversation transcripts.
@@ -8,7 +8,7 @@
 ## 1. What We Built (March–April 2026)
 
 ### The Galaxy
-Diagonally is an educational math platform where K-12 learners explore a 3D galaxy of 466 Common Core math standards (called "moons") across 65 planets (grade-level domains). The galaxy is built with `react-force-graph-3d` and Three.js.
+Math Games Builder is an educational math platform where K-12 learners explore a 3D galaxy of 466 Common Core math standards (called "moons") across 65 planets (grade-level domains). The galaxy is built with `react-force-graph-3d` and Three.js.
 
 ### The Game System (Phaser-based)
 We built **87 game options** across **25 game engines** using the Phaser.js game framework. Each engine was a TypeScript file that generated a complete HTML document with embedded Phaser game code. A shared `base-phaser-template.ts` provided common infrastructure (BootScene, VictoryScene, LoseScene, HUD, character sprites, game juice effects).
@@ -151,7 +151,7 @@ The "build 87 games overnight" approach produced bulk with uneven quality. The "
 Every agent's work must be verified by at least one other agent. Mr. Chesure checks pedagogy, The Critic checks quality, The Tester checks bugs. When agents DISAGREED on K.OA.A.1 (Chesure said Criterion 1 PASS, Critic said FAIL), the disagreement itself was valuable — it surfaced a real tension we needed to resolve.
 
 ### Insight 10: The Learner as Builder
-Diagonally's unique value is that learners BUILD games, not just play them. The "paste your own HTML" feature lets learners create games with AI (Gemini) and submit them for peer critique. Security is handled by sandboxed iframes + CSP. Quality is handled by AI judge (3 criteria) + peer review + guide approval.
+Math Games Builder's unique value is that learners BUILD games, not just play them. The "paste your own HTML" feature lets learners create games with AI (Gemini) and submit them for peer critique. Security is handled by sandboxed iframes + CSP. Quality is handled by AI judge (3 criteria) + peer review + guide approval.
 
 ---
 

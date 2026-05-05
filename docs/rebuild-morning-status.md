@@ -15,7 +15,7 @@
 
 ## What This Means
 
-Every learning game in Diagonally now:
+Every learning game in Math Games Builder now:
 - Has physical/visual manipulation (no typed answers, no Check buttons, no Verify popups)
 - Auto-detects success when the player's action physically matches the target
 - Shows a "Got it! Next round →" solution card after each round that explains the math

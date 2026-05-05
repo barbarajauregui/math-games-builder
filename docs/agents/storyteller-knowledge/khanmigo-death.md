@@ -18,7 +18,7 @@ Source: Dan Meyer, LinkedIn, April 15, 2026. "RIP Khanmigo & Edtech Industry Dre
 4. The technology was pushed onto students who didn't want it
 5. Even with massive advantages (OpenAI access, Microsoft backing, government funding, billionaire supporters), it still failed
 
-## What this means for Diagonally
+## What this means for Math Games Builder
 - **We are the anti-Khanmigo.** Kids BUILD, they don't chat.
 - Our pilot proved the opposite: "This is fun! They were excited to build games."
 - Students naturally grouped up without being told — social learning happened organically
@@ -26,7 +26,7 @@ Source: Dan Meyer, LinkedIn, April 15, 2026. "RIP Khanmigo & Edtech Industry Dre
 - We invest in human systems: guides, Acton Academy model, peer learning
 
 ## For The Storyteller — framing
-- NEVER position Diagonally as "an AI tutor" or "a chatbot"
+- NEVER position Math Games Builder as "an AI tutor" or "a chatbot"
 - Frame as: "Kids build math games for each other" (without revealing THE SECRET publicly)
 - The competitive landscape just lost its biggest player's credibility
 - Our approach (building > chatting) is now validated by Khanmigo's own creator admitting defeat

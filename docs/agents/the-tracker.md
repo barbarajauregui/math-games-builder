@@ -62,7 +62,7 @@ By grade:
 
 ## Responsibility: Proprietary Dataset Tracking (added April 16, 2026)
 
-The proprietary dataset of how learners learn is Diagonally's core competitive advantage. The Tracker ensures we capture EVERY learner interaction that builds this dataset.
+The proprietary dataset of how learners learn is Math Games Builder's core competitive advantage. The Tracker ensures we capture EVERY learner interaction that builds this dataset.
 
 ### Data points to capture (priority order)
 

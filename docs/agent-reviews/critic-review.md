@@ -166,7 +166,7 @@ Go back to the 56 rebuilt games. For each one, fill out the Learning Contract. I
 
 ## D. Ideas for the Dream -- Learners Building Games
 
-This is where Diagonally either becomes transformative or becomes another game platform. The dream is that a 10-year-old builds a game that teaches math to other 10-year-olds. Here is how to make that work without sacrificing the 3 criteria.
+This is where Math Games Builder either becomes transformative or becomes another game platform. The dream is that a 10-year-old builds a game that teaches math to other 10-year-olds. Here is how to make that work without sacrificing the 3 criteria.
 
 ### The Core Problem
 

@@ -1,4 +1,4 @@
-# Tyler's Report: How to Make Diagonally Fun Without Breaking the Math
+# Tyler's Report: How to Make Math Games Builder Fun Without Breaking the Math
 
 **Author:** Tyler (teen gamer perspective)
 **Date:** April 13, 2026

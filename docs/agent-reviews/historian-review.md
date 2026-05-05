@@ -230,7 +230,7 @@ Every meaningful learner action should be logged to Firestore (collection: `lear
 
 ### 3. What "institutional memory" looks like for an educational platform
 
-For Diagonally, institutional memory serves three audiences:
+For Math Games Builder, institutional memory serves three audiences:
 
 **For agents:** The Blueprint must be the single source of truth. An agent should be able to read the Blueprint and know: what to build, how to build it, what NOT to build, and why. The failed-approaches archive prevents repeating mistakes. The Decisions Register prevents relitigating settled questions.
 

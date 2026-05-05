@@ -6,7 +6,7 @@
 - **The gate flow works.** "Real math or math sprinkles" framing resonated.
 
 ## What needs improvement
-1. **Importing HTML is too much friction.** Copy-pasting code is not natural for learners. They want a builder INSIDE Diagonally — ideally a sandbox where they can build without leaving the app.
+1. **Importing HTML is too much friction.** Copy-pasting code is not natural for learners. They want a builder INSIDE Math Games Builder — ideally a sandbox where they can build without leaving the app.
 2. **Claude-generated games are too simple.** Not enough visual polish, too basic, learners noticed immediately. The AI games don't meet the bar learners expect.
 3. **Visuals and animations need to be much better.** Learners want the quality of cool, expensive websites — polished interactions, smooth animations, satisfying effects. The current output feels like a student project, not a product.
 
