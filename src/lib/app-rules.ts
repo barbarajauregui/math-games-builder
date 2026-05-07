@@ -106,13 +106,13 @@ export const APP_RULES: RulesByRole = {
       ],
     },
     {
-      heading: "\"I had a Diagonal Idea!\"",
+      heading: "\"I had a Builder Idea!\"",
       body: [
         "See something that could make Math Games Builder better? Click the blue feedback button and share your idea!",
-        "If your idea is practical enough for us to build, you win a Diagonal Idea prize:",
-        "Diagonal Spark — a good, practical idea (1,000 tokens).",
-        "Diagonal Idea — a really impactful idea (5,000 tokens).",
-        "Diagonal Vision — a transformative idea (10,000 tokens).",
+        "If your idea is practical enough for us to build, you win a Builder Idea prize:",
+        "Builder Spark — a good, practical idea (1,000 tokens).",
+        "Builder Idea — a really impactful idea (5,000 tokens).",
+        "Builder Vision — a transformative idea (10,000 tokens).",
         "You can win prizes multiple times. Your prizes show up as badges next to your name on My Stuff.",
         "The key: your idea needs to be something we can actually build into the app!",
       ],

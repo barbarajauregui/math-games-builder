@@ -1430,23 +1430,23 @@ function TokenEconomyEditor() {
         </div>
 
         <div className="border-t border-zinc-800 pt-4 mt-2">
-          <p className="text-xs text-zinc-400 uppercase tracking-wide font-semibold mb-3">Diagonal Idea Prizes</p>
+          <p className="text-xs text-zinc-400 uppercase tracking-wide font-semibold mb-3">Builder Idea Prizes</p>
           <p className="text-xs text-zinc-500 mb-3">Awarded by admin when a learner submits an exceptionally good idea via the feedback button.</p>
           <div className="grid grid-cols-3 gap-3">
             <div>
-              <label className="text-xs text-zinc-400 block mb-1">Diagonal Spark</label>
+              <label className="text-xs text-zinc-400 block mb-1">Builder Spark</label>
               <input type="number" min={0} step={100} value={diagonalSpark}
                 onChange={(e) => setDiagonalSpark(Math.max(0, parseInt(e.target.value) || 0))}
                 className="w-full bg-zinc-800 border border-zinc-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:ring-1 focus:ring-blue-500/50" />
             </div>
             <div>
-              <label className="text-xs text-zinc-400 block mb-1">Diagonal Idea</label>
+              <label className="text-xs text-zinc-400 block mb-1">Builder Idea</label>
               <input type="number" min={0} step={100} value={diagonalIdea}
                 onChange={(e) => setDiagonalIdea(Math.max(0, parseInt(e.target.value) || 0))}
                 className="w-full bg-zinc-800 border border-zinc-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:ring-1 focus:ring-blue-500/50" />
             </div>
             <div>
-              <label className="text-xs text-zinc-400 block mb-1">Diagonal Vision</label>
+              <label className="text-xs text-zinc-400 block mb-1">Builder Vision</label>
               <input type="number" min={0} step={100} value={diagonalVision}
                 onChange={(e) => setDiagonalVision(Math.max(0, parseInt(e.target.value) || 0))}
                 className="w-full bg-zinc-800 border border-zinc-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:ring-1 focus:ring-blue-500/50" />
