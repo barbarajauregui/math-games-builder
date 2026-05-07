@@ -13,9 +13,9 @@ export interface TokenConfig {
   gameApproved: number     // tokens when guide approves a game (default 2000)
   skillMastered: number    // tokens when learner masters a skill (default 100)
   tokenPerPlay: number     // tokens to game creator per unique play (default 10)
-  diagonalSpark: number    // Diagonal Spark prize (default 1000)
-  diagonalIdea: number     // Diagonal Idea prize (default 5000)
-  diagonalVision: number   // Diagonal Vision prize (default 10000)
+  diagonalSpark: number    // Builder Spark prize (default 1000) — field name kept for Firestore compat
+  diagonalIdea: number     // Builder Idea prize (default 5000) — field name kept for Firestore compat
+  diagonalVision: number   // Builder Vision prize (default 10000) — field name kept for Firestore compat
 }
 
 export const TOKEN_DEFAULTS: TokenConfig = {

@@ -211,11 +211,11 @@ export function FeedbackInbox({ mode }: FeedbackInboxProps) {
     }
   }
 
-  // Award a Diagonal Idea prize to the feedback sender
+  // Award a Builder Idea prize to the feedback sender
   const handleAwardPrize = async (item: FeedbackDoc, level: "spark" | "idea" | "vision") => {
     if (!activeProfile || activeProfile.role !== "admin") return
     setBusyId(item.id)
-    const labels = { spark: "Diagonal Spark", idea: "Diagonal Idea", vision: "Diagonal Vision" }
+    const labels = { spark: "Builder Spark", idea: "Builder Idea", vision: "Builder Vision" }
     const medals = { spark: "🥉", idea: "🥈", vision: "🥇" }
     try {
       // Get token amounts from config

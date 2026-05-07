@@ -624,9 +624,9 @@ function PrizeBadges({ uid }: { uid: string }) {
 
   return (
     <div className="flex items-center gap-1">
-      {vision > 0 && <span title={`${vision}x Diagonal Vision`} className="text-sm">{"🥇".repeat(Math.min(vision, 5))}</span>}
-      {idea > 0 && <span title={`${idea}x Diagonal Idea`} className="text-sm">{"🥈".repeat(Math.min(idea, 5))}</span>}
-      {spark > 0 && <span title={`${spark}x Diagonal Spark`} className="text-sm">{"🥉".repeat(Math.min(spark, 5))}</span>}
+      {vision > 0 && <span title={`${vision}x Builder Vision`} className="text-sm">{"🥇".repeat(Math.min(vision, 5))}</span>}
+      {idea > 0 && <span title={`${idea}x Builder Idea`} className="text-sm">{"🥈".repeat(Math.min(idea, 5))}</span>}
+      {spark > 0 && <span title={`${spark}x Builder Spark`} className="text-sm">{"🥉".repeat(Math.min(spark, 5))}</span>}
     </div>
   )
 }
