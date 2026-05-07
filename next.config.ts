@@ -18,7 +18,7 @@ const nextConfig: NextConfig = {
     return [
       {
         source: "/__/auth/:path*",
-        destination: "https://option-c-7abd8.firebaseapp.com/__/auth/:path*",
+        destination: "https://option-c-14d3b.firebaseapp.com/__/auth/:path*",
       },
       {
         source: "/ingest/static/:path*",
