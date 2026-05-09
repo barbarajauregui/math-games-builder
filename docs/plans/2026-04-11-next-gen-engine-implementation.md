@@ -1096,7 +1096,7 @@ vercel --prod
 
 **Step 4: Production test**
 
-Repeat the Task 9 flow on `https://www.diagonally.app`. Verify sprites load from the public CDN (not localhost).
+Repeat the Task 9 flow on `https://math-games-builder.vercel.app`. Verify sprites load from the public CDN (not localhost).
 
 ---
 

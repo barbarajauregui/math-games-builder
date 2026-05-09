@@ -31,7 +31,7 @@ Maintained as a section in the Blueprint AND as a standalone file:
 
 ```
 ═══════════════════════════════════════════
-DIAGONALLY COVERAGE DASHBOARD
+MATH GAMES BUILDER COVERAGE DASHBOARD
 Updated: [date]
 ═══════════════════════════════════════════
 

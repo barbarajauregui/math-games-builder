@@ -86,7 +86,7 @@ The dev server should still be running locally (`npm run dev`). Test at http://l
 - All 25 game engine files in `src/lib/game-engines/`
 - `game-option-registry.ts` — descriptions/introText/helpText for all rebuilt options, `practiceOnly?: boolean` field added
 - `standard-game-options.ts` — no major changes needed
-- Blueprint (`docs/diagonally-blueprint.html`) — comprehensive update
+- Blueprint (`docs/math-games-builder-blueprint.html`) — comprehensive update
 - Multiple audit docs in `docs/`
 
 ## Commit Status

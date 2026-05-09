@@ -212,7 +212,7 @@ Math Games Builder's unique value is that learners BUILD games, not just play th
 
 | File | What it is |
 |---|---|
-| `docs/diagonally-blueprint.html` | Living spec document (THE source of truth) |
+| `docs/math-games-builder-blueprint.html` | Living spec document (THE source of truth) |
 | `docs/contracts/K.OA.A.1.md` | First Learning Contract (reference implementation) |
 | `docs/agents/*.md` | Agent definitions (9 agents) |
 | `docs/pipeline-architecture-draft.md` | Multi-step generation pipeline (draft, not yet coded) |

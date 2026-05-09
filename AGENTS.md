@@ -23,3 +23,14 @@ content lives in `src/lib/app-rules.ts`.
 …you MUST update the relevant section in `src/lib/app-rules.ts` so the
 in-app Rules popover stays accurate. If you forget, learners and guides
 will read stale rules.
+
+**⚠️ Pivot in progress (April 18, 2026):** The in-app Rules content in
+`src/lib/app-rules.ts` currently describes the pre-pivot product (galaxy as
+home, single-user self-learning flow, Circuit Board Builder). Per
+`docs/product-positioning.md`, the app is pivoting to a two-mode
+Builder/Player model with the Library as home and the galaxy demoted to
+optional "Explore." The Rules content will need a significant rewrite as
+part of that pivot — expect to rewrite it whole, not patch it incrementally.
+Do NOT spend effort keeping the current Rules text in sync with small
+behavior changes during the pivot period; flag conflicts instead and batch
+the rewrite.

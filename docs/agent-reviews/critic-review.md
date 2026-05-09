@@ -2,7 +2,7 @@
 
 **Date:** April 15, 2026
 **Role:** Game Quality Judge
-**Documents reviewed:** project-history-and-lessons.md, diagonally-blueprint.html, the-critic.md
+**Documents reviewed:** project-history-and-lessons.md, math-games-builder-blueprint.html, the-critic.md
 
 ---
 

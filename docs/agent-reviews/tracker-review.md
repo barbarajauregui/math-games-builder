@@ -36,7 +36,7 @@ The `standards.json` file contains **517 individual standards** (including sub-s
 ### Coverage summary
 ```
 =============================================
-DIAGONALLY COVERAGE DASHBOARD
+MATH GAMES BUILDER COVERAGE DASHBOARD
 Updated: April 15, 2026
 =============================================
 
@@ -193,7 +193,7 @@ The first 2 are worth more than the next 20, because the first 2 defined HOW to 
 
 ```
 =============================================
-DIAGONALLY COVERAGE DASHBOARD
+MATH GAMES BUILDER COVERAGE DASHBOARD
 Updated: April 15, 2026
 =============================================
 

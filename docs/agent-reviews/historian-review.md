@@ -2,7 +2,7 @@
 
 **Agent:** The Historian (Documentation, Logging & Archive Keeper)
 **Date:** April 15, 2026
-**Documents reviewed:** `diagonally-blueprint.html`, `project-history-and-lessons.md`, MEMORY.md and linked memory files, existing agent reviews
+**Documents reviewed:** `math-games-builder-blueprint.html`, `project-history-and-lessons.md`, MEMORY.md and linked memory files, existing agent reviews
 
 ---
 

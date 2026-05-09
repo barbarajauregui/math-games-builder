@@ -3,7 +3,7 @@
 > **For Claude:** This plan is designed so that multiple people working in parallel sessions can each pick up a phase or individual mechanic and build it independently. Each mechanic is self-contained after Phase 1 infrastructure is complete.
 
 **Design doc:** `docs/plans/2026-04-12-phaser-57-game-options-design.md`
-**Blueprint specs:** `docs/diagonally-blueprint.html` (Section 7, "Detailed Game Option Specs")
+**Blueprint specs:** `docs/math-games-builder-blueprint.html` (Section 7, "Detailed Game Option Specs")
 
 ---
 
@@ -167,7 +167,7 @@ This is the reference implementation that all other engines should follow.
 ### Prerequisites
 - Phase 1 must be complete (shared base exists, types updated, builder updated)
 - Read the reference implementation: `collect-manage-phaser.ts`
-- Read the blueprint specs for your mechanic in `docs/diagonally-blueprint.html`
+- Read the blueprint specs for your mechanic in `docs/math-games-builder-blueprint.html`
 
 ### How to Build a Mechanic (template for all phases)
 
@@ -377,7 +377,7 @@ This is the reference implementation that all other engines should follow.
 
 ## Rules for All Implementers
 
-1. **Read the blueprint specs first.** Every game option is defined in `docs/diagonally-blueprint.html`, Section 7.
+1. **Read the blueprint specs first.** Every game option is defined in `docs/math-games-builder-blueprint.html`, Section 7.
 2. **Read the reference engine.** `collect-manage-phaser.ts` is the pattern to follow.
 3. **Use the shared base.** Call `phaserGame({...})` — don't duplicate Boot/Victory/HUD/juice.
 4. **Engine files contain ONLY gameplay.** No HUD, no victory screens, no sprite loading, no fonts, no postMessage.
