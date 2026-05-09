@@ -6,6 +6,13 @@ Append-only running log of work sessions. Newest at top. Each entry: date, what 
 
 ## 2026-05-08
 
+**Extracted agents + skills to shared toolkit repo.**
+- Created `c:/projects/math-pedagogy-toolkit/` (own git repo, local-only for now) — contains `agents/` (all 13 agent .md files + their `*-knowledge/` subfolders) and `skills/eric-search/`.
+- Replaced this project's `docs/agents/` and `.claude/skills/eric-search/` with directory symlinks pointing at the toolkit. Both are gitignored — the toolkit is the source of truth.
+- Source-of-truth rule: edit agent and skill files in the toolkit, both projects pick up changes live.
+- `math-mastery-personal` to be wired in next (had no agents yet, so clean slate).
+- **Setup requires Windows Developer Mode** (one-time toggle in Settings → System → For developers) so non-admin processes can create symlinks.
+
 **Added two agents** (uncommitted):
 - [The Mechanic Inventor](agents/the-mechanic-inventor.md) — generates 5–10 mechanic concepts per request, grounded in Progressions Docs + proven game patterns. Fills the "no one was *proposing* good games" gap.
 - [The Shortcut Adversary](agents/the-shortcut-adversary.md) — adversarial tester that tries to beat games without doing the math. 12-shortcut catalog, three personas (Random Toddler, Pattern Matcher, Lazy Optimizer). Output feeds The Critic's Criterion 3 and the Builder's revision loop.

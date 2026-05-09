@@ -51,6 +51,10 @@ next-env.d.ts
 __pycache__/
 *.pyc
 
+# shared toolkit (symlinked from c:/projects/math-pedagogy-toolkit)
+/docs/agents
+/.claude/skills/eric-search
+
 # clerk configuration (can include secrets)
 /.clerk/
 .env*.local
