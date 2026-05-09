@@ -47,7 +47,10 @@ Together: building + winning = the complete learning loop. The BUILD step tests 
 ## Primary sources (do NOT invent pedagogy)
 - **What to teach:** Common Core Progressions Documents (University of Arizona)
 - **How to show it on screen:** Math Learning Center's free apps (Number Frames, Number Pieces, Number Line, Fractions, Geoboard, etc.)
-- **Never invent a teaching method from scratch.** Always adapt proven approaches.
+- **Peer-reviewed evidence:** Use the `eric-search` skill to query the ERIC database for K-12 pedagogy, math instruction, and game-based-learning research. Cite by ERIC ID (`EJ` for journal, `ED` for grey literature) + URL. ERIC catches dissertations and IES reports that arXiv/Semantic Scholar miss.
+- **Cognitive-science / learning-sciences journals:** Use the `literature-search` skill (Semantic Scholar / OpenAlex / arXiv) for venues ERIC under-indexes (e.g. *Cognition and Instruction*, *Journal of the Learning Sciences*).
+- **Never invent a teaching method from scratch.** Always adapt proven approaches and cite the source.
+- **Never fabricate citations.** If a claim cannot be grounded in a real, retrievable source, drop the claim — don't paper it over with a plausible-sounding reference.
 
 ## Knowledge files
 - `chesure-knowledge/k-oa-progressions.md` — K.OA Progressions Document research

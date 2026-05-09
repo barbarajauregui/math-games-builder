@@ -13,6 +13,7 @@ Every agent must read and internalize `docs/product-positioning.md` before produ
 - `docs/product-positioning.md` = WHAT we're building and WHY (north star — wins all conflicts)
 - `docs/math-games-builder-blueprint.html` = HOW we're building it (current implementation; update when it drifts from positioning)
 - `CLAUDE.md` (this file) = technical orientation + session state for agents
+- `docs/context/README.md` = index of voice, philosophy, design, and pedagogy docs
 
 If positioning and blueprint disagree, **positioning wins** and the blueprint must be updated to match.
 
