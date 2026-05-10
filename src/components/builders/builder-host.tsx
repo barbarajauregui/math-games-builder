@@ -12,9 +12,53 @@ import { logFromClient } from "@/lib/log-client"
 import { apiFetch } from "@/lib/api-fetch"
 import { useAuth } from "@/lib/auth"
 import { ArrowLeft, RotateCcw, Library } from "lucide-react"
+import {
+  AgentLadderProgress,
+  buildLadderView,
+  type LadderStageView,
+} from "./agent-ladder-progress"
+import type { StageResult } from "@/lib/agent-prompts"
 
 type BuilderType = "sentence" | "madlib" | "cards" | "comic" | "paste" | "sandpack" | "sandpack-template"
 type Step = "pick" | "build" | "generating" | "play" | "sandpack"
+
+interface CritiqueResponse {
+  passed: boolean
+  stages: StageResult[]
+  finalVerdict: "PASSED" | "FAILED"
+  builderFacingMessage: string
+  totalCostEstimateUsd?: number
+  error?: string
+}
+
+async function runCritique(args: {
+  standardId: string
+  scenario: string
+  gameHtml: string
+}): Promise<CritiqueResponse> {
+  const res = await apiFetch("/api/game/critique", {
+    method: "POST",
+    body: JSON.stringify(args),
+  })
+  const data = (await res.json().catch(() => ({}))) as Partial<CritiqueResponse>
+  if (!res.ok && !data?.stages) {
+    return {
+      passed: false,
+      stages: [],
+      finalVerdict: "FAILED",
+      builderFacingMessage:
+        (data as { error?: string })?.error ||
+        "We hit a service issue while reviewing your game. Please try again.",
+    }
+  }
+  return {
+    passed: !!data.passed,
+    stages: data.stages ?? [],
+    finalVerdict: (data.finalVerdict as "PASSED" | "FAILED") ?? "FAILED",
+    builderFacingMessage: data.builderFacingMessage ?? "",
+    totalCostEstimateUsd: data.totalCostEstimateUsd,
+  }
+}
 
 interface BuilderHostProps {
   standardId: string
@@ -33,6 +77,30 @@ export function BuilderHost({ standardId, onBack, onImportHtml }: BuilderHostPro
   const [hasWon, setHasWon] = useState(false)
   const [saving, setSaving] = useState(false)
   const [saved, setSaved] = useState(false)
+  const [critiqueRunning, setCritiqueRunning] = useState(false)
+  const [ladderView, setLadderView] = useState<
+    [LadderStageView, LadderStageView, LadderStageView, LadderStageView] | null
+  >(null)
+  const [ladderHeadline, setLadderHeadline] = useState<string>("")
+  const [ladderFailed, setLadderFailed] = useState(false)
+
+  function showLadderRunning() {
+    setLadderFailed(false)
+    setLadderHeadline("Four reviewers are checking your game...")
+    setLadderView(buildLadderView([], "RUNNING"))
+  }
+
+  function showLadderResult(resp: CritiqueResponse) {
+    setLadderView(buildLadderView(resp.stages, resp.finalVerdict))
+    setLadderHeadline(resp.builderFacingMessage)
+    setLadderFailed(!resp.passed)
+  }
+
+  function dismissLadder() {
+    setLadderView(null)
+    setLadderHeadline("")
+    setLadderFailed(false)
+  }
 
   function handlePick(type: BuilderType) {
     if (type === "paste") {
@@ -102,7 +170,16 @@ export function BuilderHost({ standardId, onBack, onImportHtml }: BuilderHostPro
   async function handleAddToLibrary() {
     if (!gameHtml || !activeProfile) return
     setSaving(true)
+    setCritiqueRunning(true)
+    showLadderRunning()
     try {
+      const critique = await runCritique({ standardId, scenario, gameHtml })
+      showLadderResult(critique)
+      if (!critique.passed) {
+        setCritiqueRunning(false)
+        setSaving(false)
+        return
+      }
       const res = await apiFetch("/api/game/save", {
         method: "POST",
         body: JSON.stringify({
@@ -121,12 +198,22 @@ export function BuilderHost({ standardId, onBack, onImportHtml }: BuilderHostPro
       })
       if (res.ok) {
         setSaved(true)
+        // Brief celebratory state, then dismiss the ladder modal so the
+        // Builder sees "Added!" on the play screen.
+        setTimeout(() => dismissLadder(), 1200)
       }
     } catch {
-      // silent fail for pilot
+      setLadderHeadline("We hit a service issue. Please try again.")
+      setLadderFailed(true)
     } finally {
+      setCritiqueRunning(false)
       setSaving(false)
     }
+  }
+
+  function handleReviseFromLadder() {
+    dismissLadder()
+    setStep("build")
   }
 
   function handlePickDifferent() {
@@ -170,6 +257,7 @@ export function BuilderHost({ standardId, onBack, onImportHtml }: BuilderHostPro
 
   if (step === "sandpack") {
     return (
+      <>
       <SandpackBuilder
         standardId={standardId}
         scenario={scenario || "A fun addition game"}
@@ -177,7 +265,20 @@ export function BuilderHost({ standardId, onBack, onImportHtml }: BuilderHostPro
         onAddToLibrary={async (html, title) => {
           if (!activeProfile) return
           setSaving(true)
+          setCritiqueRunning(true)
+          showLadderRunning()
           try {
+            const critique = await runCritique({
+              standardId,
+              scenario: scenario || "(no scenario provided)",
+              gameHtml: html,
+            })
+            showLadderResult(critique)
+            if (!critique.passed) {
+              setCritiqueRunning(false)
+              setSaving(false)
+              return
+            }
             await apiFetch("/api/game/save", {
               method: "POST",
               body: JSON.stringify({
@@ -195,9 +296,25 @@ export function BuilderHost({ standardId, onBack, onImportHtml }: BuilderHostPro
               }),
             })
             setSaved(true)
-          } catch { /* silent */ } finally { setSaving(false) }
+            setTimeout(() => dismissLadder(), 1200)
+          } catch {
+            setLadderHeadline("We hit a service issue. Please try again.")
+            setLadderFailed(true)
+          } finally {
+            setCritiqueRunning(false)
+            setSaving(false)
+          }
         }}
       />
+      {ladderView && (
+        <AgentLadderProgress
+          stages={ladderView}
+          headlineMessage={ladderHeadline}
+          onCancel={critiqueRunning ? undefined : dismissLadder}
+          onRevise={ladderFailed && !critiqueRunning ? () => { dismissLadder(); setStep("build") } : undefined}
+        />
+      )}
+      </>
     )
   }
 
@@ -216,6 +333,7 @@ export function BuilderHost({ standardId, onBack, onImportHtml }: BuilderHostPro
 
   if (step === "play" && gameHtml) {
     return (
+      <>
       <div
         className="fixed inset-0 z-50 flex flex-col"
         style={{ background: "linear-gradient(135deg, #09090b 0%, #0c1222 50%, #09090b 100%)", fontFamily: "'Lexend', system-ui, sans-serif" }}
@@ -281,6 +399,15 @@ export function BuilderHost({ standardId, onBack, onImportHtml }: BuilderHostPro
           />
         </div>
       </div>
+      {ladderView && (
+        <AgentLadderProgress
+          stages={ladderView}
+          headlineMessage={ladderHeadline}
+          onCancel={critiqueRunning ? undefined : dismissLadder}
+          onRevise={ladderFailed && !critiqueRunning ? handleReviseFromLadder : undefined}
+        />
+      )}
+      </>
     )
   }
 

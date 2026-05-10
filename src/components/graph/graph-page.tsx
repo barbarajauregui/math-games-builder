@@ -28,6 +28,7 @@ import { useSearchParams } from "next/navigation"
 import { Search, X, Gamepad2, ArrowLeft, RotateCcw, Library } from "lucide-react"
 import { GameIframe } from "@/components/game/game-iframe"
 import { apiFetch } from "@/lib/api-fetch"
+import { AgentLadderProgress, buildLadderView, type LadderStageView } from "@/components/builders/agent-ladder-progress"
 import { logFromClient } from "@/lib/log-client"
 import posthog from "posthog-js"
 import { MECHANIC_ANIMATIONS } from "@/lib/mechanic-animations"
@@ -39,11 +40,56 @@ function ImportedGamePlayer({ title, html, standardId, onClose }: { title: strin
   const [hasWon, setHasWon] = useState(false)
   const [saving, setSaving] = useState(false)
   const [saved, setSaved] = useState(false)
+  const [ladderView, setLadderView] = useState<
+    [LadderStageView, LadderStageView, LadderStageView, LadderStageView] | null
+  >(null)
+  const [ladderHeadline, setLadderHeadline] = useState<string>("")
+  const [ladderFailed, setLadderFailed] = useState(false)
+  const [critiqueRunning, setCritiqueRunning] = useState(false)
+
+  function dismissLadder() {
+    setLadderView(null)
+    setLadderHeadline("")
+    setLadderFailed(false)
+  }
 
   async function handleAddToLibrary() {
     if (!activeProfile) return
     setSaving(true)
+    setCritiqueRunning(true)
+    setLadderFailed(false)
+    setLadderHeadline("Four reviewers are checking your game...")
+    setLadderView(buildLadderView([], "RUNNING"))
     try {
+      const critRes = await apiFetch("/api/game/critique", {
+        method: "POST",
+        body: JSON.stringify({
+          standardId,
+          scenario: `Imported HTML game: ${title}`,
+          gameHtml: html,
+        }),
+      })
+      const critData = (await critRes.json().catch(() => ({}))) as {
+        passed?: boolean
+        stages?: import("@/lib/agent-prompts").StageResult[]
+        finalVerdict?: "PASSED" | "FAILED"
+        builderFacingMessage?: string
+        error?: string
+      }
+      const stages = critData.stages ?? []
+      const finalVerdict = critData.finalVerdict ?? "FAILED"
+      setLadderView(buildLadderView(stages, finalVerdict))
+      setLadderHeadline(
+        critData.builderFacingMessage ||
+          (critData.error ?? "We hit a service issue. Please try again.")
+      )
+      const passed = !!critData.passed
+      setLadderFailed(!passed)
+      if (!passed) {
+        setCritiqueRunning(false)
+        setSaving(false)
+        return
+      }
       const res = await apiFetch("/api/game/save", {
         method: "POST",
         body: JSON.stringify({
@@ -60,11 +106,21 @@ function ImportedGamePlayer({ title, html, standardId, onClose }: { title: strin
           ratingCount: 0,
         }),
       })
-      if (res.ok) setSaved(true)
-    } catch { /* silent */ } finally { setSaving(false) }
+      if (res.ok) {
+        setSaved(true)
+        setTimeout(() => dismissLadder(), 1200)
+      }
+    } catch {
+      setLadderHeadline("We hit a service issue. Please try again.")
+      setLadderFailed(true)
+    } finally {
+      setCritiqueRunning(false)
+      setSaving(false)
+    }
   }
 
   return (
+    <>
     <div className="fixed inset-0 z-50 flex flex-col" style={{ background: "linear-gradient(135deg, #09090b 0%, #0c1222 50%, #09090b 100%)", fontFamily: "'Lexend', system-ui, sans-serif" }}>
       <div className="flex items-center justify-between px-4 py-2 border-b border-zinc-800/50 shrink-0">
         <button onClick={onClose} className="flex items-center gap-1.5 text-sm text-zinc-300 hover:text-white">
@@ -93,6 +149,15 @@ function ImportedGamePlayer({ title, html, standardId, onClose }: { title: strin
         <GameIframe html={html} className="w-full h-full" onWin={() => setHasWon(true)} />
       </div>
     </div>
+    {ladderView && (
+      <AgentLadderProgress
+        stages={ladderView}
+        headlineMessage={ladderHeadline}
+        onCancel={critiqueRunning ? undefined : dismissLadder}
+        onRevise={ladderFailed && !critiqueRunning ? () => { dismissLadder(); onClose() } : undefined}
+      />
+    )}
+    </>
   )
 }
 
