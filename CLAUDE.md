@@ -116,7 +116,47 @@ locked -> available (blue) -> in_progress (yellow) -> in_review -> approved_unpl
 
 <!-- Update this section at the end of each work session -->
 
-**Current session (2026-05-10) — Library brainstorming + pedagogy audit dispatch:**
+**Current session (2026-05-10, evening update) — Build flow audit + positioning v1.2 + Foundation work:**
+
+The morning's brainstorm and audit work led to a major reframe in the evening:
+
+**Audit 9 (build-flow audit) found that the agents Barbara has been refining for months don't actually run at runtime.** Mr. Chesure, the Critic, Mechanic Inventor, Shortcut Adversary are markdown design docs. Games ship from Builder to Player with NO pedagogical check at all. The construct-validity criterion added to the Critic this morning is documentation-only. Plus: the generation prompt is hard-coded to "K.OA.A.1 ADDITION ONLY" so every other standard generates wrong games by construction; the save endpoint writes `status: "published"` directly, bypassing the existing `/api/game/[id]/approve` endpoint that was designed as the guide gate; the paste-HTML path runs only a length+doctype check; an `ensureGameWin` shim auto-fires "you won" after 20 clicks, defeating the only existing pedagogical-soundness gate ("Builder must beat their own game").
+
+**Major reframe in product positioning v1.2:**
+- Library and Galaxy split into two distinct environments. Player home = The Star Atlas Library (steampunk reading room with cards on shelves around an illuminated central star atlas that serves as both navigation and mini-map). Builder home = The Galaxy (existing Pandora 3D walkable space, demoted from default to Builder-only). Persistent top-bar mode pill flips between them.
+- Lanterns dropped — too many overlapping metaphors (lantern + planet + moon + game). Cards on shelves replaced lanterns. Reference: The Room (iPad puzzle game) for tactile feel.
+- Mastery state: planet **bloom** (not shatter — felt aggressive). Pristine planet → cracked-with-light → bloomed-with-life (water spreads, atmosphere appears, forests, lights) as moons get mastered. Additive metaphor; no destruction.
+- Player benchmark widget removed (was added in v1.1 morning; Barbara reverted in evening review).
+- "Coming soon" → "Locked" copy throughout.
+- Cross-grade play allowed (3rd-grader can play K games).
+- Player can send fix-request / idea directly to Builder.
+- Mastery rule: win 3 different games on the standard, 3 wins per game (9 wins total). Edge case (fewer than 3 games published): stays in_progress; supply-tiered publish bonus floods sparse standards.
+- Token economy: supply-tiered publish bonus (2000 → 50 by existing-game-count), +50 per kid mastered, +100 per Builder skill mastered, plays/ratings as visible counters with no token reward.
+
+**Foundation work scoped (BLOCKING; ships before Library/Galaxy redesign):**
+
+The Library/Galaxy redesign cannot ship on top of broken pedagogical engine. Phase 1 fixes:
+
+1. Restore the Guide approval gate (default save status `pending_review`)
+2. Fix the prompt-vs-standard mismatch (compose prompt from each standard's knowledge file)
+3. Wire the 4-stage Haiku→Sonnet→Haiku→Sonnet runtime agent ladder into the save flow:
+   - Stage 1: Haiku Critic (cheap filter, 4 criteria) ~$0.001/check
+   - Stage 2: Sonnet Critic (deep, same 4 criteria) ~$0.025/check
+   - Stage 3: Haiku Shortcut Adversary (obvious shortcuts) ~$0.005/check
+   - Stage 4: Sonnet Shortcut Adversary (creative shortcuts) ~$0.075/check
+   - ~$0.05–$0.20 per published game; ~$250–$1000 at fellowship-pilot scale
+4. Build Mr. Chesure brief screen (between standard-pick and build, render the K.OA knowledge file)
+5. Wire paste-HTML through the Critic ladder (don't bypass quality)
+
+**Mr. Chesure and Mechanic Inventor stay informational** (not in the runtime ladder) — Mr. Chesure runs once per standard-pick to produce the brief; Mechanic Inventor is on-demand consult. Critic and Shortcut Adversary are gates by their nature; they're the runtime ladder.
+
+**Guide approval gate role narrowed** to human-only judgment: appropriateness + polish + classroom context + Builder feedback + safety. The pedagogical-soundness check is the agent ladder's job now.
+
+**Spec rewritten:** `docs/superpowers/specs/2026-05-10-library-design.md` is now v2 (replaces v1 lanterns-era spec from this morning; v1 history preserved in commit `480a9c9`).
+
+---
+
+**Earlier session (2026-05-10) — Library brainstorming + pedagogy audit dispatch:**
 
 Long brainstorming session that locked the Library design (the new front door for both Builder and Player modes) and dispatched a full pedagogy audit overnight. Spec written to `docs/superpowers/specs/2026-05-10-library-design.md`. No implementation code yet.
 
