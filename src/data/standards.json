@@ -7630,7 +7630,8 @@
     {
       "source": "3.OA.A.3",
       "target": "3.OA.A.4",
-      "type": "related"
+      "type": "prerequisite",
+      "_audit_note": "Promoted from related to prerequisite 2026-05-10 per pedagogy audit; CC Progressions K-5 OA chapter p.32-33"
     },
     {
       "source": "3.OA.A.3",
@@ -7660,7 +7661,8 @@
     {
       "source": "3.OA.A.4",
       "target": "3.OA.C.7",
-      "type": "related"
+      "type": "prerequisite",
+      "_audit_note": "Promoted from related to prerequisite 2026-05-10 per pedagogy audit; CC Progressions K-5 OA chapter p.32-33"
     },
     {
       "source": "3.OA.A.4",
@@ -7735,7 +7737,8 @@
     {
       "source": "3.OA.C.7",
       "target": "3.OA.D.8",
-      "type": "related"
+      "type": "prerequisite",
+      "_audit_note": "Promoted from related to prerequisite 2026-05-10 per pedagogy audit; CC Progressions K-5 OA chapter p.32-33"
     },
     {
       "source": "3.OA.C.7",
@@ -9346,6 +9349,42 @@
       "source": "8.SP.A.3",
       "target": "8.F.B.4",
       "type": "related"
+    },
+    {
+      "source": "K.NBT.A.1",
+      "target": "1.OA.C.6",
+      "type": "prerequisite",
+      "_audit_note": "Added 2026-05-10 per pedagogy audit; CC Progressions K-5 OA p.18 names the make-a-ten trio (K.OA.A.3, K.OA.A.4, K.NBT.A.1) as feeders to 1.OA.C.6"
+    },
+    {
+      "source": "3.OA.A.1",
+      "target": "3.OA.A.4",
+      "type": "prerequisite",
+      "_audit_note": "Added 2026-05-10 per pedagogy audit; understanding multiplication is prereq to finding unknown factor (Progressions p.27)"
+    },
+    {
+      "source": "3.OA.A.2",
+      "target": "3.OA.A.4",
+      "type": "prerequisite",
+      "_audit_note": "Added 2026-05-10 per pedagogy audit; understanding division is prereq to finding unknown factor (Progressions p.27)"
+    },
+    {
+      "source": "3.OA.B.6",
+      "target": "3.OA.A.4",
+      "type": "prerequisite",
+      "_audit_note": "Added 2026-05-10 per pedagogy audit; division as unknown-factor problem feeds A.4 (Progressions p.27-28)"
+    },
+    {
+      "source": "K.CC.B.4b",
+      "target": "K.OA.A.1",
+      "type": "prerequisite",
+      "_audit_note": "Added 2026-05-10 per pedagogy audit; cardinality (last-number-said tells the count) is foundational to representing addition (Progressions p.17)"
+    },
+    {
+      "source": "K.CC.B.5",
+      "target": "K.OA.A.1",
+      "type": "prerequisite",
+      "_audit_note": "Added 2026-05-10 per pedagogy audit; counting how many is foundational to representing addition (Progressions p.17)"
     }
   ]
 }
