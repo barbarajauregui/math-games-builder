@@ -116,7 +116,43 @@ locked -> available (blue) -> in_progress (yellow) -> in_review -> approved_unpl
 
 <!-- Update this section at the end of each work session -->
 
-**Current session (2026-04-18) — Product positioning locked:**
+**Current session (2026-05-09) — Galaxy proof-of-concept; pivot to Library:**
+
+Long visual-design session that produced a working Pandora-flavored galaxy proof-of-concept. Live preview branch: `worktree-galaxy-pandora-rebuild` at `.claude/worktrees/galaxy-pandora-rebuild`. 28 commits, not merged.
+
+What shipped:
+- **Plan A foundation** (`src/visuals/`): R3F `<Stage>`, perf-tier auto-detect with override, audio system (Howler-based, gesture-unlocked autoplay, mute toggle persisted to localStorage), in-canvas diegetic loader, post-processing stack (Bloom, Vignette, Chromatic Aberration — DOF removed after testing), Orbitron typography, Pandora cyan focus ring. Code-reviewed by Opus reviewer; 6 fix commits addressed real bugs (autoplay block, mute-flash, geometry leaks, HDRI fallback, invalid OGGs, iPad tier detection).
+- **`/dev/foundation`**: original demo with procedural primitives. Kept on disk; superseded by planet-preview's real-asset approach.
+- **`/dev/planet-preview`**: the working visual proof-of-concept and the locked-in pattern for Plan B execution. Real Jupiter texture on the planet, real Moon-surface texture on each moon, Solar System Scope Saturn ring as a tinted halo for moon-state, drei `<Sparkles>` as mid-distance dust, slow Lissajous camera drift for parallax depth, Three.js lensflare PNG as the bridge beam.
+- **Plan B written but not executed**: `docs/superpowers/plans/2026-05-09-plan-b-galaxy-scene-portal-planetview.md`. Specifies how to scale the planet-preview pattern across all 66 planets in the standards graph.
+- **Audio system mounted globally** in `src/app/layout.tsx` — every page now ships with `<AudioProvider>`, `<AmbientSoundscape>` (silent placeholders for now), and a `<MuteToggle>` bottom-right. This was a deliberate product choice on Barbara's call (option C of three options).
+
+What was learned (now in memory):
+- **Use real assets, don't build visuals from code.** Procedural shaders consistently produced "looks like X" instead of "is X." Visuals = real assets (Polyhaven, Solar System Scope, NASA, Sketchfab, Kenney, Freesound). Procedural = behavior only (state encoding, animation, layout).
+- **Claude is engineer, not art director.** External design tools (Figma, Leonardo) → screenshots → Claude implements pixel-perfect. Don't ask Claude to invent a visual language from a text description.
+- **Code review at plan-end is mandatory; per-task review is wasteful.** Integration bugs (autoplay, global mounts, leaks) only surface at plan-end.
+- **DOF post-processing on a 3D scene blurs everything you wanted sharp.** Don't fake film bokeh on a Three.js scene; sharp focus throughout reads better and feels more navigable.
+
+Pivot in progress (approved 2026-04-18, executed today on the galaxy side; Library next):
+- Galaxy demoted to optional Explore — preserved on the branch above
+- **Library becomes the new front door** for both Builder and Player modes — next session's focus
+- Audio + R3F foundation already mounts globally, so Library inherits it for free
+
+**Next steps (in order):**
+1. Library home redesign (the new front door — separate session, separate chat recommended)
+2. Builder Impact Dashboard ("games built / plays / ratings / kids who learned") — replaces "skills demonstrated vs classmates"
+3. Builder flow redesign (the 5-screen spec for the inverted flow)
+4. Cross-age pilot design (3.OA.A.1)
+5. Mr. Chesure rewrite + first domain knowledge file (3.OA)
+6. Mechanic Inventor agent
+7. Shortcut Adversary agent
+8. Resume Galaxy: execute Plan B against the planet-preview visual pattern
+
+See `docs/pending-ideas.md` for the longer list of unfinished work and ideas worth tracking.
+
+---
+
+**Previous session (2026-04-18) — Product positioning locked:**
 
 Major strategic pivot completed in a deep session with Claude (Opus 4.7):
 
