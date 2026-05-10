@@ -1,0 +1,356 @@
+{
+  "version": "1.0",
+  "generated": "2026-05-10",
+  "convention": "Engines not listed in primary/secondary/revisable are implicitly NOT_APPLICABLE for that standard. Conservative-bias verdicts.",
+  "authoritiesConsulted": [
+    "docs/audit/11-engine-library-per-engine.md (VETTED/REVISABLE/HIDDEN verdicts)",
+    "docs/agents/chesure-knowledge/k-oa-progressions.md (K.OA per-standard pedagogy authority)",
+    "src/data/standards.json (verbatim CCSS text)",
+    "K-5 OA Progression (CCSS Writing Team 2011/2023)",
+    "docs/agents/the-critic.md (4 criteria, especially C4 Construct Validity)",
+    "docs/agents/the-shortcut-adversary.md (shortcut-detection lens)",
+    "src/lib/game-engines/game-option-registry.ts (engine IDs and descriptions)"
+  ],
+  "standards": {
+    "K.OA.A.1": {
+      "standardText": "Represent addition and subtraction with objects, fingers, mental images, drawings, sounds (e.g., claps), acting out situations, verbal explanations, expressions, or equations.",
+      "namedSkill": "Multiplicity of representation — show a small joining/separating action across multiple modes (8 enumerated). Equation appears as a recording, never as a prompt. No running count. Within 10.",
+      "primary": [
+        {"engineId": "number-frames", "rationale": "The reference implementation per Chesure §2.1; objects-mode in a ten-frame; equation appears as recording after child taps each counter. Math Learning Center-grounded. Single-mode coverage is 'Part 1 of N' but the project explicitly accepts it (Audit 7 Fix 4)."},
+        {"engineId": "free-collect", "rationale": "'Tap dot-clusters to grow a field that matches the target' — the join action IS the addition; no Check button, no running count digit, target field-size IS the answer. Maps to 'objects' mode."},
+        {"engineId": "cuisenaire-rods", "rationale": "Concrete length-snap composition — rods placed end-to-end represent joining; target rod IS the answer. CPA canonical for compose-to-length within 10."},
+        {"engineId": "bar-model", "rationale": "Singapore CPA — 'place colored unit rods end-to-end on the track — the running length on the ruler IS your answer.' Maps to objects + pictorial modes; equation appears as recording."}
+      ],
+      "secondary": [
+        {"engineId": "conveyor-belt", "rationale": "Liquid-pouring teaches sum but continuous-quantity is harder for K than discrete countables; Chesure prefers discrete counters at K."},
+        {"engineId": "stack-to-target", "rationale": "Height-blocks compose to target; works mathematically but block-height as quantity is less direct than counted objects at K."},
+        {"engineId": "free-balance", "rationale": "Balance teaches unknown-addend, which is more 1.OA Change-Unknown territory (Chesure §3.3 defers Compare/Change-Unknown to 1.OA)."},
+        {"engineId": "shape-decomposer", "rationale": "Area-as-sum decomposition; mathematically valid as 'objects' mode within 10 but framed for K.MD/3.MD, not K.OA representation."}
+      ],
+      "revisable": [
+        {"engineId": "free-build", "fix": "Cap unit-squares at totals ≤10 and reframe as 'count the squares you placed' rather than perimeter — currently a 3.MD perimeter engine."}
+      ],
+      "coverageGap": null,
+      "notes": "Per Chesure §3.5, multi-mode cycling (objects + claps + drawings in one game) is the standard target; current PRIMARY engines all cover one mode. Mode-cycling round-sets remain a Mechanic-Inventor opportunity."
+    },
+
+    "K.OA.A.2": {
+      "standardText": "Solve addition and subtraction word problems, and add and subtract within 10, e.g., by using objects or drawings to represent the problem.",
+      "namedSkill": "Model a story situation with objects/drawings to find total or remaining amount. Covers four CGI Result-Unknown problem types: Add-To, Take-From, Put-Together, Take-Apart. Compare and Change-Unknown deferred to 1.OA (Chesure §3.3). Within 10.",
+      "primary": [
+        {"engineId": "bar-model", "rationale": "Singapore CPA canonical for word problems — 'Read the word problem. Place rods. The rods ARE the math.' Maps directly to objects/drawings representation of a story."},
+        {"engineId": "number-frames", "rationale": "Reference engine; story-framed counters within 10; equation appears as recording. Per registry: covers K.OA.A.1, A.2, A.5."},
+        {"engineId": "free-collect", "rationale": "Story-join framing natural ('gather N more') with discrete tappable countables; field-as-answer."},
+        {"engineId": "cuisenaire-rods", "rationale": "Story-driven length composition; concrete model for Add-To and Take-From within 10."}
+      ],
+      "secondary": [
+        {"engineId": "number-frames-decompose", "rationale": "Solves Take-Apart CGI type (one of four); narrower than the full A.2 coverage."},
+        {"engineId": "split-the-loot", "rationale": "Two-silo split fits Take-Apart story shape; visual fill is the answer."},
+        {"engineId": "shape-decomposer", "rationale": "Two-colored regions can model Put-Together stories within 10; less natural fit than bar-model."},
+        {"engineId": "stack-to-target", "rationale": "Add-To via height-stacking; mechanic valid but story-affordance weaker than rods/counters."}
+      ],
+      "revisable": [],
+      "coverageGap": null,
+      "notes": "Strong coverage. To fully serve A.2's 'word problems plural' clause, Mr. Chesure prefers ≥3 of 4 CGI problem types across rounds; this is a Builder-design instruction, not an engine fix."
+    },
+
+    "K.OA.A.3": {
+      "standardText": "Decompose numbers less than or equal to 10 into pairs in more than one way, e.g., by using objects or drawings, and record each decomposition by a drawing or equation (e.g., 5 = 2 + 3 and 5 = 4 + 1).",
+      "namedSkill": "Generate ≥2 distinct part-pairs for the same total (Chesure §2.3 prefers ≥3 for totals ≥6). Each decomposition recorded visibly. No pre-given part (that is K.OA.A.4). Construct validity demands multiplicity, not one-and-done.",
+      "primary": [
+        {"engineId": "cuisenaire-rods", "rationale": "HelpText explicitly invites multiple decompositions: 'Target 7 → 3+4, or 2+2+3, or 1+6 all work.' The rods themselves encode part-part-whole; child naturally produces several compositions."}
+      ],
+      "secondary": [
+        {"engineId": "bar-model", "rationale": "Can express decomposition but doesn't structurally enforce multiplicity-of-ways across a round."},
+        {"engineId": "cut-the-bar", "rationale": "Equal-part shading is fractions (3.NF/4.NF), not arbitrary pair-decomposition; only loosely fits A.3's 'pairs in more than one way.'"}
+      ],
+      "revisable": [
+        {"engineId": "number-frames-decompose", "fix": "Currently accepts any single split; require ≥3 distinct (a,b) part-pairs with a,b≥1 before round ends, with a visible side-panel chart of prior splits (Chesure §2.3 anti-pattern; Audit 11 §2 priority #1)."},
+        {"engineId": "split-the-loot", "fix": "Require ≥3 distinct silo-fill splits with a side-panel recording each, before round completes."},
+        {"engineId": "number-bonds", "fix": "Currently auto-reveals the third value (Chesure anti-pattern: 'auto-revealing the third short-circuits the math'); hide the third until child commits a guess, AND require ≥3 distinct bonds per round."}
+      ],
+      "coverageGap": "Only 1 PRIMARY engine (cuisenaire-rods). The three REVISABLE engines all need the multiplicity-enforcement fix before they count. Mechanic Inventor opportunity: a 'ways to make N' canvas where the chart of recorded decompositions is itself the win state (Chesure §2.3 exemplar #1).",
+      "notes": "This is the Critic's canonical FAIL example; multiplicity is non-negotiable. notApplicable for any engine that gives one split and advances."
+    },
+
+    "K.OA.A.4": {
+      "standardText": "For any number from 1 to 9, find the number that makes 10 when added to the given number, e.g., by using objects or drawings, and record the answer with a drawing or equation.",
+      "namedSkill": "Specific partner-of-10 for each N in 1–9. Child must physically count the partner (not read it). Total fixed at 10. Foundation for 1.OA make-a-ten strategy.",
+      "primary": [
+        {"engineId": "number-frames", "rationale": "Fill-the-ten-frame is Chesure §2.4 exemplar #1: 'N counters pre-placed, child taps empty cells, system counts taps as child taps.' Native ten-frame structure makes partner-of-10 the literal mechanic."},
+        {"engineId": "cuisenaire-rods", "rationale": "Reference rod = 10; child must fill the train with one given rod + partner rod. Length-snap reveals partner; physical and discrete."}
+      ],
+      "secondary": [
+        {"engineId": "free-collect", "rationale": "Can target 10 with one cluster pre-collected; less specialized to the partner-of-10 framing than ten-frame."},
+        {"engineId": "bar-model", "rationale": "Generic part-whole bar; can be configured for partner-of-10 but doesn't structurally privilege 10 as the whole."},
+        {"engineId": "free-balance", "rationale": "Beam with mystery weight = 10 on left, kid adds weights summing to (10 − N). Unknown-addend pattern works but balance metaphor unusual at K."}
+      ],
+      "revisable": [
+        {"engineId": "number-bonds", "fix": "Hide the auto-revealed third value until child commits a guess; lock whole=10 and pre-fill one part with N in 1–9. Then becomes Chesure §2.4 exemplar #3 ('Bond-builder')."}
+      ],
+      "coverageGap": "2 PRIMARY + 1 PRIMARY-after-fix is borderline-acceptable but thin. Mechanic Inventor opportunity: a partner-finder card-pair engine (Chesure §2.4 exemplar #2) where child drags pairs from a 1–9 strip that sum to 10.",
+      "notes": "Shortcut Adversary risk per Chesure §2.4: 'closing-the-frame-by-eye' — if ten-frame is filled by visual symmetry without the kid counting the empty cells, the partner number is never named. Engines must enforce per-cell tap-and-count."
+    },
+
+    "K.OA.A.5": {
+      "standardText": "Fluently add and subtract within 5.",
+      "namedSkill": "Efficient strategy (count-on, derived, known) for any add/sub problem with addends and total ≤5. Mixed add and sub. 'Fluency' = efficient, not flashcard-fast (Baroody 2006). No visible timer at K (Chesure §2.5).",
+      "primary": [
+        {"engineId": "number-frames", "rationale": "Registry note explicitly maps this engine to K.OA.A.5; ten-frame structure supports rapid count-on within 5; counters discrete and tappable."},
+        {"engineId": "cuisenaire-rods", "rationale": "Quick rod-snap composition within 5 with mixed addition/subtraction (subtraction = 'remove a rod from the train'); efficient strategy emerges from the physical action."},
+        {"engineId": "free-collect", "rationale": "Tap-collect to target ≤5 with no running count; efficient at small numbers; mixed add (collect) / sub (overshoot returns) configurable."}
+      ],
+      "secondary": [
+        {"engineId": "bar-model", "rationale": "Rods compose/decompose; valid but more concept-oriented than fluency-paced; works as scaffold before fluency."},
+        {"engineId": "number-frames-decompose", "rationale": "Subtraction-as-decomposition within 5; partial fluency coverage."},
+        {"engineId": "split-the-loot", "rationale": "Two-silo split within 5; addition coverage only, no subtraction."}
+      ],
+      "revisable": [],
+      "coverageGap": null,
+      "notes": "Critical: NONE of the classic-overlay drill engines (snake-math, falling-blocks-math, etc.) qualify even though they ostensibly drill addition. They are HIDDEN per Audit 11 §4 and Chesure §2.5 anti-pattern: 'visible countdown timer harmful at K (Baroody 2006; Boaler on math anxiety).' Fluency at K is achieved via the same concept engines, run at smaller numbers with mixed practice and no timer."
+    },
+
+    "3.OA.A.1": {
+      "standardText": "Interpret products of whole numbers, e.g., interpret 5 × 7 as the total number of objects in 5 groups of 7 objects each. For example, describe a context in which a total number of objects can be expressed as 5 × 7.",
+      "namedSkill": "Interpret a × b as 'a groups of b objects each' — the equal-groups meaning of multiplication. Within 100. The standard names a specific interpretation (groups), not arrays (3.OA.A.3) or area (3.MD).",
+      "primary": [
+        {"engineId": "assembly-line", "rationale": "Two sliders: 'items-per-pallet × number-of-pallets' is literally 'b objects per group × a groups.' Equal-groups model made visible. Audit 11 §3 lists as canonical 3.OA.A.1."},
+        {"engineId": "bead-chain", "rationale": "Skip-count by N (segment size) across G groups; readout shows 'N × (groups passed)'. Equal-groups via measurement quantity (Montessori canonical)."},
+        {"engineId": "investment-sim", "rationale": "Every dot visibly splits into N copies — equal groups created by replication; 'multiplication you SEE.'"},
+        {"engineId": "population-boom", "rationale": "Each creature → N copies; same equal-groups-by-replication pattern as investment-sim."},
+        {"engineId": "potion-lab", "rationale": "Multiplier copies the base N times; base × multiplier = total; visible filling."},
+        {"engineId": "bar-model", "rationale": "Singapore CPA — 'place equal rods side-by-side' is the equal-groups model expressed as length."},
+        {"engineId": "recipe-scaler", "rationale": "Stack ×N of each ingredient — equal groups of ingredient blocks; the stack height IS the product."},
+        {"engineId": "checkerboard-multiply", "rationale": "Each row contains the same number of cells (the columns factor); 'fill the first row → 3×1; second → 3×2' — rows ARE equal groups. Strongest 3.OA engine per Audit 11."}
+      ],
+      "secondary": [
+        {"engineId": "doubling-maze", "rationale": "Chained ×N exposes iterated multiplication; the 'groups of' interpretation is weaker than the 'scale-by' interpretation here."},
+        {"engineId": "fill-the-floor", "rationale": "Area model (W × H) — a valid interpretation of products but the standard names equal-groups specifically; area is 3.MD/3.OA.A.3."},
+        {"engineId": "resize-tool", "rationale": "Scaling interpretation — multiplication as stretching; not the equal-groups interpretation named in the standard."}
+      ],
+      "revisable": [],
+      "coverageGap": null,
+      "notes": "Exceptional coverage (8 PRIMARY). The cross-age pilot standard. Builder gets real choice. No 3.OA Chesure knowledge file exists — flag for creation."
+    },
+
+    "3.OA.A.2": {
+      "standardText": "Interpret whole-number quotients of whole numbers, e.g., interpret 56 ÷ 8 as the number of objects in each share when 56 objects are partitioned equally into 8 shares, or as a number of shares when 56 objects are partitioned into equal shares of 8 objects each.",
+      "namedSkill": "Interpret a ÷ b as EITHER (1) objects-per-share when partitioning into b shares (partitive), OR (2) number-of-shares when grouping by b objects (quotitive/measurement). Both interpretations are named.",
+      "primary": [
+        {"engineId": "share-the-pizza", "rationale": "Equal-share IS the action; partitive division canonical. Players physically distribute slices so each person gets the same — the 'objects in each share' interpretation made literal."},
+        {"engineId": "bar-model", "rationale": "Singapore CPA — bar divided into equal sections models both interpretations; 'place the whole, then split into equal pieces' fits partitive; counting sections-of-fixed-size fits quotitive."}
+      ],
+      "secondary": [
+        {"engineId": "signed-divide", "rationale": "Stage 2 ('separate blocks into groups of |divisor|') is structurally quotitive division — but the engine's signed-integer framing is 6.NS/7.NS, not 3.OA. Mechanic is right; context is wrong grade."}
+      ],
+      "revisable": [
+        {"engineId": "assembly-line", "fix": "Lock total (target) and one slider (pallets = 8), kid must find items-per-pallet that achieves the total — converts the engine from multiplication-build to quotitive division ('56 partitioned into 8 shares')."},
+        {"engineId": "checkerboard-multiply", "fix": "Pre-fill product target and column-count; kid fills cells one row at a time to discover how many rows are needed — quotitive division via array."}
+      ],
+      "coverageGap": "Only 2 PRIMARY engines. Below the ≥3 threshold. Mechanic Inventor opportunity: a partition-by-N tool (drag T objects into N labeled containers; system enforces equality; final per-container count IS the quotient) — currently only share-the-pizza covers partitive division explicitly.",
+      "notes": "share-the-pizza is partitive-only by design. bar-model is the only flexible engine covering both interpretations as-is."
+    },
+
+    "3.OA.A.3": {
+      "standardText": "Use multiplication and division within 100 to solve word problems in situations involving equal groups, arrays, and measurement quantities, e.g., by using drawings and equations with a symbol for the unknown number to represent the problem.",
+      "namedSkill": "Apply multiplication AND division within 100 to word problems across three named contexts: equal groups, arrays, and measurement quantities. Drawings/equations used; unknown represented by a symbol.",
+      "primary": [
+        {"engineId": "bar-model", "rationale": "Singapore CPA word-problem canonical across mult and div, equal-groups and measurement contexts; supports unknown-symbol placement."},
+        {"engineId": "assembly-line", "rationale": "Equal-groups word-problem fit (boxes of items, batches of products); both factors visible; supports mult problems."},
+        {"engineId": "bead-chain", "rationale": "Measurement-quantity context (skip-count along a chain = distance); fits 'measurement quantities' clause directly."},
+        {"engineId": "checkerboard-multiply", "rationale": "Array context literally — the grid IS the array; fits 'arrays' clause directly."},
+        {"engineId": "share-the-pizza", "rationale": "Division word-problem fit; equal-groups context."},
+        {"engineId": "fill-the-floor", "rationale": "Area-as-measurement-quantity (W×H); fits 'measurement quantities' clause."},
+        {"engineId": "recipe-scaler", "rationale": "Measurement quantity (ingredient amounts × N) — measurement word-problem context."}
+      ],
+      "secondary": [
+        {"engineId": "investment-sim", "rationale": "Equal-groups visible but word-problem framing weak (game is operation-focused, not story-focused)."},
+        {"engineId": "population-boom", "rationale": "Same — equal-groups via replication, but the story framing is generic."},
+        {"engineId": "potion-lab", "rationale": "Multiplication operation; story affordance weaker than bar-model."},
+        {"engineId": "doubling-maze", "rationale": "Iterated multiplication; the path-fork frame is decorative for word problems."}
+      ],
+      "revisable": [],
+      "coverageGap": null,
+      "notes": "Strong coverage. 3.OA.A.3 is the broadest 3.OA standard; many engines map cleanly because the standard explicitly names three contexts (groups/arrays/measurement)."
+    },
+
+    "3.OA.A.4": {
+      "standardText": "Determine the unknown whole number in a multiplication or division equation relating three whole numbers. For example, determine the unknown number that makes the equation true in each of the equations 8 × ? = 48, 5 = ? ÷ 3, 6 × 6 = ?.",
+      "namedSkill": "Find the missing whole number in equations of the form a × ? = c, ? × b = c, a × b = ?, a = ? ÷ b, ? = a ÷ b. Unknown-factor and unknown-quotient reasoning.",
+      "primary": [
+        {"engineId": "bar-model", "rationale": "Singapore CPA missing-piece bar — kid builds the part-whole picture with one section unknown; the rod-fit reveals the missing factor."},
+        {"engineId": "free-balance", "rationale": "Beam pre-filled with mystery weight; kid adds weights summing to the mystery. The unknown-addend pattern extends cleanly to unknown-factor (group of weights summing to known total ÷ known factor). Within whole numbers."}
+      ],
+      "secondary": [
+        {"engineId": "mystery-side", "rationale": "True algebra (x + p = q via removal); structurally identifies an unknown but the 'remove from both sides' move is 6.EE, not 3.OA. Useful as extension."},
+        {"engineId": "chain-scales", "rationale": "Same algebra-structure concern as mystery-side."}
+      ],
+      "revisable": [
+        {"engineId": "assembly-line", "fix": "Lock product (target) and one slider (e.g., pallets = 8); kid must adjust the other slider until total matches — converts to unknown-factor solver ('8 × ? = 48')."},
+        {"engineId": "bead-chain", "fix": "Mark target flag at known product; lock skip-count value; kid slides marker until target reached, discovering the number of groups — unknown-factor reasoning."},
+        {"engineId": "checkerboard-multiply", "fix": "Pre-set columns factor, give product target; kid fills until product reached; rows-filled is the unknown factor."},
+        {"engineId": "potion-lab", "fix": "Pre-set base and target line; kid adjusts the multiplier — finds the unknown multiplier."}
+      ],
+      "coverageGap": "Only 2 PRIMARY. Most candidates are REVISABLE because their default framing is build-the-product (3.OA.A.1 mode). Mechanic Inventor opportunity: a 'fact-family triangle' engine where kid drags any 2 of {a, b, c} into the triangle and the third auto-fits — explicitly serves 3.OA.A.4 + 3.OA.B.6.",
+      "notes": "If the REVISABLE engines get the unknown-factor mode, this standard moves to strong coverage. Priority fix list for the build queue."
+    },
+
+    "K.CC.A.1": {
+      "standardText": "Count to 100 by ones and by tens.",
+      "namedSkill": "Recite the count sequence to 100, by 1s and by 10s. Production of the sequence, not interpretation.",
+      "primary": [],
+      "secondary": [
+        {"engineId": "bead-chain", "rationale": "Skip-counting by N on a chain is structurally related; but bead-chain is 3.OA framed and exceeds K range."}
+      ],
+      "revisable": [
+        {"engineId": "hundred-board", "fix": "Currently click-correct-cell (binary); revise to a forward-counting-trail mechanic where kid taps cells in order 1, 2, 3... and the trail glows. Then becomes a count-sequence enforcer."}
+      ],
+      "coverageGap": "NO PRIMARY engine. Audit 11 §5 gap #2 (counting on/back) flags adjacent gap. Mechanic Inventor opportunity: a count-the-bubbles engine that requires sequential verbal/tap utterance to advance.",
+      "notes": "K.CC.A.1 is a production skill — recite — which is unusual for screen-game mechanics. Voice/tap-in-sequence engine is the right shape but doesn't exist."
+    },
+
+    "K.CC.A.2": {
+      "standardText": "Count forward beginning from a given number within the known sequence (instead of having to begin at 1).",
+      "namedSkill": "Counting-on from a non-1 start. The kid must NOT recount from 1.",
+      "primary": [],
+      "secondary": [],
+      "revisable": [
+        {"engineId": "number-frames", "fix": "Add 'counting-on' mode: pre-fill first frame with N counters as a given start, child taps additional counters and the count starts at N+1, not 1. Currently the kid counts all from 1."}
+      ],
+      "coverageGap": "NO PRIMARY engine. Audit 11 §5 gap #2 calls this out directly: 'No engine where the kid physically counts forward from a non-zero start.' Mechanic Inventor priority.",
+      "notes": "Critical foundational gap for 1.OA strategies."
+    },
+
+    "K.CC.A.3": {
+      "standardText": "Write numbers from 0 to 20. Represent a number of objects with a written numeral 0-20 (with 0 representing a count of no objects).",
+      "namedSkill": "Produce the numeral form (write or select) for a given quantity 0–20. Writing is a fine-motor production skill; pairing-numeral-with-quantity is the screen-friendly half.",
+      "primary": [],
+      "secondary": [
+        {"engineId": "number-frames", "rationale": "Quantity is shown; numeral is committed at the end as a tap-on-numeral; partially covers the numeral-quantity pairing but the writing/production aspect is absent."}
+      ],
+      "revisable": [],
+      "coverageGap": "NO PRIMARY engine for the numeral-writing aspect. Pairing-numeral-with-quantity is partially covered. Numeral-writing on a touch surface is a Mechanic Inventor opportunity (trace-the-numeral with stroke-validation).",
+      "notes": "Production-of-numeral has no precedent in the current registry — every engine pre-renders numerals."
+    },
+
+    "K.CC.B.4": {
+      "standardText": "Understand the relationship between numbers and quantities; connect counting to cardinality.",
+      "namedSkill": "Cardinality — the last number counted tells how many. Encompasses K.CC.B.4a, 4b, 4c. Foundational pre-K.OA skill.",
+      "primary": [
+        {"engineId": "free-collect", "rationale": "Tap to count each cluster's dots into the field; the field-size IS the cardinality of taps; no running count digit (Chesure §3.6 enforces one-to-one and cardinality)."},
+        {"engineId": "number-frames", "rationale": "Filling the ten-frame is one-to-one (each tap = one counter); cardinality emerges as the final count."},
+        {"engineId": "cuisenaire-rods", "rationale": "Length = count when units are the smallest rod; the rod's length IS the cardinality."},
+        {"engineId": "bar-model", "rationale": "Each rod is one unit; the rod-train length IS the cardinality."}
+      ],
+      "secondary": [
+        {"engineId": "shape-decomposer", "rationale": "Filling cells one-by-one teaches one-to-one and cardinality (each placed tile = +1 to area)."}
+      ],
+      "revisable": [
+        {"engineId": "shape-matcher", "fix": "Per Audit 11 §2 fix #4: hide target picture, show count-words only ('2 triangles, 1 square'); kid must count what they place. Then becomes a strong cardinality engine."}
+      ],
+      "coverageGap": null,
+      "notes": "K.CC.B.4 is well-served because every K.OA engine inherits cardinality enforcement."
+    },
+
+    "K.CC.B.4a": {
+      "standardText": "When counting objects, say the number names in the standard order, pairing each object with one and only one number name and each number name with one and only one object.",
+      "namedSkill": "One-to-one correspondence in counting. Each object counted exactly once.",
+      "primary": [
+        {"engineId": "free-collect", "rationale": "Each tap moves exactly one set into the field — one-to-one structurally enforced; no double-counting possible."},
+        {"engineId": "number-frames", "rationale": "Each ten-frame cell holds one counter; one-to-one is geometric."},
+        {"engineId": "cuisenaire-rods", "rationale": "Each rod-unit is discrete; one-to-one is structural."}
+      ],
+      "secondary": [
+        {"engineId": "bar-model", "rationale": "Per-unit rods; one-to-one enforced."}
+      ],
+      "revisable": [],
+      "coverageGap": null,
+      "notes": "Inherited from K.CC.B.4. All count-and-collect engines pass."
+    },
+
+    "K.CC.B.4b": {
+      "standardText": "Understand that the last number name said tells the number of objects counted. The number of objects is the same regardless of their arrangement or the order in which they were counted.",
+      "namedSkill": "Cardinality (last-count rule) AND order-irrelevance (same total across arrangements). Order-irrelevance is the key construct here.",
+      "primary": [
+        {"engineId": "free-collect", "rationale": "Clusters can be tapped in any order; the field reaches the same total — order-irrelevance is structural. Cardinality enforced by snap-when-equal."}
+      ],
+      "secondary": [
+        {"engineId": "number-frames", "rationale": "Cardinality enforced; but Chesure §3.6 notes 'does not vary the starting position to enforce order-irrelevance.' Partial."},
+        {"engineId": "cuisenaire-rods", "rationale": "Cardinality via length; order-irrelevance demonstrable when same train built from different rod orders."},
+        {"engineId": "bar-model", "rationale": "Same as cuisenaire-rods."}
+      ],
+      "revisable": [],
+      "coverageGap": null,
+      "notes": "Order-irrelevance is the named-skill nuance; free-collect is the strongest demonstrator because its clusters can be tapped in any order."
+    },
+
+    "K.CC.B.4c": {
+      "standardText": "Understand that each successive number name refers to a quantity that is one larger.",
+      "namedSkill": "The 'one more' principle — successor function. n+1 reasoning.",
+      "primary": [
+        {"engineId": "number-frames", "rationale": "Each counter added is visibly 'one more' than the prior state; ten-frame structure makes successive +1 immediate."},
+        {"engineId": "free-collect", "rationale": "Tapping a single-dot cluster adds exactly one — 'one more' enacted."}
+      ],
+      "secondary": [
+        {"engineId": "cuisenaire-rods", "rationale": "Swap a rod for one 1-unit longer to see 'one more'; available but not the engine's primary action."},
+        {"engineId": "bar-model", "rationale": "Same as cuisenaire-rods."}
+      ],
+      "revisable": [],
+      "coverageGap": null,
+      "notes": "Well covered."
+    },
+
+    "K.CC.B.5": {
+      "standardText": "Count to answer 'how many?' questions about as many as 20 things arranged in a line, a rectangular array, or a circle, or as many as 10 things in a scattered configuration; given a number from 1–20, count out that many objects.",
+      "namedSkill": "Count up to 20 across arrangements (line/array/circle/scatter); also count-out-N. Range is 1–20 (above K.OA's 10 ceiling).",
+      "primary": [
+        {"engineId": "free-collect", "rationale": "Count-out-N (target field of dots) is literally the win condition; arrangement-agnostic clusters."},
+        {"engineId": "number-frames", "rationale": "Line/array arrangement (2×5 frame); count-out-N via taps."},
+        {"engineId": "cuisenaire-rods", "rationale": "Count-out-N as length-build to target."}
+      ],
+      "secondary": [
+        {"engineId": "bar-model", "rationale": "Count-out-N via rod-train; line arrangement only."},
+        {"engineId": "shape-decomposer", "rationale": "Rectangular-array arrangement; count to fill."}
+      ],
+      "revisable": [
+        {"engineId": "shape-matcher", "fix": "Hide target picture, show count-words; kid counts out N shapes (Audit 11 §2 fix #4)."}
+      ],
+      "coverageGap": null,
+      "notes": "Scattered-configuration coverage is weakest; most engines structure objects into frames/lines."
+    },
+
+    "K.CC.C.6": {
+      "standardText": "Identify whether the number of objects in one group is greater than, less than, or equal to the number of objects in another group, e.g., by using matching and counting strategies (include groups with up to ten objects).",
+      "namedSkill": "Compare two object-groups by greater/less/equal using matching or counting. Groups up to 10. Objects (not numerals — that is K.CC.C.7).",
+      "primary": [
+        {"engineId": "sorting-lane", "rationale": "Block widths show value; physics validates >/</= ordering. SRT via wobble-and-slide enforces compare."},
+        {"engineId": "leaderboard-fix", "rationale": "Height-blocks; reorder into descending staircase — direct compare-by-height physical model."},
+        {"engineId": "cuisenaire-rods", "rationale": "Length-compare; longer rod IS greater. Concrete model for compare-by-matching."},
+        {"engineId": "bar-model", "rationale": "Side-by-side bar comparison; matching strategy via bar-end-alignment."}
+      ],
+      "secondary": [
+        {"engineId": "free-collect", "rationale": "Two-target compare possible but engine is single-target by default."}
+      ],
+      "revisable": [],
+      "coverageGap": null,
+      "notes": "Strong coverage for the object-group form."
+    },
+
+    "K.CC.C.7": {
+      "standardText": "Compare two numbers between 1 and 10 presented as written numerals.",
+      "namedSkill": "Compare TWO WRITTEN NUMERALS, 1–10. Numeral-to-numeral compare. No objects required.",
+      "primary": [
+        {"engineId": "sorting-lane", "rationale": "Numerals shown as weight-blocks (width encodes value); compare via physics. Works because numerals are visible alongside the physical encoding."},
+        {"engineId": "leaderboard-fix", "rationale": "Same — numerals on height-blocks; compare-by-height."}
+      ],
+      "secondary": [
+        {"engineId": "size-picker", "rationale": "Compare-two-items; Audit 11 marks REVISABLE because unit-mismatch is needed at higher grades, but for K simple numeral compare it's adequate. Risk: Shortcut Adversary — kid reads digits without compare-reasoning."}
+      ],
+      "revisable": [
+        {"engineId": "size-picker", "fix": "For K.CC.C.7 specifically, no fix needed — the engine's 'pick the bigger' with two visible numerals matches the standard exactly. The Audit 11 REVISABLE flag is for higher-grade unit-mismatch use."}
+      ],
+      "coverageGap": null,
+      "notes": "size-picker double-listed (secondary AND revisable) reflects context-dependent verdict: PRIMARY-as-is for K.CC.C.7 simple numeral-compare; REVISABLE for measurement-compare grades."
+    }
+  }
+}
