@@ -154,6 +154,33 @@ The Library/Galaxy redesign cannot ship on top of broken pedagogical engine. Pha
 
 **Spec rewritten:** `docs/superpowers/specs/2026-05-10-library-design.md` is now v2 (replaces v1 lanterns-era spec from this morning; v1 history preserved in commit `480a9c9`).
 
+**Foundation work landed (2026-05-10 evening, while Barbara was out):**
+
+Three of the five foundation fixes from spec v2 §15.1 are committed and TypeScript-clean. The Library/Galaxy redesign can now ship on top of a real pedagogical engine.
+
+- **Foundation Fix #2 (1a8afa9)** — restored the Guide approval gate. Default save status is now `pending_review` (server-enforced); only `/api/game/[id]/approve` flips to `published`. Players never see a game until a guide signs off.
+- **Foundation Fix #5 (01d7fc6)** — generation prompt is now composed per-standard from the knowledge file (today: K.OA full; other clusters: verbatim CCSS text + fallback skeleton with explicit "build STRICTLY to the verbatim text" guard against the previous addition-only contamination). Files: `src/lib/standard-knowledge.ts`, `src/lib/agent-prompts/generate-game.ts`, refactored `src/app/api/game/generate-gemini/route.ts`. Legacy prompt preserved as `_LEGACY_GAME_PROMPT` for reviewer comparison.
+- **Foundation Fix #1 (9140eb1)** — 4-stage Haiku→Sonnet→Haiku→Sonnet runtime agent ladder wired into all three save paths (BuilderHost main flow, SandpackBuilder inline save, paste-HTML import flow). New endpoint `POST /api/game/critique` runs the stages sequentially with one retry on JSON-parse failure. New UI component `<AgentLadderProgress />` shows four brass-style dials with stage progression and revision suggestions on failure. Cost ~$0.001 / $0.025 / $0.005 / $0.075 per stage; ~$0.05–$0.20 per published game.
+
+**Foundation Fix #3 (Mr. Chesure brief screen) — DEFERRED.** UI-heavy work that's better with Barbara's eye; not started.
+
+**Foundation Fix #4 (paste-HTML through Critic) — INCLUDED in Fix #1** above; the paste-HTML path (`graph-page.tsx` `ImportedGamePlayer.handleAddToLibrary`) now goes through the same critique gate.
+
+**One edge case flagged for Barbara's review:** the Workshop "Send for review" path (`graph-page.tsx` `handleSendForReview`) writes Firestore directly via `setDoc` and currently bypasses the new critique gate. Per the Foundation Fix #1 subagent's notes, this is a separate UX call — not changed unilaterally. Documented in `docs/audit/foundation-fix-1-notes.md`. Recommend routing through `/api/game/critique` too, as a small follow-up.
+
+**Eight commits this evening, all on local main, none pushed:**
+
+```
+9140eb1 fix(foundation #1): wire 4-stage runtime agent ladder into save flow
+01d7fc6 fix(foundation #5): compose generate-gemini prompt from per-standard knowledge
+7e73c8a docs: pedagogy audit follow-ups (Audits 9 + standards-graph history)
+d3994b6 docs(assets): update Leonardo prompts + Sketchfab bookmarks for spec v2
+1a8afa9 fix(foundation #2): restore guide approval gate
+f8949aa feat(agent-prompts): add 4-stage Haiku→Sonnet runtime ladder prompts
+c0abf28 docs: spec v2 + positioning v1.2 (Library/Galaxy split, foundation-first)
++ commits earlier today (240e05a audit + 41e3f1d K-OA notes + 78d85ab K.OA.A.3 fix + 39b0c2a standards graph + 480a9c9 v1 spec + 43f273c bookmarks/prompts)
+```
+
 ---
 
 **Earlier session (2026-05-10) — Library brainstorming + pedagogy audit dispatch:**
