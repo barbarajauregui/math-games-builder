@@ -30,7 +30,9 @@ interface AgentLadderProgressProps {
   onCancel?: () => void
 }
 
-const STAGE_LABELS = ["Critic 1", "Critic 2", "Adversary 1", "Adversary 2"]
+// Order matches the runtime ladder in /api/game/critique:
+// both cheap Haiku stages first, then the deep Sonnet stages.
+const STAGE_LABELS = ["Critic — quick", "Adversary — quick", "Critic — deep", "Adversary — deep"]
 
 function dialColor(status: StageStatus): { ring: string; fill: string; label: string } {
   switch (status) {

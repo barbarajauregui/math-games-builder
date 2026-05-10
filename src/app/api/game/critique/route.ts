@@ -1,17 +1,21 @@
 /**
  * Runtime Agent Ladder — POST /api/game/critique
  *
- * The 4-stage Haiku→Sonnet→Haiku→Sonnet pipeline that runs on every game
- * submission BEFORE save. Each stage either passes (proceed) or fails
- * (Builder sees specific reasons; revises). A FAIL halts the ladder.
+ * The 4-stage pipeline that runs on every game submission BEFORE save.
+ * Both cheap Haiku stages run first (Critic + Shortcut Adversary). Only if
+ * BOTH pass do we spend Sonnet tokens on the deep stages. Each stage either
+ * passes (proceed) or fails (Builder sees specific reasons; revises). A
+ * FAIL halts the ladder.
  *
  * Spec: docs/superpowers/specs/2026-05-10-library-design.md §13.
  * Foundation Fix #1 from docs/audit/09-build-flow.md.
+ * Reorder per Barbara 2026-05-11: cheap-cheap-deep-deep saves Sonnet
+ * tokens on games that pass the structural check but have shortcuts.
  *
- * Stage 1: Haiku Critic — cheap filter (~$0.001)
- * Stage 2: Sonnet Critic — deep inspection (~$0.025)
- * Stage 3: Haiku Shortcut Adversary — obvious shortcuts (~$0.005)
- * Stage 4: Sonnet Shortcut Adversary — creative shortcuts (~$0.075)
+ * Stage 1: Haiku Critic — cheap structural filter (~$0.001)
+ * Stage 2: Haiku Shortcut Adversary — cheap shortcut probe (~$0.005)
+ * Stage 3: Sonnet Critic — deep structural inspection (~$0.025)
+ * Stage 4: Sonnet Shortcut Adversary — deep adversarial probe (~$0.075)
  */
 
 import Anthropic from "@anthropic-ai/sdk"
@@ -239,22 +243,24 @@ export async function POST(req: Request) {
     )
   }
 
-  // ---------- Stage 2: Sonnet Critic ----------
+  // ---------- Stage 2: Haiku Shortcut Adversary (cheap shortcut probe) ----------
   try {
     const { parsed, cost } = await callModelWithRetry(
-      SONNET_CRITIC_MODEL,
-      buildSonnetCriticPrompt(input),
-      1400
+      HAIKU_SHORTCUT_ADVERSARY_MODEL,
+      buildHaikuShortcutAdversaryPrompt(input),
+      900
     )
     totalCost += cost
-    const verdict = parsed as CriticVerdict
-    const passed = criticPassed(verdict)
+    const verdict = parsed as ShortcutAdversaryVerdict
+    const passed = shortcutPassed(verdict)
     const stage2: StageResult = {
       stage: 2,
-      stageName: "Sonnet Critic",
+      stageName: "Haiku Shortcut Adversary",
       passed,
-      criticVerdict: verdict,
-      builderFacingMessage: passed ? undefined : criticBuilderMessage(verdict, "Critic 2 (deep)"),
+      shortcutVerdict: verdict,
+      builderFacingMessage: passed
+        ? undefined
+        : shortcutBuilderMessage(verdict, "Adversary — quick"),
       costEstimateUsd: cost,
     }
     stages.push(stage2)
@@ -274,7 +280,7 @@ export async function POST(req: Request) {
         stages,
         finalVerdict: "FAILED",
         builderFacingMessage:
-          "We hit a service issue while running the deep review. Please try Add to library again in a moment.",
+          "We hit a service issue while running the shortcut probe. Please try Add to library again in a moment.",
         error: err instanceof Error ? err.message : String(err),
         totalCostEstimateUsd: totalCost,
       },
@@ -282,24 +288,22 @@ export async function POST(req: Request) {
     )
   }
 
-  // ---------- Stage 3: Haiku Shortcut Adversary ----------
+  // ---------- Stage 3: Sonnet Critic (deep structural inspection) ----------
   try {
     const { parsed, cost } = await callModelWithRetry(
-      HAIKU_SHORTCUT_ADVERSARY_MODEL,
-      buildHaikuShortcutAdversaryPrompt(input),
-      900
+      SONNET_CRITIC_MODEL,
+      buildSonnetCriticPrompt(input),
+      1400
     )
     totalCost += cost
-    const verdict = parsed as ShortcutAdversaryVerdict
-    const passed = shortcutPassed(verdict)
+    const verdict = parsed as CriticVerdict
+    const passed = criticPassed(verdict)
     const stage3: StageResult = {
       stage: 3,
-      stageName: "Haiku Shortcut Adversary",
+      stageName: "Sonnet Critic",
       passed,
-      shortcutVerdict: verdict,
-      builderFacingMessage: passed
-        ? undefined
-        : shortcutBuilderMessage(verdict, "Adversary 1 (obvious)"),
+      criticVerdict: verdict,
+      builderFacingMessage: passed ? undefined : criticBuilderMessage(verdict, "Critic — deep"),
       costEstimateUsd: cost,
     }
     stages.push(stage3)
@@ -319,7 +323,7 @@ export async function POST(req: Request) {
         stages,
         finalVerdict: "FAILED",
         builderFacingMessage:
-          "We hit a service issue while running the shortcut probe. Please try Add to library again in a moment.",
+          "We hit a service issue while running the deep review. Please try Add to library again in a moment.",
         error: err instanceof Error ? err.message : String(err),
         totalCostEstimateUsd: totalCost,
       },
@@ -344,7 +348,7 @@ export async function POST(req: Request) {
       shortcutVerdict: verdict,
       builderFacingMessage: passed
         ? undefined
-        : shortcutBuilderMessage(verdict, "Adversary 2 (creative)"),
+        : shortcutBuilderMessage(verdict, "Adversary — deep"),
       costEstimateUsd: cost,
     }
     stages.push(stage4)

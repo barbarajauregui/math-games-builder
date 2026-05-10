@@ -322,14 +322,14 @@ No changes from existing Plan B. Indigo night-forest, bioluminescent flora react
 
 ## 13. The 4-stage agent runtime ladder
 
-Every game submission runs through this ladder before reaching the Guide approval queue. Each stage either passes (proceed) or fails (Builder sees specific reasons; revises). Most failures get caught early at the cheap Haiku stages.
+Every game submission runs through this ladder before reaching the Guide approval queue. Each stage either passes (proceed) or fails (Builder sees specific reasons; revises). **Both cheap Haiku stages run first** — only games that pass BOTH cheap checks get any Sonnet token spend. Reorder per Barbara's call 2026-05-11: catches "structurally OK but trivially exploitable" games at the Haiku tier, saving Sonnet tokens.
 
 | Stage | Agent | Model | Purpose | ~Cost / check |
 |---|---|---|---|---|
-| 1 | **Critic — Cheap Filter** | Haiku 4.5 | 4-criterion check on the HTML; catches obvious failures (visible answer reveals, popup quizzes, missing scenario, click-anywhere-to-win) | $0.001 |
-| 2 | **Critic — Deep Inspection** | Sonnet 4.6 | Same 4 criteria, deeper reasoning. Catches subtler issues: construct validity (game claims to teach addition but actually tests counting), fake-intrinsic patterns, decorative scenarios | $0.025 |
-| 3 | **Shortcut Adversary — Cheap Probe** | Haiku 4.5 | Simulates obvious shortcuts (click-everything, click-the-biggest-button, ignore-the-math). If win without math → fail | $0.005 |
-| 4 | **Shortcut Adversary — Deep Probe** | Sonnet 4.6 | Simulates creative shortcuts: visual matching, UI-pattern exploitation, reading-the-answer-from-the-prompt | $0.075 |
+| 1 | **Critic — quick** | Haiku 4.5 | 4-criterion structural filter; catches obvious failures (visible answer reveals, popup quizzes, missing scenario, click-anywhere-to-win) | $0.001 |
+| 2 | **Adversary — quick** | Haiku 4.5 | Simulates obvious shortcuts (click-everything, click-the-biggest-button, ignore-the-math). Catches trivially exploitable games before any Sonnet spend | $0.005 |
+| 3 | **Critic — deep** | Sonnet 4.6 | Same 4 criteria, deeper reasoning. Catches subtler issues: construct validity (game claims to teach addition but actually tests counting), fake-intrinsic patterns, decorative scenarios | $0.025 |
+| 4 | **Adversary — deep** | Sonnet 4.6 | Simulates creative shortcuts: visual matching, UI-pattern exploitation, reading-the-answer-from-the-prompt | $0.075 |
 
 **Per-game cost** (assuming 3 revisions): roughly **$0.05–$0.20 per published game.** **At fellowship-pilot scale** (5000 published games × 4 stages each): **~$250–$1000 total.**
 
