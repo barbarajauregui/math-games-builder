@@ -53,7 +53,7 @@ function ImportedGamePlayer({ title, html, standardId, onClose }: { title: strin
           designerName: activeProfile.name || "Anonymous",
           standardId,
           gameHtml: html,
-          status: "published",
+          status: "pending_review",
           designDoc: `Imported HTML game: ${title}`,
           playCount: 0,
           ratingSum: 0,
