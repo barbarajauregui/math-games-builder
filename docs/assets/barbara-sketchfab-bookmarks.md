@@ -48,15 +48,21 @@ After running a license check, this is the cleared roster for the Library + Gala
 - **Mode-switch lever (Build/Play)** — [Steampunk Solar Transit](https://skfb.ly/6WGqX) by nika.tendetnik
 - **Curriculum-position indicator** — [Compass low-poly game asset](https://sketchfab.com/3d-models/compass-low-poly-game-asset-a2572112e61048ad81845af34f8ee90b) by jsabbott (CC-BY, "free for commercial")
 
-### Game-card lanterns (instanced ~466×)
-- **Hero variant — steampunk** — [Low-Poly Lantern](https://sketchfab.com/3d-models/low-poly-lantern-736d5817b2674482a6b5dde70dea3250) by Nacovya (steampunk-styled per description)
-- **Hero variant — classic glass** — [Low Poly Lantern](https://sketchfab.com/3d-models/low-poly-lantern-b560c86215214429a62519f9285342c4) by DLM (1.6k tris)
-- **Bulk / low-LOD** — [Low Poly Lantern](https://sketchfab.com/3d-models/low-poly-lantern-e8a9b72425e148e48364bc0d3d05da13) by Emma-Lie Kamping
-- **Locked-state ("Coming soon") — paper** — [Stylized Japanese Lantern](https://sketchfab.com/3d-models/low-poly-stylized-japanese-lantern-17bedd84ff3d464fa380f3b28ed4e2e5) by Miszla
-- **Variety filler** — [Low Poly Lantern](https://sketchfab.com/3d-models/low-poly-lantern-7d094131b5994e5ba24aa9bc900123dc) by joe-z13 (100 tris)
+### Game cards (instanced ~466×) — generated, not sourced
 
-### Library ↔ Galaxy portal
-- **Doorway** — [Magic Portal](https://skfb.ly/6VytI) by SGTorresJ (50.9k tris, hero only)
+**v2 update 2026-05-10:** Lantern concept dropped. Game cards are 2D Tailwind components with a brass-frame poster art layout. Frame variants and poster art generated via Leonardo using prompts in `docs/assets/leonardo-prompts.md` (#3 frames, #4 per-game posters). No 3D lantern model is needed. The five lantern Sketchfab picks below are kept as historical reference but are no longer in the asset roster.
+
+Historical (NOT used in v2):
+- ~~[Low-Poly Lantern by Nacovya](https://sketchfab.com/3d-models/low-poly-lantern-736d5817b2674482a6b5dde70dea3250)~~ (steampunk variant)
+- ~~[Low Poly Lantern by DLM](https://sketchfab.com/3d-models/low-poly-lantern-b560c86215214429a62519f9285342c4)~~ (classic glass)
+- ~~[Low Poly Lantern by Emma-Lie Kamping](https://sketchfab.com/3d-models/low-poly-lantern-e8a9b72425e148e48364bc0d3d05da13)~~ (bulk / low-LOD)
+- ~~[Stylized Japanese Lantern by Miszla](https://sketchfab.com/3d-models/low-poly-stylized-japanese-lantern-17bedd84ff3d464fa380f3b28ed4e2e5)~~ (locked-state paper)
+- ~~[Low Poly Lantern by joe-z13](https://sketchfab.com/3d-models/low-poly-lantern-7d094131b5994e5ba24aa9bc900123dc)~~ (variety filler)
+
+### Library ↔ Galaxy portal — DROPPED in v2
+The Magic Portal asset is no longer needed. Library and Galaxy are now distinct environments routed by role; each role can flip into the other via a top-bar mode pill, not by walking through a portal. The mode pill is a flat UI element using the Mode-switch lever asset (Steampunk Solar Transit) rendered as a corner artifact.
+
+~~[Magic Portal](https://skfb.ly/6VytI) by SGTorresJ — historical, not used in v2~~
 
 ### Galaxy (the cool exterior)
 - **Planet variety pack** — [Various Planets](https://skfb.ly/o7F9p) by Feivelyn (multi-planet, 13.7k tris) — solves the all-Jupiter problem in one asset
@@ -66,10 +72,14 @@ After running a license check, this is the cleared roster for the Library + Gala
 - **Endgame portal** — [Black hole with accretion disk](https://sketchfab.com/3d-models/black-hole-with-accretion-disk-1d0a5cb6bb2a43f4b2e7719c88cec6b2) by RTXlover (9.8k tris)
 - **Far backdrop** — [Galaxy "Need some space?"](https://skfb.ly/6QV7A) by Loïc Norgeot
 
-### Mastery state — planet-shatter
-- **Pristine** — Feivelyn's [Various Planets](https://skfb.ly/o7F9p) baseline
-- **Cracking 1/N to N–1/N** — emissive crack-line texture overlay (shader on pristine model, no new asset)
-- **Shattered N/N** — *[gap]* run Blender Cell Fracture on the pristine model (one-time art task) → save as `shattered-{domain}.glb`. Persistent orbiting shards. Optional: pair with [Asteroid Belt](https://sketchfab.com/3d-models/asteroid-belt-bd01732b4e074c8cae90200b9d169431) by gianlucadistefano1998 as ambient debris ring.
+### Mastery state — planet bloom (v2 update)
+
+**v2 update 2026-05-10:** Mastery visualization changed from planet-shatter to planet bloom. Pristine planet → cracked-with-light intermediate → bloomed-with-life at 100%. Additive (life appearing), not destructive.
+
+- **Pristine** — Feivelyn's [Various Planets](https://skfb.ly/o7F9p) baseline (rocky, desolate, no atmosphere)
+- **Cracking 1/N to N–1/N** — emissive crack-line shader overlay on the pristine model (no new asset)
+- **Bloomed N/N** — Leonardo-generated full-life version per planet (water spreads, atmosphere, forests, city lights at night). See `docs/assets/leonardo-prompts.md` #7. Saved as `public/assets/galaxy/planet-{domain}-bloomed.png`. Shader blends between pristine and bloomed based on mastery percentage.
+- **Optional ambient debris ring** — [Asteroid Belt](https://sketchfab.com/3d-models/asteroid-belt-bd01732b4e074c8cae90200b9d169431) by gianlucadistefano1998 if a planet wants Saturn-style rings as part of its bloomed state.
 
 ### Ceremonies (one-time emotional moments)
 - **Builder graduation (first published game)** — [Angel Wings](https://sketchfab.com/3d-models/angel-wings-917b4019a1614d179e70cda895fd3f16) by Boooooop (28.3k tris, one-time effect)
