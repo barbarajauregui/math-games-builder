@@ -1,8 +1,10 @@
 # Math Games Builder — Product Positioning
 
-*Last updated: April 18, 2026 · Owner: Barbara · Status: v1 (locked until superseded)*
+*Last updated: May 10, 2026 · Owner: Barbara · Status: v1.1*
 
 > This document is the north star. Every product, design, agent, and pedagogical decision should point back to something on this page. If a new feature doesn't serve one of the beliefs, users, or loops below, cut it.
+
+> **Changelog v1.1 (2026-05-10):** Library promoted to default home for both modes; galaxy demoted to optional Explore. Player view explicitly keeps comparative benchmarks (kids-your-age + top-achievers). Mastery state now visualized as a planet-shatter progression. Library + Galaxy live in a deliberate Steampunk + Pandora hybrid world (per `~/.claude/skills/creative-visual-quality-standards/world-flavors.md`). The April-18 v1.0 line that called comparative metrics "counterproductive for struggling learners" is **superseded** by Barbara's 2026-05-10 decision to keep them; we'll watch for harm signals in the cross-age pilot data and revisit. A pedagogy audit ran on 2026-05-10 (`docs/audit/2026-05-10-pedagogy-audit.md`) — its proposed changes are listed for Barbara's review but **not auto-applied**.
 
 ---
 
@@ -14,9 +16,13 @@
 
 Middle-school and early high-school learners (grades 5–10) often have foundational math gaps but lack any motivating reason to revisit the basics. Meanwhile, elementary learners (grades K–4) need lots of varied, engaging practice on core concepts but are poorly served by drill-based apps.
 
-Math Games Builder solves both problems with a single loop: **older learners build math games targeting specific Common Core standards, and younger learners play them.** In building, older learners are forced to deeply understand the math they're teaching — known in educational psychology as the **protégé effect**, one of the most robust findings in the field. In playing, younger learners get near-infinite variety of peer-made games, rated and ranked by their peers.
+Math Games Builder solves both problems with a single loop: **older learners build math games targeting specific Common Core standards, and younger learners play them.** In building, older learners are forced to deeply understand the math they're teaching — known in educational psychology as the **protégé effect**, one of the most robust findings in the field. In playing, younger learners get near-infinite variety of peer-made games, rated and ranked by their peers. Their progress is benchmarked against the typical mastery of kids their age and the top achievers — context, not punishment.
 
 The app is not a chatbot, not a worksheet, and not a lecture. It's a **creative studio with a real audience.**
+
+The home screen is the **Library** — for Builders, framed around the impact their published games are having; for Players, framed around the games their older peers have made for them. The galaxy of standards is preserved as an optional **Explore** view for learners who want to see the curriculum landscape, but is no longer the front door.
+
+Mastery is visible. As a learner masters all the moons in a math standards cluster, the corresponding planet in the galaxy progressively cracks and ultimately shatters into orbiting shards — a permanent visible record that this cluster is yours.
 
 ---
 
@@ -52,15 +58,19 @@ Two users. One product. Different modes.
 
 **What we hide from them:** The 466-standard graph. Pedagogical frameworks by name. Agent internal workings. The "designer's view" of the curriculum.
 
+**Builder home screen:** Impact-first. The first thing they see is the impact their published games are having — games published, plays this week, unique kids learned, average rating — followed by a recommended "Build next" standard (algorithmically suggested but overridable) and a shelf of peer Builders' games. Their relationship to the Library is "I built this / I'm about to build the next thing."
+
 ### The Player (secondary user, grades K–4, ages ~5–10)
 
 **What they want:** To play games. To earn things. To feel good.
 
-**What they get:** A library of grade-appropriate games built by older kids at their own school (and eventually other schools). Tap, play, rate with emoji or stars, earn tokens, play another.
+**What they get:** A library of grade-appropriate games built by older kids at their own school (and eventually other schools). Tap, play, rate with emoji or stars, earn tokens, play another. Each game card shows the older kid's name and avatar — the cross-age relationship is visible, not abstract.
 
-**Why they come back:** New games appear constantly, built by kids they know or kids at other schools. Each game feels different because older builders have real creative freedom. Tokens accumulate.
+**Why they come back:** New games appear constantly, built by kids they know or kids at other schools. Each game feels different because older builders have real creative freedom. Tokens accumulate. They can see how their progress compares to typical mastery for kids their age and the top achievers — context for where they are, not a verdict.
 
-**What we hide from them:** Builder tools (until they age into them). Standards taxonomies. Galaxy view. Anything that looks like "school."
+**What we hide from them:** Builder tools (until they age into them). Standards taxonomies as a primary navigation surface (the galaxy is available as optional Explore but is not the front door). Anything that looks like "school."
+
+**Player home screen:** Image-led grid of game-cards. The grid is silently sorted by the coherence map — games for standards the Player can play right now (prerequisites met = `available`) appear in a "Play now" rail; the next standards on their path appear in a faded "Coming soon" rail. Tokens and avatar tuck into a corner. A small benchmark widget shows "kids your age have mastered ~12 skills · top: 31 · you: 4" — context, gentle, never red-text.
 
 ### Shared infrastructure (for both)
 
