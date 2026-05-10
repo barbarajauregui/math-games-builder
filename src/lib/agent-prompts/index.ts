@@ -43,3 +43,8 @@ export {
   SONNET_SHORTCUT_ADVERSARY_MODEL,
   buildSonnetShortcutAdversaryPrompt,
 } from './sonnet-shortcut-adversary'
+
+export {
+  buildGenerateGamePrompt,
+} from './generate-game'
+export type { BuildGenerateGamePromptInput } from './generate-game'

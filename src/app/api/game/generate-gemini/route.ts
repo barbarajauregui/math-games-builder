@@ -3,10 +3,19 @@
 
 import { GoogleGenerativeAI } from "@google/generative-ai"
 import { verifyAuth } from "@/lib/api-auth"
+import { loadStandardKnowledge } from "@/lib/standard-knowledge"
+import { buildGenerateGamePrompt } from "@/lib/agent-prompts/generate-game"
 
 export const maxDuration = 60
 
-const GAME_PROMPT = (standardId: string, scenario: string, builderType: string) => `
+// LEGACY (kept for reference; no longer used). The original prompt was
+// hard-coded to K.OA.A.1 ADDITION ONLY. It is now replaced by
+// `buildGenerateGamePrompt` which composes from the standard's knowledge
+// file at request time. See:
+//   - src/lib/standard-knowledge.ts
+//   - src/lib/agent-prompts/generate-game.ts
+//   - docs/audit/foundation-fix-5-notes.md
+const _LEGACY_GAME_PROMPT = (standardId: string, scenario: string, builderType: string) => `
 You are a game developer building an educational math game for young learners.
 
 MATH STANDARD: ${standardId} — K.OA.A.1: Represent ADDITION with objects. ADDITION ONLY — do NOT include any subtraction rounds.
@@ -74,7 +83,15 @@ export async function POST(req: Request) {
 
   const { standardId = "K.OA.A.1", scenario = "a fun adventure", builderType = "explorer" } = body
 
-  const prompt = GAME_PROMPT(standardId, scenario, builderType)
+  // Compose the prompt dynamically from the standard's knowledge file.
+  // Foundation Issue #5 fix — see docs/audit/foundation-fix-5-notes.md.
+  const knowledge = await loadStandardKnowledge(standardId)
+  const prompt = buildGenerateGamePrompt({ standardId, scenario, builderType, knowledge })
+  if (!knowledge.hasFullKnowledge) {
+    console.info(
+      `[generate-gemini] Using fallback knowledge for ${standardId}: ${knowledge.source.kind === "fallback" ? knowledge.source.reason : "(unknown)"}`
+    )
+  }
   const googleKey = process.env.GOOGLE_AI_KEY
   const anthropicKey = process.env.ANTHROPIC_API_KEY
 
