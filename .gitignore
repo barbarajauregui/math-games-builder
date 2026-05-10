@@ -39,6 +39,10 @@ yarn-error.log*
 
 # worktrees
 /.worktrees/
+/.claude/worktrees/
+
+# brainstorming visual companion (local mockups, not source)
+/.superpowers/
 
 # vercel
 .vercel

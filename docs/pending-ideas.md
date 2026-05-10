@@ -4,6 +4,14 @@
 
 ---
 
+## From session 2026-05-10 (Library brainstorming)
+
+### Asset bookmarks (saved by Barbara, use TBD)
+- **[The Cave of Eternity](https://skfb.ly/6ZvCM)** by *salinaforr* on Sketchfab, CC-BY 4.0. Magical cave with mystical tree, glowing crystals, lanterns, fog, magical portals, altar, and boat. Pandora-flavor adjacent; would map cleanly onto either (a) the Library's Grove-of-Lanterns hub scene or (b) a future "Cave" world-flavor variant for one math domain. Saved as a candidate; no use locked yet.
+
+### Galaxy improvement — dust like igloo.inc snow
+- The drei `<Sparkles>` dust currently in the planet-preview should mimic [igloo.inc](https://igloo.inc)'s falling snow — but **suspended and moving more slowly** because there is no wind in space. Slower drift, less directional flow, particles that linger and pulse rather than fall. Tweak the Sparkles `speed` and `size` props on the next galaxy pass.
+
 ## From session 2026-05-09 (galaxy proof-of-concept)
 
 ### Galaxy rebuild (parked at proof-of-concept)
