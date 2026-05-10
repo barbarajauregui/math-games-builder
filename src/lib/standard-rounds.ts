@@ -159,13 +159,19 @@ export const STANDARD_ROUNDS: Record<string, HardcodedRound[]> = {
     { prompt: "6 frogs + 4 frogs = ?", target: 10, items: [8, 9, 10, 11, 12, 14], hint: "6 + 4 = 10." },
   ],
 
-  "K.OA.A.3": [
-    { prompt: "5 = 2 + ?", target: 3, items: [1, 2, 3, 4, 5, 6], hint: "2 + 3 = 5." },
-    { prompt: "6 = 4 + ?", target: 2, items: [1, 2, 3, 4, 5, 6], hint: "4 + 2 = 6." },
-    { prompt: "7 = 3 + ?", target: 4, items: [2, 3, 4, 5, 6, 7], hint: "3 + 4 = 7." },
-    { prompt: "9 = 5 + ?", target: 4, items: [2, 3, 4, 5, 6, 7], hint: "5 + 4 = 9." },
-    { prompt: "10 = 6 + ?", target: 4, items: [2, 3, 4, 5, 6, 7], hint: "6 + 4 = 10." },
-  ],
+  // K.OA.A.3 is intentionally NOT in this map.
+  //
+  // K.OA.A.3 is "Decompose numbers ≤ 10 into pairs in MORE THAN ONE WAY."
+  // The single-target HardcodedRound schema (one prompt → one correct
+  // number) cannot represent that standard — by design, the learner must
+  // produce multiple distinct decompositions of the same total. Single-
+  // answer prompts like "5 = 2 + ?" are missing-addend tasks (K.OA.A.4
+  // territory), not K.OA.A.3.
+  //
+  // K.OA.A.3 must be authored via the `number-frames-decompose` engine
+  // (src/lib/game-engines/number-frames.ts), which tracks the set of
+  // distinct pairs the learner has produced and only completes a round
+  // after a minimum number of distinct ways. See Audit 07 for details.
 
   "K.OA.A.4": [
     { prompt: "8 + ? = 10", target: 2, items: [1, 2, 3, 4, 5, 6], hint: "8 needs 2 more to make 10." },

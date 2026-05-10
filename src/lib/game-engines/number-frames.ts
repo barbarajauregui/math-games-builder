@@ -26,7 +26,7 @@ import type { ThemeConfig, MathParams, GameOption } from "./engine-types"
 
 interface AddRound { kind: "add"; a: number; b: number; answer: number }
 interface SubRound { kind: "sub"; total: number; remove: number; answer: number }
-interface DecomposeRound { kind: "decompose"; total: number }
+interface DecomposeRound { kind: "decompose"; total: number; minWays: number }
 type Round = AddRound | SubRound | DecomposeRound
 
 // Rounds aligned with Learning Contract (docs/contracts/K.OA.A.1.md)
@@ -38,13 +38,23 @@ const ROUNDS_ADD_SUB: Round[] = [
   { kind: "add", a: 5, b: 4, answer: 9 },
 ]
 
-// K.OA.A.3 — decompose numbers ≤ 10 into pairs (each piece ≥ 1)
+// K.OA.A.3 — decompose numbers ≤ 10 into pairs in MORE THAN ONE WAY.
+// Each piece must be ≥ 1 (K.OA.A.3 doesn't require zero-pairs at K).
+// The standard's load-bearing word is "more than one way" — a learner
+// must produce ≥ minWays DISTINCT decompositions of the same total
+// before the round completes. Different orderings (2+3 vs 3+2) count
+// as distinct: this honors the K-level habit of seeing "2 in this hand,
+// 3 in this hand" as a different observation than "3 in this hand, 2
+// in this hand," matching Fischer (1990) and Open Up Resources K
+// Unit 4's "ways to make N" chart structure.
+//   - totals ≤ 5: minWays = 2 (only a few pairs exist with each piece ≥1)
+//   - totals ≥ 6: minWays = 3 (more pairs available; deeper exploration)
 const ROUNDS_DECOMPOSE: Round[] = [
-  { kind: "decompose", total: 3 },
-  { kind: "decompose", total: 5 },
-  { kind: "decompose", total: 6 },
-  { kind: "decompose", total: 8 },
-  { kind: "decompose", total: 10 },
+  { kind: "decompose", total: 3, minWays: 2 },
+  { kind: "decompose", total: 5, minWays: 2 },
+  { kind: "decompose", total: 6, minWays: 3 },
+  { kind: "decompose", total: 8, minWays: 3 },
+  { kind: "decompose", total: 10, minWays: 3 },
 ]
 
 export function numberFramesEngine(
@@ -189,6 +199,39 @@ export function numberFramesEngine(
   #success { display: none; text-align: center; }
   #success.visible { display: block; }
   #success p { font-size: 20px; font-weight: 600; color: #10b981; margin-bottom: 16px; }
+
+  /* K.OA.A.3 — Ways-to-make-N side panel. Records each distinct
+     decomposition the learner produces, making part-whole flexibility
+     visible. Hidden in add/sub modes. */
+  #ways-panel {
+    display: none;
+    width: 100%;
+    max-width: 420px;
+    padding: 12px 16px;
+    background: #f8fafc;
+    border: 2px solid #e2e8f0;
+    border-radius: 12px;
+    text-align: center;
+  }
+  #ways-panel.visible { display: block; }
+  #ways-panel .ways-title {
+    font-size: 15px; font-weight: 600; color: #475569;
+    margin-bottom: 8px;
+  }
+  #ways-panel .ways-list {
+    display: flex; flex-wrap: wrap; gap: 8px; justify-content: center;
+  }
+  #ways-panel .way-chip {
+    padding: 6px 12px;
+    background: #ecfdf5; color: #047857;
+    border: 1.5px solid #6ee7b7; border-radius: 999px;
+    font-size: 16px; font-weight: 600;
+    transition: background 0.18s, border-color 0.18s, transform 0.18s;
+  }
+  #ways-panel .way-chip.repeat-flash {
+    background: #fef3c7; border-color: #f59e0b; color: #92400e;
+    transform: scale(1.08);
+  }
 </style>
 </head>
 <body>
@@ -212,6 +255,12 @@ export function numberFramesEngine(
 
   <div id="number-pad"></div>
 
+  <!-- K.OA.A.3 — visible record of decompositions found this round. -->
+  <div id="ways-panel">
+    <div class="ways-title" id="ways-title"></div>
+    <div class="ways-list" id="ways-list"></div>
+  </div>
+
   <!-- Equation shown AFTER correct answer only. Fix #4. -->
   <div id="equation-reveal"></div>
 
@@ -229,6 +278,10 @@ export function numberFramesEngine(
   let merged = 0;
   let tapped = 0;
   let removedCount = 0;
+  // K.OA.A.3 — decompositions the learner has produced this round.
+  // Stored as canonical strings "a+b" (orderings DISTINCT — see Round
+  // comment in number-frames.ts). Round advances when size >= minWays.
+  let waysFound = [];
 
   // ─── PROPRIETARY DATA TRACKING ─────────────────────────────
   var gameStartTime = Date.now();
@@ -363,12 +416,16 @@ export function numberFramesEngine(
     const r = ROUNDS[roundIdx];
     phase = "fill";
     frameA = 0; frameB = 0; merged = 0; tapped = 0; removedCount = 0;
+    waysFound = [];
     roundStartTime = Date.now();
     roundAttempts = 0;
     $("equation-reveal").classList.remove("visible");
     $("equation-reveal").textContent = "";
     $("success").classList.remove("visible");
     $("number-pad").classList.remove("visible");
+    $("ways-panel").classList.remove("visible");
+    $("ways-list").innerHTML = "";
+    $("ways-title").textContent = "";
     $("done-btn").style.display = "inline-block";
     $("done-btn").disabled = false;
 
@@ -422,11 +479,16 @@ export function numberFramesEngine(
         '<span class="prompt-symbol">=</span>' +
         '<span class="prompt-question">? + ?</span>';
       $("operator").textContent = "+";
-      $("instruction").textContent = "Split these into two groups. Put some in each frame.";
+      $("instruction").textContent =
+        "Split these into two groups. Find " + r.minWays + " different ways.";
       $("frame-a").className = "frame active";
       $("frame-b").className = "frame active";
       drawFrame("frame-a", 0, true);
       drawFrame("frame-b", 0, true);
+      // Show empty ways panel for this total.
+      $("ways-title").textContent = "Ways to make " + r.total + " (find " + r.minWays + "):";
+      $("ways-list").innerHTML = "";
+      $("ways-panel").classList.add("visible");
     }
     renderProgress();
   }
@@ -455,15 +517,60 @@ export function numberFramesEngine(
         }
         return;
       }
-      phase = "answered";
-      $("done-btn").style.display = "none";
-      $("frame-a").className = "frame";
-      $("frame-b").className = "frame";
-      $("instruction").textContent = "";
-      $("equation-reveal").textContent = frameA + " + " + frameB + " = " + r.total;
-      $("equation-reveal").classList.add("visible");
-      $("success").classList.add("visible");
-      reportRound(true, frameA + "+" + frameB);
+      // Valid pair. Is it a NEW way?
+      const key = frameA + "+" + frameB;
+      const isRepeat = waysFound.indexOf(key) !== -1;
+      if (isRepeat) {
+        // Friendly nudge: highlight the matching chip and keep the round going.
+        wobble("frame-a"); wobble("frame-b");
+        roundAttempts++;
+        $("instruction").textContent =
+          "You already showed " + key + " — find a different way.";
+        // Find existing chip and flash it.
+        const list = $("ways-list");
+        for (let i = 0; i < list.children.length; i++) {
+          const chip = list.children[i];
+          if (chip.getAttribute("data-key") === key) {
+            chip.classList.add("repeat-flash");
+            (function(c) {
+              setTimeout(function() { c.classList.remove("repeat-flash"); }, 700);
+            })(chip);
+            break;
+          }
+        }
+        return;
+      }
+      // New way — record it.
+      waysFound.push(key);
+      const chip = document.createElement("div");
+      chip.className = "way-chip";
+      chip.setAttribute("data-key", key);
+      chip.textContent = key + " = " + r.total;
+      $("ways-list").appendChild(chip);
+
+      if (waysFound.length >= r.minWays) {
+        // Round complete — learner has produced enough distinct ways.
+        phase = "answered";
+        $("done-btn").style.display = "none";
+        $("frame-a").className = "frame";
+        $("frame-b").className = "frame";
+        $("instruction").textContent = "";
+        $("equation-reveal").textContent =
+          "You found " + waysFound.length + " ways to make " + r.total + "!";
+        $("equation-reveal").classList.add("visible");
+        $("success").classList.add("visible");
+        reportRound(true, waysFound.join(","));
+        return;
+      }
+
+      // Need more ways — reset frames, prompt for another decomposition.
+      const remaining = r.minWays - waysFound.length;
+      frameA = 0; frameB = 0;
+      drawFrame("frame-a", 0, true);
+      drawFrame("frame-b", 0, true);
+      $("instruction").textContent =
+        "Nice — that's one way. Find " + remaining +
+        (remaining === 1 ? " more." : " more.");
       return;
     }
 
@@ -557,6 +664,7 @@ export function numberFramesEngine(
       $("frames-wrap").style.display = "none";
       $("success").classList.remove("visible");
       $("equation-reveal").classList.remove("visible");
+      $("ways-panel").classList.remove("visible");
       return;
     }
     startRound();
