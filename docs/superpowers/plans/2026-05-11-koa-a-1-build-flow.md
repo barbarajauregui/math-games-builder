@@ -2,7 +2,14 @@
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use `superpowers:subagent-driven-development` (recommended) or `superpowers:executing-plans` to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-**Goal:** Replace the existing Builder picker / Scenario gate / AI-HTML-generation flow with a 5-step template-only Builder flow specifically for K.OA.A.1. Step 4 (mechanic picker) reads only the 4 PRIMARY engines from `src/data/standard-mechanic-map.json`. No Adversary ladder on template builds. Mad-lib only — no free-write story prose. Universal Lesson 1 confirmation card.
+**Goal:** Replace the existing Builder picker / Scenario gate / AI-HTML-generation flow with a 5-step template-only Builder flow specifically for K.OA.A.1. Step 4 (mechanic picker) reads only the **3** PRIMARY engines from `src/data/standard-mechanic-map.json`. No Adversary ladder on template builds, but the **Equity Reviewer stage runs visibly** (single Haiku call) catching Builder-content equity issues. Mad-lib only — no free-write story prose. Universal Lesson 1 confirmation card. Verb-operation lookup is **advisory only** (no soft warning when Builder disagrees per Audit 14 §1 Moschkovich corpus).
+
+**v2 evening 2026-05-11 changes from Audit 14:**
+- Coin Jar → Coin Jar with selectable items
+- Bar Model demoted from PRIMARY → SECONDARY at K.OA.A.1; 3 PRIMARY engines remain
+- Lesson 2 (verb-mismatch soft warning) removed; verb lookup remains as advisory pre-fill only
+- Equity Reviewer added as the single visible runtime stage for template builds
+- The Critic now has 6 criteria (Equation Rendering, Affective Tone added) — but Critic stages are skipped for templates anyway; relevant for the paste-HTML path only
 
 **Architecture:** A new top-level orchestrator component (`BuildFlow`) routes through 5 step-components, each holding only its slice of state. A discriminated-union reducer holds the shared `BuildState` (scenarioId / story slots / numbers / mechanicId / playtest results). Data files (scenarios + verb-operation map) live in `src/data/` and are read at component mount time. The 4 PRIMARY engines at Step 4 come from the standard-level mechanic mapping JSON. The flow lives at a new route `/build/[standardId]`; the legacy `BuilderHost` + `BuilderPicker` + `ScenarioGate` are deleted at the end.
 
@@ -415,7 +422,7 @@ git commit -m "feat(build-flow): scaffold types, reducer, route at /build/[stand
 
 ---
 
-## Task 2 — Scenario data: Group A (Penny Jar, Fish Tank, School Bus, Snack Plate)
+## Task 2 — Scenario data: Group A (Coin Jar, Fish Tank, School Bus, Snack Plate)
 
 **Files:**
 - Create: `src/data/scenarios/k-oa-a-1.ts` (Group A only this task; Group B added in Task 3)
@@ -447,7 +454,10 @@ Write `src/data/scenarios/k-oa-a-1.ts` (Group A only — Group B added in Task 3
 ```ts
 import type { Scenario } from "./types"
 
-const PENNY_JAR_CHARACTERS = ["Grandma", "Dad", "Mei", "Jamal", "a friend", "the storekeeper"]
+const COIN_JAR_CHARACTERS = ["Grandma", "Dad", "Mei", "Jamal", "a friend", "the storekeeper"]
+// v2 (2026-05-11 evening) per Audit 14: generalized from "pennies" to a
+// selectable items list. Original "Penny Jar" was US-coin-specific.
+const COIN_JAR_ITEMS = ["coins", "beads", "marbles", "pebbles", "buttons", "shells"]
 const SNACK_ITEMS = ["cookies", "crackers", "grapes", "orange slices", "cheese cubes", "carrot sticks"]
 const SNACK_CHARACTERS = ["Mama", "Papa", "Lucia", "Ben", "your sister", "your brother"]
 const SCHOOL_BUS_CHARACTERS = ["the driver", "Mr. Lee", "Ms. Patel", "the helper"]
@@ -464,40 +474,43 @@ const FISH_TANK_CHARACTERS = ["Mom", "Dad", "the pet store owner", "Lucia", "Ben
 export const K_OA_A_1_SCENARIOS: Scenario[] = [
   {
     id: "penny-jar",
-    title: "Penny Jar",
+    title: "Coin Jar",
     description: "A jar where coins get added (or spent).",
     emoji: "💰",
     illustrationAsset: null,
     templates: [
       {
-        id: "penny-jar-t1",
-        template: "{character} has {n1} pennies in their jar. They {verbPhrase} {n2} more pennies. How many pennies are in the jar now?",
+        id: "coin-jar-t1",
+        template: "{character} has {n1} {items} in their jar. They {verbPhrase} {n2} more {items}. How many {items} are in the jar now?",
         operation: "+",
         blanks: [
-          { id: "character", kind: "dropdown", options: PENNY_JAR_CHARACTERS },
+          { id: "character", kind: "dropdown", options: COIN_JAR_CHARACTERS },
           { id: "n1", kind: "number", min: 1, max: 9 },
+          { id: "items", kind: "dropdown", options: COIN_JAR_ITEMS },
           { id: "verbPhrase", kind: "dropdown", options: ["get", "find", "earn", "are given"] },
           { id: "n2", kind: "number", min: 1, max: 9 },
         ],
       },
       {
-        id: "penny-jar-t2",
-        template: "{character} has {n1} pennies. They {verbPhrase} {n2} of them. How many pennies are left?",
+        id: "coin-jar-t2",
+        template: "{character} has {n1} {items}. They {verbPhrase} {n2} of them. How many {items} are left?",
         operation: "-",
         blanks: [
-          { id: "character", kind: "dropdown", options: PENNY_JAR_CHARACTERS },
+          { id: "character", kind: "dropdown", options: COIN_JAR_CHARACTERS },
           { id: "n1", kind: "number", min: 2, max: 9 },
+          { id: "items", kind: "dropdown", options: COIN_JAR_ITEMS },
           { id: "verbPhrase", kind: "dropdown", options: ["spend", "lose", "give away", "drop"] },
           { id: "n2", kind: "number", min: 1, max: 8 },
         ],
       },
       {
-        id: "penny-jar-t3",
-        template: "There are {n1} pennies on the table. {character} {verbPhrase} {n2} more from the couch. How many pennies in all?",
+        id: "coin-jar-t3",
+        template: "There are {n1} {items} on the table. {character} {verbPhrase} {n2} more from the couch. How many {items} in all?",
         operation: "+",
         blanks: [
           { id: "n1", kind: "number", min: 1, max: 9 },
-          { id: "character", kind: "dropdown", options: PENNY_JAR_CHARACTERS },
+          { id: "items", kind: "dropdown", options: COIN_JAR_ITEMS },
+          { id: "character", kind: "dropdown", options: COIN_JAR_CHARACTERS },
           { id: "verbPhrase", kind: "dropdown", options: ["brings", "adds", "piles on", "stacks"] },
           { id: "n2", kind: "number", min: 1, max: 9 },
         ],
@@ -642,7 +655,7 @@ Expected: no errors.
 
 ```bash
 git add src/data/scenarios/
-git commit -m "feat(scenarios): K.OA.A.1 Group A scenarios (Penny Jar, Fish Tank, School Bus, Snack Plate) with 12 templates"
+git commit -m "feat(scenarios): K.OA.A.1 Group A scenarios (Coin Jar, Fish Tank, School Bus, Snack Plate) with 12 templates"
 ```
 
 ---
@@ -945,10 +958,12 @@ git commit -m "feat(scenarios): K.OA.A.1 Group B scenarios (Bakery, Toy Store, F
 
 ---
 
-## Task 4 — Verb-operation lookup table
+## Task 4 — Verb-operation lookup table (advisory only)
 
 **Files:**
 - Create: `src/lib/verb-operation-map.ts`
+
+> **v2 note 2026-05-11 evening per Audit 14 §1 (Moschkovich corpus):** the verb-operation lookup is now **advisory only**. It pre-fills the Step 3 operation dropdown for convenience; it does NOT drive a soft warning when the Builder picks the opposite operation. Keyword strategies in math word problems fail for English Learners; even with curated dropdowns, hard-coding the verb→operation mapping with a soft warning reifies the very keyword strategy the research argues against. Lookup stays as a convenience pre-fill; the Builder owns the operation choice.
 
 - [ ] **Step 4.1: Write the verb map and lookup function**
 
@@ -958,9 +973,14 @@ Write `src/lib/verb-operation-map.ts`:
 import type { Operation } from "@/data/scenarios/types"
 
 /**
- * Map from a verb-phrase (as it appears in story templates) to the math
- * operation it implies. Used by Step 3 to pre-fill the operation dropdown
- * from the verb the Builder picked at Step 2.
+ * ADVISORY verb-operation lookup. Pre-fills the Step 3 operation dropdown
+ * for the Builder's convenience; does NOT drive any warning or block.
+ *
+ * Per Audit 14 §1 (Moschkovich corpus on bilingual math learners), keyword
+ * strategies in math word problems fail for English Learners. Even with
+ * curated dropdowns, hard-coding the verb→operation mapping as authoritative
+ * reifies the keyword strategy. The lookup is one signal among many; the
+ * Builder owns the math choice.
  *
  * Source: docs/superpowers/specs/2026-05-11-koa-a-1-build-flow.md §4 (verb
  * table). Covers all verbs used in the 30 K.OA.A.1 mad-lib templates.
@@ -1058,8 +1078,12 @@ export function lookupOperation(verbPhrase: string): Operation | null {
 }
 
 /**
- * Used by Step 3's Lesson 2 soft warning: when the Builder's verb implies
- * one operation but they manually selected the other, fire a hint.
+ * DEPRECATED in v2. The verb-mismatch check was used by an earlier Step 3
+ * design that fired a "Lesson 2 soft warning" when the Builder's verb
+ * implied one operation but they picked the other. Per Audit 14 §1
+ * (Moschkovich on EL keyword-strategy failure), this warning was removed.
+ * Kept exported only because some telemetry path may log disagreement
+ * events to learning_data without showing the kid anything.
  */
 export function verbMismatchesOperation(verbPhrase: string, chosen: Operation): boolean {
   const implied = lookupOperation(verbPhrase)
@@ -1486,7 +1510,7 @@ Note the `PICK_TEMPLATE` payload accepts a string OR null — the reducer accept
 
 `npx tsc --noEmit` (expect: no errors).
 
-Open `/build/K.OA.A.1`, pick Penny Jar, pick a story, fill the dropdowns + numbers. Expected: the rendered preview shows the filled story; Continue is disabled until all blanks are filled.
+Open `/build/K.OA.A.1`, pick Coin Jar, pick a story, fill the dropdowns + numbers. Expected: the rendered preview shows the filled story; Continue is disabled until all blanks are filled.
 
 - [ ] **Step 6.4: Commit**
 
@@ -1630,7 +1654,7 @@ git commit -m "feat(build-flow): Lesson1 confirmation card with universal post-S
 
 ---
 
-## Task 8 — Step 3 component: MathSetter
+## Task 8 — Step 3 component: MathSetter (no Lesson 2 soft warning per v2)
 
 **Files:**
 - Create: `src/components/build-flow/math-setter.tsx`
@@ -1645,10 +1669,9 @@ Write `src/components/build-flow/math-setter.tsx`:
 
 import { useMemo } from "react"
 import type { Operation } from "@/data/scenarios/types"
-import { lookupOperation, verbMismatchesOperation } from "@/lib/verb-operation-map"
+import { lookupOperation } from "@/lib/verb-operation-map"
 
 interface MathSetterProps {
-  verbPhrase: string | null
   operation: Operation | null
   n1: number | null
   n2: number | null
@@ -1659,7 +1682,6 @@ interface MathSetterProps {
 }
 
 export function MathSetter({
-  verbPhrase,
   operation,
   n1,
   n2,
@@ -1675,10 +1697,10 @@ export function MathSetter({
 
   const rangeOverflow = operation === "+" && result != null && result > 10
   const belowZero = operation === "-" && n1 != null && n2 != null && n2 > n1
-  const verbHintShows =
-    verbPhrase != null &&
-    operation != null &&
-    verbMismatchesOperation(verbPhrase, operation)
+  // v2 (2026-05-11 evening) per Audit 14 §1: Lesson 2 (verb-mismatch soft
+  // warning) is REMOVED. Moschkovich corpus on EL keyword-strategy failure.
+  // verbPhrase is no longer passed in; lookupOperation only used to pre-fill
+  // the operation dropdown, never to second-guess the Builder.
 
   const continueDisabled =
     operation == null ||
@@ -1742,13 +1764,8 @@ export function MathSetter({
       </div>
 
       <div className="min-h-[3rem] mt-4 space-y-2">
-        {verbHintShows && (
-          <p className="text-sm text-amber-400/80 italic">
-            Your story sounds like &ldquo;{verbPhrase}&rdquo; usually means{" "}
-            {operation === "+" ? "subtraction" : "addition"}. Are you sure you want{" "}
-            {operation === "+" ? "addition" : "subtraction"}?
-          </p>
-        )}
+        {/* v2: no verb-mismatch hint — per Audit 14 §1 the verb lookup is
+            advisory only; never penalize the Builder for disagreeing. */}
         {rangeOverflow && (
           <p className="text-sm text-amber-400/80 italic">
             K.OA.A.1 is for numbers within 10 — try smaller numbers.
@@ -1818,11 +1835,6 @@ Add the math step rendering block, replacing the placeholder for `state.step !==
 ```tsx
       {state.step === "math" && scenario && (
         <MathSetter
-          verbPhrase={
-            typeof state.filledBlanks["verbPhrase"] === "string"
-              ? (state.filledBlanks["verbPhrase"] as string)
-              : null
-          }
           operation={state.operation}
           n1={state.n1}
           n2={state.n2}
@@ -1957,18 +1969,19 @@ export function MechanicPicker({
 }
 ```
 
-- [ ] **Step 9.2: Verify getOptionDef returns title + description for the 4 PRIMARY engines**
+- [ ] **Step 9.2: Verify getOptionDef returns title + description for the 3 PRIMARY engines**
 
-Run: `npx tsx -e "import { getOptionDef } from './src/lib/game-engines/game-option-registry'; for (const id of ['number-frames','free-collect','cuisenaire-rods','bar-model']) { const d = getOptionDef(id); console.log(id, d?.title ?? '<no title>', d?.description ? d.description.slice(0,60) : '<no desc>'); }"`
+Run: `npx tsx -e "import { getOptionDef } from './src/lib/game-engines/game-option-registry'; for (const id of ['number-frames','free-collect','cuisenaire-rods']) { const d = getOptionDef(id); console.log(id, d?.title ?? '<no title>', d?.description ? d.description.slice(0,60) : '<no desc>'); }"`
 
-If any of the four returns `<no title>` or `<no desc>`, open `src/lib/game-engines/game-option-registry.ts` and ensure the entry has `title:` and `description:` fields populated with the values from spec §5:
+If any of the three returns `<no title>` or `<no desc>`, open `src/lib/game-engines/game-option-registry.ts` and ensure the entry has `title:` and `description:` fields populated with the values from spec §5:
 
 | Engine ID | Display title | Description |
 |---|---|---|
 | `number-frames` | Ten-Frame Counters | Drop counters into ten-frames, then count them all together. |
 | `free-collect` | Catch & Count | Catch falling items into a basket, then count what you got. |
 | `cuisenaire-rods` | Length Rods | Snap two colored rods end-to-end to make a longer one. |
-| `bar-model` | Bar Model | Build two bars side by side to show the parts and the whole. |
+
+*(v2 2026-05-11: Bar Model was originally in this list. Demoted to SECONDARY per Audit 14 / `standard-mechanic-map.json` update. Step 4 reads the PRIMARY list from the JSON file at runtime, so demotion takes effect automatically.)*
 
 Make the edits only if a field is missing or generic — leave existing values intact otherwise.
 
@@ -2010,7 +2023,7 @@ Update the trailing placeholder condition to exclude `mechanic` too:
 
 `npx tsc --noEmit` (expect: no errors).
 
-Walk to Step 4. Expected: 4 cards visible (Ten-Frame Counters, Catch & Count, Length Rods, Bar Model). Clicking one advances to step `playtest`.
+Walk to Step 4. Expected: **3 cards** visible (Ten-Frame Counters, Catch & Count, Length Rods). Clicking one advances to step `playtest`.
 
 - [ ] **Step 9.5: Commit**
 
@@ -2126,6 +2139,27 @@ export function PlaytestSubmit(props: PlaytestSubmitProps) {
     if (!activeProfile || !html) return
     onBeginSubmit()
     try {
+      // v2 (2026-05-11 evening): call critique with Equity Reviewer enabled
+      // and all Critic stages skipped (template build, no Builder code).
+      // Equity warnings surface to the Builder UI; never block.
+      const equityRes = await apiFetch("/api/game/critique", {
+        method: "POST",
+        body: JSON.stringify({
+          standardId,
+          scenario: renderedStory,
+          gameHtml: html,
+          skipStages: [1, 2, 3, 4],
+          runEquityReview: true,
+        }),
+      })
+      const equityData = await equityRes.json().catch(() => ({}))
+      // Show equity warnings if any; Builder can dismiss and continue.
+      // (UI surface for warnings is implemented in a sub-step;
+      // for v1 this just logs them — the soft-warn UI is fast-follow.)
+      if (equityData?.equityWarnings?.length) {
+        console.info("Equity Reviewer warnings:", equityData.equityWarnings)
+      }
+
       const title = `${scenarioTitle}: ${renderedStory.slice(0, 50)}`
       const res = await apiFetch("/api/game/save", {
         method: "POST",
@@ -2141,6 +2175,7 @@ export function PlaytestSubmit(props: PlaytestSubmitProps) {
           ratingSum: 0,
           ratingCount: 0,
           status: "pending_review",
+          equityWarnings: equityData?.equityWarnings ?? [],
         }),
       })
       const data = await res.json().catch(() => ({}))
@@ -2384,25 +2419,145 @@ git commit -m "feat(build-flow): side-menu drawer with Learn More / Play / Profi
 
 ---
 
-## Task 12 — Critique route honors skipStages
+## Task 12 — Critique route honors skipStages + runs Equity Reviewer
 
 **Files:**
-- Modify: `src/app/api/game/critique/route.ts` (accept and honor `skipStages` array)
+- Modify: `src/app/api/game/critique/route.ts` (accept `skipStages` + `runEquityReview`; invoke Equity Reviewer when flagged)
+- Create: `src/lib/agent-prompts/equity-reviewer.ts` (the prompt builder for the new agent)
 
-- [ ] **Step 12.1: Add the skipStages parameter**
+> **v2 2026-05-11 evening:** the critique route gains a new optional stage — the Equity Reviewer — runnable independently of the existing 4 stages. For template-based builds, the K.OA.A.1 flow calls `critique` with `skipStages: [1,2,3,4]` and `runEquityReview: true`, getting just the equity warnings.
 
-Open `src/app/api/game/critique/route.ts`. Find where the request body is parsed (near the top of the POST handler). Update to extract `skipStages`:
+- [ ] **Step 12.1: Create the Equity Reviewer prompt builder**
+
+Write `src/lib/agent-prompts/equity-reviewer.ts`:
 
 ```ts
-const { standardId, scenario, gameHtml, skipStages } = (await req.json()) as {
+import type { AgentLadderInput } from "./types"
+
+/**
+ * Equity Reviewer (Audit 14) — single Haiku call, soft-warn never blocks.
+ * Grounded in agents/shared-knowledge/equity-language-in-math.md,
+ * equity-funds-of-knowledge.md, equity-stereotype-and-anxiety.md, and
+ * math-anxiety-transmission.md (base case for Criterion 4).
+ *
+ * 5 criteria — all SOFT-WARN, never block ship:
+ * 1. EL accessibility (Moschkovich)
+ * 2. Funds-of-knowledge fit (Civil / González / Moll)
+ * 3. Stereotype-threat surfaces (Spencer / Steele; contested in children)
+ * 4. Equity-specific affective markers (extends Critic Criterion 6)
+ * 5. Identity visibility beyond Builder name + avatar (design-time mostly)
+ */
+
+export const EQUITY_REVIEWER_MODEL = "claude-haiku-4-5-20251001"
+
+export function buildEquityReviewerPrompt(input: AgentLadderInput): string {
+  return `You are The Equity Reviewer for Math Games Builder. Review the Builder's scenario, story, and game content against 5 equity criteria. ALL findings are SOFT-WARNINGS — never block the Builder from shipping. The Builder can dismiss any warning.
+
+THE STANDARD THIS GAME CLAIMS TO TEACH
+- ID: ${input.standardId}
+
+THE BUILDER'S SCENARIO / STORY
+${input.scenario}
+
+THE GAME (HTML)
+\`\`\`html
+${input.gameHtml}
+\`\`\`
+
+THE 5 CRITERIA (all SOFT-WARN; cite the shared-knowledge file)
+
+1. EL accessibility (Moschkovich corpus; shared-knowledge/equity-language-in-math.md). Check for English-specific idioms ("left over", "in a row", "yard sale"), culturally-specific US vocabulary the kid won't know, or prompts requiring English-verbal-arithmetic without visual support.
+
+2. Funds-of-knowledge fit (Civil 2007, González/Moll/Amanti 2005; shared-knowledge/equity-funds-of-knowledge.md). Check for default-US-middle-class settings, narrow item dropdowns, household-structure assumptions ("Mom and Dad"). DON'T ding character-name diversity — that's already strong in MGB. Focus on settings and items.
+
+3. Stereotype-threat surfaces (Spencer/Steele 1999; Galdi 2014 / Ganley 2013 / Agnoli 2021 contested; shared-knowledge/equity-stereotype-and-anxiety.md). Check for identity-prime-before-math, group comparisons ("boys are better"), identity attributes as math-relevant variables. Conservative posture: warn on strong markers only.
+
+4. Equity-specific affective tone (extends Critic Criterion 6; shared-knowledge/math-anxiety-transmission.md + equity-stereotype-and-anxiety.md). Check for scarcity framings ("only one chance"), failure-as-permanent ("you'll never get it"), comparative-shame ("everyone else got this").
+
+5. Identity visibility beyond name + avatar. Check for grade-level badges, gender markers, flags, school-name exposure. Mostly fires on design-time UI review; for per-game submission, skip unless something in the gameHtml itself exposes additional identity attributes.
+
+OUTPUT FORMAT — strict JSON, no other text:
+
+{
+  "warnings": [
+    {
+      "criterion": "EL accessibility" | "Funds-of-knowledge" | "Stereotype threat" | "Affective tone" | "Identity visibility",
+      "markerPhrase": "<exact phrase / pattern found in the content>",
+      "tip": "<plain-English suggestion for the Builder; 1-2 sentences>",
+      "sharedKnowledgeFile": "<path to the relevant shared-knowledge file>"
+    }
+  ],
+  "summary": "<one-line plain-English summary the Builder sees first>"
+}
+
+If no warnings, return { "warnings": [], "summary": "Your game's content reads as accessible and inclusive." }
+
+Be supportive, evidence-grounded, never preachy. The Builder is doing their best for younger kids — you're helping their game land for more kids.`
+}
+```
+
+- [ ] **Step 12.2: Add the skipStages + runEquityReview parameters**
+
+Open `src/app/api/game/critique/route.ts`. Update the body parse:
+
+```ts
+const { standardId, scenario, gameHtml, skipStages, runEquityReview } = (await req.json()) as {
   standardId: string
   scenario: string
   gameHtml: string
   skipStages?: number[]
+  runEquityReview?: boolean
 }
 ```
 
-For each of the four stage blocks, wrap the stage in a skip check. Example for Stage 1:
+- [ ] **Step 12.3: Add the Equity Reviewer stage (before the 4 Critic stages, runs independently)**
+
+In `src/app/api/game/critique/route.ts`, add this block immediately after parsing the body and BEFORE the existing 4 stages:
+
+```ts
+// Equity Reviewer (Audit 14) — independent stage; never blocks.
+// Returns soft-warnings on the response under `equityWarnings`.
+let equityWarnings: Array<{ criterion: string; markerPhrase: string; tip: string; sharedKnowledgeFile: string }> = []
+if (runEquityReview) {
+  try {
+    const { parsed, cost } = await callModelWithRetry(
+      EQUITY_REVIEWER_MODEL,
+      buildEquityReviewerPrompt(input),
+      900
+    )
+    totalCost += cost
+    const v = parsed as { warnings?: typeof equityWarnings; summary?: string }
+    equityWarnings = v.warnings ?? []
+  } catch (err) {
+    // Equity Reviewer failure should NOT block; log only.
+    console.warn("Equity Reviewer call failed:", err instanceof Error ? err.message : err)
+  }
+}
+```
+
+Add imports near the top:
+
+```ts
+import {
+  EQUITY_REVIEWER_MODEL,
+  buildEquityReviewerPrompt,
+} from "@/lib/agent-prompts/equity-reviewer"
+```
+
+Then ensure the final Response.json() at the end includes `equityWarnings`:
+
+```ts
+return Response.json({
+  passed: true,
+  stages,
+  finalVerdict: "PASSED" as const,
+  builderFacingMessage: "All checks passed",
+  totalCostEstimateUsd: totalCost,
+  equityWarnings,
+})
+```
+
+For each of the four Critic stage blocks, wrap the stage in a skip check. Example for Stage 1:
 
 ```ts
   // ---------- Stage 1: Haiku Critic ----------
@@ -2500,7 +2655,7 @@ git commit -m "feat(standard-panel): route 'Open Build Flow' button to /build/[s
 Run `npm run dev`. Sign in. Open galaxy. Click K.OA.A.1 moon. Click "Open Build Flow →". Verify in order:
 
 1. Scenario picker shows 10 cards in 2×5 grid (or appropriate responsive grid).
-2. Pick "Penny Jar" — mad-lib template selector shows 3 stories.
+2. Pick "Coin Jar" — mad-lib template selector shows 3 stories.
 3. Pick a template — blanks render inline with dropdowns and number inputs.
 4. Fill all blanks — preview shows the rendered story. Continue enables.
 5. Click Continue — Lesson 1 card appears with the quoted story.

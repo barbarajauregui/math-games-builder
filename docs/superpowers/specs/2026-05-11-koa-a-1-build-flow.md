@@ -2,6 +2,13 @@
 
 *Date: 2026-05-11 · Owner: Barbara · Status: DRAFT for Barbara's review · Implements: 5-step build flow per Audit 10, K.OA.A.1 specifically*
 
+> **v2 update 2026-05-11 evening — five changes from Audit 14 (equity / EL / cultural fit / stereotype threat):**
+> 1. Coin Jar → **Coin Jar** with selectable currency items (US-specific coin assumption was an EL/cultural barrier)
+> 2. K.OA.A.1 PRIMARY engines reduced from 4 to **3** (Bar Model demoted to SECONDARY per de Koning et al. 2022; returns to PRIMARY at 1.OA / 2.OA / 3.OA)
+> 3. Verb-operation lookup is now **advisory only** — pre-fills Step 3 for convenience but NO soft warning when Builder picks the "wrong" operation (Moschkovich corpus: keyword strategies fail for ELs)
+> 4. **Equity Reviewer added as Stage 1.5** of the runtime ladder — single Haiku call (~$0.005) per submission, soft-warn never blocks. For template builds this is the ONLY stage that fires visibly.
+> 5. **Critic now has 6 criteria** (was 4) — Criterion 5 Equation Rendering (soft-reject; alternate left/right placement of recorded equations), Criterion 6 Affective Tone (soft-warn; math-anxiety markers).
+
 > **Required reading before implementation:**
 > - `docs/product-positioning.md` (north star)
 > - `docs/audit/10-new-build-flow.md` (the 5-step flow + 5 locked adjustments)
@@ -20,7 +27,7 @@
 
 A Builder picking K.OA.A.1 walks through **five short screens**, in order:
 
-1. **Pick a scenario** — they choose from 10 cards (4 from the K.OA.A.1 standard's named real-world applications + 6 evergreen). Each card is a familiar setting like Penny Jar, Fish Tank, Bakery, or Classroom.
+1. **Pick a scenario** — they choose from 10 cards (4 from the K.OA.A.1 standard's named real-world applications + 6 evergreen). Each card is a familiar setting like Coin Jar, Fish Tank, Bakery, or Classroom.
 2. **Fill a mad-lib story** — they pick from dropdowns and type a few words to fill in 3 templates the scenario offers, producing a 2-3 sentence story like *"Grandma has 4 pennies. She gives you 3 more pennies. How many pennies now?"* Then a one-click confirmation card asks them to confirm the math is load-bearing in the story (Lesson 1, universalized).
 3. **Set the math** — the operation (+ or −) and the two numbers are pre-filled by parsing the verb in the Builder's story; the Builder confirms or edits. K.OA.A.1's range cap (within 10) is enforced here. If the verb suggests addition but the Builder picks subtraction (or vice versa), a soft inline tip appears — never a block.
 4. **Pick a mechanic** — the Builder sees a filtered card grid of vetted addition/counting engines from the registry (per Audit 11 §3). Each card shows a looping animated preview. A small "see more mechanics →" link surfaces the full engine list with a soft warning.
@@ -44,7 +51,7 @@ A small caption above the grid reads: *"Pick a place where adding or taking away
 
 | # | Title | One-sentence card description | Visual hint |
 |---|---|---|---|
-| 1 | **Penny Jar** | A jar where coins get added (or spent). | 💰 — drawn pennies dropping into a glass jar |
+| 1 | **Coin Jar** | A jar where coins get added or spent. Items dropdown lets the Builder pick what fills the jar (coins / beads / marbles / pebbles / buttons). | 💰 — drawn coins dropping into a glass jar |
 | 2 | **Fish Tank** | An aquarium where fish are added or scooped out. | 🐟 — goldfish over a blue gradient tank background |
 | 3 | **School Bus** | A bus picking kids up at stops (or dropping them off). | 🚌 — yellow bus with little circles for kid-windows |
 | 4 | **Snack Plate** | A plate where snacks are placed or eaten. | 🍪 — round plate with cookies stacked |
@@ -96,15 +103,15 @@ The Builder is never asked to free-write more than a single noun or number. This
 
 Below: 3 templates per scenario. **Each template's structure is fixed; only the listed dropdowns and number inputs are editable.** The templates are designed so that the parsed verb cleanly maps to + or − (see §4).
 
-#### 1. Penny Jar
+#### 1. Coin Jar (generalized from "Penny Jar" per Audit 14)
 
-- **T1 (add):** `[CHARACTER]` has `[N1]` pennies in their jar. They `[VERB-PHRASE]` `[N2]` more pennies. How many pennies are in the jar now?
+- **T1 (add):** `[CHARACTER]` has `[N1]` `[ITEMS]` in their jar. They `[VERB-PHRASE]` `[N2]` more `[ITEMS]`. How many `[ITEMS]` are in the jar now?
   - CHARACTER: Grandma / Dad / Mei / Jamal / a friend / the storekeeper
-  - ITEMS: pennies *(fixed for this scenario; not user-editable)*
+  - **ITEMS: coins / beads / marbles / pebbles / buttons / shells** *(was hard-coded "pennies"; generalized for cultural fit per Audit 14)*
   - VERB-PHRASE: get / find / earn / are given
-- **T2 (subtract):** `[CHARACTER]` has `[N1]` pennies. They `[VERB-PHRASE]` `[N2]` of them. How many pennies are left?
+- **T2 (subtract):** `[CHARACTER]` has `[N1]` `[ITEMS]`. They `[VERB-PHRASE]` `[N2]` of them. How many `[ITEMS]` are left?
   - VERB-PHRASE: spend / lose / give away / drop
-- **T3 (add):** There are `[N1]` pennies on the table. `[CHARACTER]` `[VERB-PHRASE]` `[N2]` more from the couch. How many pennies in all?
+- **T3 (add):** There are `[N1]` `[ITEMS]` on the table. `[CHARACTER]` `[VERB-PHRASE]` `[N2]` more from the couch. How many `[ITEMS]` in all?
   - VERB-PHRASE: brings / adds / piles on / stacks
 
 #### 2. Fish Tank
@@ -326,17 +333,17 @@ The verb chosen in `[VERB-PHRASE]` at Step 2 maps to + or − through a static l
 
 **Important:** the verb lookup is the single source of truth. If a Builder picks an "add" verb and overrides the operation dropdown to `−`, Lesson 2's soft warning fires.
 
-### Lesson 2 — soft warning logic
+### Lesson 2 — REMOVED in v2 (Audit 14 §1 rank-1 fix)
 
-Per Audit 10 R3 (locked): never blocking. Inline gray text below the operation dropdown.
+The verb-mismatch soft warning is **dropped entirely**. Moschkovich's 20-year corpus on bilingual math learners argues that keyword strategies ("more = +", "left = −") fail for English Learners; even with curated dropdowns, hard-coding the verb→operation mapping and warning when the Builder disagrees reifies the very keyword strategy the literature argues against.
 
-**Trigger conditions:**
+**What stays:** the verb lookup table (`src/lib/verb-operation-map.ts`) still pre-fills the Step 3 operation dropdown for convenience. The lookup is now **advisory only** — labeled in code as such.
 
-1. **Verb mismatch.** Verb maps to + but Builder selected −, or vice versa.
-   - Message: *"Your story sounds like '[chosen verb-phrase]' usually means [opposite operation]. Are you sure you want [chosen operation]?"*
-2. **No trigger** if verb and operation agree.
+**What goes:** the `verbHintShows` / Lesson 2 soft-warning UI. No more "your story sounds like X usually means Y" tip. The Builder owns the operation choice without our keyword-heuristic second-guessing them.
 
-The Builder can dismiss the warning implicitly (just hit Continue) or edit. Latency-disagreement (verb says +, Builder confirms −) is logged to `learning_data` for later analysis per Audit 10 §Q6.
+**Optional telemetry (no UX):** still log `verbOperationDisagreement` events to `learning_data` for later analysis — but the kid never sees it.
+
+Authoritative reference: `docs/agents/shared-knowledge/equity-language-in-math.md` (Audit 14 fix #1).
 
 ### Range constraint logic
 
@@ -389,9 +396,9 @@ Below the grid:
 | `number-frames` | **Ten-Frame Counters** | Drop counters into ten-frames, then count them all together. | Counters fall into a ten-frame, two frames slide together, hand taps each. | objects, equation |
 | `free-collect` | **Catch & Count** | Catch falling items into a basket, then count what you got. | Items fall, basket catches, count number rises only when player taps. | objects, equation |
 | `cuisenaire-rods` | **Length Rods** | Snap two colored rods end-to-end to make a longer one. | Red rod + green rod snap into a single longer rod against a length scale. | objects, drawings, equation |
-| `bar-model` | **Bar Model** | Build two bars side by side to show the parts and the whole. | Two colored bars stretch, snap together, total bar appears. | drawings, equation |
+| ~~`bar-model`~~ | ~~**Bar Model**~~ | **Demoted to SECONDARY 2026-05-11 per Audit 14.** de Koning et al. 2022 "double-edged sword" finding for K-grade inconsistent-keyword problems + EL-accessibility concern. Bar Model returns to PRIMARY at 1.OA / 2.OA / 3.OA. | n/a — not shown at K.OA.A.1 Step 4 | n/a |
 
-That's **4 cards** — exactly the K.OA.A.1 PRIMARY list. All four shown by default in a 2×2 grid (or 1-column on phone). No "see more" link.
+That's **3 cards** — exactly the K.OA.A.1 PRIMARY list as of v2 (Bar Model demoted to SECONDARY per Audit 14). All three shown by default in a 3-column row on desktop (or 1-column on phone). No "see more" link.
 
 **Why the demotions (from Audit 13):**
 - `shortest-route`, `delivery-run`, `map-builder`, `map-distance` → NOT_APPLICABLE: numbers-as-distances pattern exceeds K.OA.A.1's "within 10" range.
@@ -431,11 +438,18 @@ The Builder plays the engine until they reach a successful round-end state (the 
 
 ### Critic ladder behavior on Submit
 
-**Updated 2026-05-11 per Barbara's Q4 decision:** the Adversary ladder is **dropped entirely for template-based builds**. Reasoning: with template-only builds (no AI-generated HTML; no paste-HTML), the Builder's customization surface is dropdown-only — scenario, mad-lib slots, numbers, mechanic pick. None of those changes can introduce a runtime shortcut in the engine code. The engine is pre-vetted at design time; emergent exploits from Builder content have no surface to live in.
+**Updated 2026-05-11 evening per Audit 14:** the Adversary ladder is **dropped for template-based builds** (no Builder code surface = no runtime exploit surface). HOWEVER, the **Equity Reviewer agent runs at Stage 1.5** as a single Haiku call (~$0.005 per build, <5% total ladder cost) because the Builder's CONTENT choices (scenario, story, character names, items, theme) can still introduce equity issues that template structure can't pre-vet.
 
 For the K.OA.A.1 template flow:
-- **All 4 stages SKIPPED INVISIBLY.** Build state records `criticLadder: skipped (template-only build, no Builder code).`
-- **The only quality gate at submit is: did the Builder beat their own game once?** That's already enforced by the playtest gate above.
+- **Critic Stages 1, 2, 3, 4 SKIPPED INVISIBLY.** Build state records `criticLadder: skipped (template-only build).`
+- **Equity Reviewer Stage 1.5 RUNS VISIBLY** (single Haiku call). Per `docs/agents/the-equity-reviewer.md`, it returns up to 5 SOFT-WARN entries the UI shows as dismissable tips. Never blocks; Builder can dismiss any/all warnings and submit.
+- **The hard quality gate at submit is still: did the Builder beat their own game once?** That's enforced by the playtest gate.
+
+UI flow at submit:
+1. Builder clicks Submit.
+2. "Reviewing your scenario for accessibility…" appears briefly (single Haiku call).
+3. If 0 warnings: card slides up with "Game sent to your guide!" and confetti.
+4. If 1+ warnings: card slides up with the warning(s) shown as friendly tips, each with the suggested fix. Two buttons: "Revise" (returns to the relevant step with state preserved) and "Submit anyway" (proceeds to the guide queue with warning content stored on the game record for the guide to consider during approval).
 
 For paste-HTML / hand-coded paths (NOT in this spec — they live in a separate Advanced surface), the Critic + Adversary ladder still runs visibly per the foundation work shipped in Foundation Fix #1.
 
@@ -483,7 +497,7 @@ Above the menu items, a 1-line standard header is **also** shown at the top of t
 1. Library home → "Build for K.OA.A.1" CTA → directly into Step 1 (scenario picker), with 1-line standard header at top + side menu.
 2. **Step 1:** Pick scenario (10 cards).
 3. **Step 2:** Pick + fill mad-lib (3 templates per scenario) → universal Lesson 1 confirmation card.
-4. **Step 3:** Operation + N1 + N2 + auto-result, with verb-parsed pre-fill, soft Lesson 2 warning, range constraint.
+4. **Step 3:** Operation + N1 + N2 + auto-result, with verb-parsed pre-fill (advisory only — no soft warning if Builder disagrees per Audit 14 §1), range constraint.
 5. **Step 4:** Pick mechanic from filtered card grid; "see more mechanics" override available.
 6. **Step 5:** Playtest the parameterized engine, beat one round, Submit. Critic 1 + 3 skip; Critic 2 + 4 (Adversary) run visibly. Pass → `pending_review`.
 
