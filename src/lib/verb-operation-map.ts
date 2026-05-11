@@ -29,6 +29,7 @@ const VERB_OPERATION_MAP: Record<string, Operation> = {
   "drops in": "+",
   "pours in": "+",
   "come out": "+", "comes out": "+",
+  "swim out": "+", // context: "swim out from behind the rock" — appearing, not leaving (fish-tank-t3)
   "appear": "+", "appears": "+",
   "arrive": "+", "arrives": "+",
   "join": "+", "joins": "+",
@@ -93,9 +94,14 @@ const VERB_OPERATION_MAP: Record<string, Operation> = {
   "picks": "-",
   "chooses": "-",
   "takes home": "-",
-  "swim out": "-",
   "pick": "-",
 }
+
+// "swim out" is intentionally ADDITIVE in this map. In template fish-tank-t3
+// ("{n1} goldfish are swimming. {n2} more goldfish swim out from behind the
+// rock. How many goldfish in all?") the verb describes goldfish appearing
+// from behind a rock — joining the visible group, not leaving the tank.
+// Adding it to the additive section above for clarity:
 
 /**
  * Look up the operation a verb-phrase implies.
