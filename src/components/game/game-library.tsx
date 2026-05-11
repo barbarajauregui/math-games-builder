@@ -10,7 +10,7 @@ import { GamePlayer } from "./game-player"
 import { Leaderboard } from "./leaderboard"
 import { Search } from "lucide-react"
 import { useTokenConfig } from "@/lib/token-config"
-import posthog from "posthog-js"
+import { track } from "@/lib/telemetry/posthog-client"
 
 interface GameLibraryProps {
   games: Omit<Game, "gameHtml">[]
@@ -81,7 +81,7 @@ export function GameLibrary({ games }: GameLibraryProps) {
   const handlePlay = async (gameId: string) => {
     setLoading(gameId)
     const game = games.find((g) => g.id === gameId)
-    posthog.capture("game_library_game_selected", { game_id: gameId, standard_id: game?.standardId })
+    track({ event: "game_library_game_selected", properties: { game_id: gameId, standard_id: game?.standardId } })
     try {
       const snap = await getDoc(doc(db, "games", gameId))
       if (!snap.exists()) throw new Error("Game not found")
@@ -109,7 +109,7 @@ export function GameLibrary({ games }: GameLibraryProps) {
       <div className="flex gap-1 mb-4 bg-zinc-900 border border-zinc-800 rounded-xl p-1 w-fit">
         {myGrade && (
           <button
-            onClick={() => { setTab("mine"); posthog.capture("game_library_tab_switched", { tab_name: "mine" }) }}
+            onClick={() => { setTab("mine"); track({ event: "game_library_tab_switched", properties: { tab_name: "mine" } }) }}
             className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
               tab === "mine"
                 ? "bg-zinc-700 text-white"
@@ -120,7 +120,7 @@ export function GameLibrary({ games }: GameLibraryProps) {
           </button>
         )}
         <button
-          onClick={() => { setTab("all"); posthog.capture("game_library_tab_switched", { tab_name: "all" }) }}
+          onClick={() => { setTab("all"); track({ event: "game_library_tab_switched", properties: { tab_name: "all" } }) }}
           className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
             tab === "all"
               ? "bg-zinc-700 text-white"
@@ -130,7 +130,7 @@ export function GameLibrary({ games }: GameLibraryProps) {
           All games
         </button>
         <button
-          onClick={() => { setTab("ranking"); posthog.capture("game_library_tab_switched", { tab_name: "ranking" }) }}
+          onClick={() => { setTab("ranking"); track({ event: "game_library_tab_switched", properties: { tab_name: "ranking" } }) }}
           className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
             tab === "ranking"
               ? "bg-zinc-700 text-white"

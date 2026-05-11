@@ -6,7 +6,7 @@ import { Logo } from "@/components/logo"
 import { useAuth } from "@/lib/auth"
 import { doc, updateDoc, getDoc } from "firebase/firestore"
 import { db, auth } from "@/lib/firebase"
-import posthog from "posthog-js"
+import { track } from "@/lib/telemetry/posthog-client"
 
 interface OnboardingData {
   name: string
@@ -616,8 +616,8 @@ export function OnboardingFlow({ onComplete }: OnboardingFlowProps) {
           if (code) setNewPersonalCode(code)
         }
       }
-      posthog.capture("onboarding_step_reached", { step: "codeReveal" })
-      posthog.capture("personal_code_viewed")
+      track({ event: "onboarding_step_reached", properties: { step: "codeReveal" } })
+      track({ event: "personal_code_viewed", properties: {} })
       setStep("codeReveal")
     } catch (err) {
       const msg = err instanceof Error ? err.message : "Could not join class. Try again."
@@ -667,7 +667,7 @@ export function OnboardingFlow({ onComplete }: OnboardingFlowProps) {
         // Silent fail — profile will be updated on next login
       }
     }
-    posthog.capture("onboarding_completed", { grade: data.grade })
+    track({ event: "onboarding_completed", properties: { grade: data.grade } })
     onComplete(data)
   }
 
@@ -677,8 +677,8 @@ export function OnboardingFlow({ onComplete }: OnboardingFlowProps) {
         {/* Welcome: new vs returning */}
         <StepWrapper visible={step === "welcome"}>
           <WelcomeChoiceStep
-            onNew={() => { posthog.capture("onboarding_started"); posthog.capture("onboarding_step_reached", { step: "classCode" }); setStep("classCode") }}
-            onReturning={() => { posthog.capture("onboarding_step_reached", { step: "returning" }); setStep("returning") }}
+            onNew={() => { track({ event: "onboarding_started", properties: {} }); track({ event: "onboarding_step_reached", properties: { step: "classCode" } }); setStep("classCode") }}
+            onReturning={() => { track({ event: "onboarding_step_reached", properties: { step: "returning" } }); setStep("returning") }}
           />
         </StepWrapper>
 
@@ -687,7 +687,7 @@ export function OnboardingFlow({ onComplete }: OnboardingFlowProps) {
           <ClassCodeStep
             value={classCode}
             onChange={setClassCode}
-            onNext={() => { posthog.capture("onboarding_step_reached", { step: "name" }); setStep("name") }}
+            onNext={() => { track({ event: "onboarding_step_reached", properties: { step: "name" } }); setStep("name") }}
             error={null}
           />
         </StepWrapper>
@@ -718,7 +718,7 @@ export function OnboardingFlow({ onComplete }: OnboardingFlowProps) {
           <CodeRevealStep
             name={data.name}
             code={newPersonalCode}
-            onContinue={() => { posthog.capture("onboarding_step_reached", { step: "grade" }); setStep("grade") }}
+            onContinue={() => { track({ event: "onboarding_step_reached", properties: { step: "grade" } }); setStep("grade") }}
           />
         </StepWrapper>
 
@@ -742,7 +742,7 @@ export function OnboardingFlow({ onComplete }: OnboardingFlowProps) {
             name={data.name}
             onSelect={(grade) => {
               setData((prev) => ({ ...prev, grade }))
-              posthog.capture("onboarding_step_reached", { step: "intro" })
+              track({ event: "onboarding_step_reached", properties: { step: "intro" } })
               setStep("intro")
             }}
           />

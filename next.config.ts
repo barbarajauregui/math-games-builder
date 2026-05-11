@@ -20,13 +20,15 @@ const nextConfig: NextConfig = {
         source: "/__/auth/:path*",
         destination: "https://option-c-14d3b.firebaseapp.com/__/auth/:path*",
       },
+      // PostHog ingest proxy. EU region per
+      // docs/superpowers/specs/2026-05-10-posthog-telemetry.md §3.
       {
         source: "/ingest/static/:path*",
-        destination: "https://us-assets.i.posthog.com/static/:path*",
+        destination: "https://eu-assets.i.posthog.com/static/:path*",
       },
       {
         source: "/ingest/:path*",
-        destination: "https://us.i.posthog.com/:path*",
+        destination: "https://eu.i.posthog.com/:path*",
       },
     ];
   },

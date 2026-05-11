@@ -1,14 +1,11 @@
-import { PostHog } from "posthog-node"
+/**
+ * @deprecated — use `@/lib/telemetry/posthog-server` instead.
+ *
+ * Kept as a thin re-export so existing call sites in
+ * `src/app/api/game/[id]/approve/route.ts` and
+ * `src/app/api/game/generate/route.ts` continue to compile during the
+ * Phase 1 telemetry migration. New code should import `trackServer` from
+ * `@/lib/telemetry/posthog-server`.
+ */
 
-let posthogClient: PostHog | null = null
-
-export function getPostHogClient(): PostHog {
-  if (!posthogClient) {
-    posthogClient = new PostHog(process.env.NEXT_PUBLIC_POSTHOG_PROJECT_TOKEN!, {
-      host: process.env.NEXT_PUBLIC_POSTHOG_HOST,
-      flushAt: 1,
-      flushInterval: 0,
-    })
-  }
-  return posthogClient
-}
+export { getPostHogClient, trackServer } from "@/lib/telemetry/posthog-server"

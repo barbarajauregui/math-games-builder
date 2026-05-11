@@ -10,7 +10,7 @@ import {
   SheetDescription,
 } from "@/components/ui/sheet"
 import { Lock, CheckCircle, ChevronLeft, Trophy, Play, X, ChevronDown, Volume2, VolumeX } from "lucide-react"
-import posthog from "posthog-js"
+import { track } from "@/lib/telemetry/posthog-client"
 import Link from "next/link"
 import { ConceptCard } from "./concept-card"
 import { CircuitBoardBuilder } from "./circuit-board-builder"
@@ -142,7 +142,7 @@ function MoonCardView({
       }),
     })
       .then((r) => r.json())
-      .then((data) => { if (!cancelled) { setExplanation(data); posthog.capture("explore_card_viewed", { standard_id: standard.id }) } })
+      .then((data) => { if (!cancelled) { setExplanation(data); track({ event: "explore_card_viewed", properties: { standard_id: standard.id } }) } })
       .catch(() => {
         if (!cancelled) setExplanation({
           whatIsThis: standard.description,
@@ -224,7 +224,7 @@ function MoonCardView({
               {/* Learn more — expandable */}
               <div className="rounded-xl border border-zinc-800 bg-zinc-900/50 overflow-hidden">
                 <button
-                  onClick={() => { const next = !learnMoreOpen; setLearnMoreOpen(next); if (next) posthog.capture("learn_more_expanded", { standard_id: standard.id }) }}
+                  onClick={() => { const next = !learnMoreOpen; setLearnMoreOpen(next); if (next) track({ event: "learn_more_expanded", properties: { standard_id: standard.id } }) }}
                   className="w-full flex items-center justify-between px-4 py-3 text-left hover:bg-zinc-800/50 transition-colors"
                 >
                   <span className="text-xs text-zinc-400 uppercase tracking-wide font-semibold">Learn more</span>

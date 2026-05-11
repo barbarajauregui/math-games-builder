@@ -8,7 +8,7 @@ import { GameIframe, type GameWinData } from "@/components/game/game-iframe"
 import { Trophy } from "lucide-react"
 import type { Game } from "@/lib/game-types"
 import type { FeedbackDoc } from "@/lib/feedback-types"
-import posthog from "posthog-js"
+import { track } from "@/lib/telemetry/posthog-client"
 import { useTokenConfig } from "@/lib/token-config"
 
 interface MasteryPlayProps {
@@ -70,14 +70,14 @@ export function MasteryPlay({ standardId, onDemonstrated }: MasteryPlayProps) {
     // earn tokens — but the play itself still "counts" (PostHog event,
     // no streak reset). Show a brief notice so the learner understands.
     if (data?.hintUsed) {
-      posthog.capture("own_game_win", { standard_id: standardId, streak: wins, hint_used: true })
+      track({ event: "own_game_win", properties: { standard_id: standardId, streak: wins, hint_used: true } })
       setShowHintNotice(true)
       setTimeout(() => setShowHintNotice(false), 3000)
       return
     }
     const newWins = wins + 1
     setWins(newWins)
-    posthog.capture("own_game_win", { standard_id: standardId, streak: newWins })
+    track({ event: "own_game_win", properties: { standard_id: standardId, streak: newWins } })
     if (newWins >= 3) {
       // Demonstrated! Flip standard to unlocked (green moon).
       setDemonstrated(true)
@@ -87,7 +87,7 @@ export function MasteryPlay({ standardId, onDemonstrated }: MasteryPlayProps) {
         unlockedAt: Date.now(),
         ownGameWinStreak: 3,
       })
-      posthog.capture("standard_unlocked", { standard_id: standardId })
+      track({ event: "standard_unlocked", properties: { standard_id: standardId } })
       // Notify parent so the planet can refresh / supernova can fire
       setTimeout(() => onDemonstrated(), 1500)
     } else {
@@ -233,7 +233,7 @@ export async function recordOtherGameWin(
       },
       { merge: true }
     )
-    posthog.capture("standard_mastered", { standard_id: standardId })
+    track({ event: "standard_mastered", properties: { standard_id: standardId } })
     return { mastered: true, wins: 3 }
   } else {
     await setDoc(ref, { othersGameWins: newWins }, { merge: true })

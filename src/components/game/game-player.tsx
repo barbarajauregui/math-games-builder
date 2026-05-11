@@ -8,7 +8,7 @@ import { X, Star, RotateCcw, ArrowLeft, BookOpen, Zap } from "lucide-react"
 import { FeedbackButton } from "@/components/feedback/feedback-button"
 import { useAuth } from "@/lib/auth"
 import { collection, doc, setDoc, updateDoc, arrayUnion } from "firebase/firestore"
-import posthog from "posthog-js"
+import { track } from "@/lib/telemetry/posthog-client"
 import { db } from "@/lib/firebase"
 import { logFromClient } from "@/lib/log-client"
 import type { FeedbackDoc } from "@/lib/feedback-types"
@@ -115,7 +115,7 @@ export function GamePlayer({ gameId, title, html, concept, onClose, isPendingRev
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ playerUid: activeProfile?.uid }),
     }).catch(() => {})
-    posthog.capture("library_game_played", { game_id: gameId, play_mode: playMode, standard_id: standardId })
+    track({ event: "library_game_played", properties: { game_id: gameId, play_mode: playMode, standard_id: standardId } })
   }, [gameId, isAuthor, isPendingReview])
 
   // Game-end handler — fired when the iframe posts game_win or game_lose.
@@ -132,7 +132,7 @@ export function GamePlayer({ gameId, title, html, concept, onClose, isPendingRev
         return
       }
       if (playMode === "master") {
-        posthog.capture("library_game_won", { game_id: gameId, standard_id: standardId, hint_used: !!winData?.hintUsed })
+        track({ event: "library_game_won", properties: { game_id: gameId, standard_id: standardId, hint_used: !!winData?.hintUsed } })
       }
       // If the learner used a hint, briefly surface why they aren't getting
       // tokens for this attempt. The win still propagates to the parent so
@@ -157,7 +157,7 @@ export function GamePlayer({ gameId, title, html, concept, onClose, isPendingRev
       })
       onWin?.(winData)
     } else {
-      posthog.capture("game_lost", { game_id: gameId, standard_id: standardId, play_mode: playMode })
+      track({ event: "game_lost", properties: { game_id: gameId, standard_id: standardId, play_mode: playMode } })
       logFromClient({
         type: "game_play",
         standardId: standardId || "",
@@ -369,7 +369,7 @@ export function GamePlayer({ gameId, title, html, concept, onClose, isPendingRev
               </button>
               <button
                 onClick={() => {
-                  posthog.capture("hint_card_opened", { game_id: gameId, standard_id: standardId })
+                  track({ event: "hint_card_opened", properties: { game_id: gameId, standard_id: standardId } })
                   setHintMode("hint")
                   // Fetch hint card content
                   if (concept) {
@@ -402,7 +402,7 @@ export function GamePlayer({ gameId, title, html, concept, onClose, isPendingRev
             <p className="text-sm text-zinc-400">Ready to play without it? Wins will count toward mastery and tokens.</p>
             <div className="flex flex-col gap-3">
               <button
-                onClick={() => { posthog.capture("hint_card_to_real_play", { game_id: gameId, standard_id: standardId }); setHintMode("real"); setIframeKey(k => k + 1) }}
+                onClick={() => { track({ event: "hint_card_to_real_play", properties: { game_id: gameId, standard_id: standardId } }); setHintMode("real"); setIframeKey(k => k + 1) }}
                 className="w-full py-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-sm transition-colors"
               >
                 Play for real →

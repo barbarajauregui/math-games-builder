@@ -1,5 +1,5 @@
 import Anthropic from "@anthropic-ai/sdk"
-import { getPostHogClient } from "@/lib/posthog-server"
+import { trackServer } from "@/lib/telemetry/posthog-server"
 
 // Generate-and-test loop can take 60-180s in the worst case:
 //   - Initial generation:        ~25-40s
@@ -527,9 +527,10 @@ Output ONLY the HTML, no markdown, no code fences.`
     const totalSeconds = Math.round((Date.now() - startTime) / 1000)
     console.log(`[generate] standard=${designDoc.standardId ?? "?"} mathRole="${designDoc.mathRole ?? "?"}" coreVerb="${coreVerb}" totalTime=${totalSeconds}s`)
 
-    const phog = getPostHogClient()
-    phog.capture({
-      distinctId: designDoc.standardId ?? "unknown",
+    // Server-side telemetry. The distinct id here isn't a learner — game
+    // generation is a server action triggered from the build flow — so we
+    // key by standard_id (or "unknown") to keep funnels groupable.
+    trackServer(designDoc.standardId ?? "unknown", {
       event: "game_generated",
       properties: {
         standard_id: designDoc.standardId,

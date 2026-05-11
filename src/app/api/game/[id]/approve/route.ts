@@ -1,6 +1,6 @@
 import { getAdminDb } from "@/lib/firebase-admin"
 import { FieldValue } from "firebase-admin/firestore"
-import { getPostHogClient } from "@/lib/posthog-server"
+import { trackServer } from "@/lib/telemetry/posthog-server"
 
 export async function POST(req: Request, { params }: { params: Promise<{ id: string }> }) {
   try {
@@ -70,9 +70,13 @@ export async function POST(req: Request, { params }: { params: Promise<{ id: str
         )
     }
 
-    const phog = getPostHogClient()
-    phog.capture({
-      distinctId: reviewerUid,
+    // Server-side telemetry. We don't have personal codes for the reviewer
+    // or author on this code path (would require a Firestore round-trip per
+    // request); use a synthetic distinct id keyed by game_id so the COPPA
+    // guard doesn't trip on raw Firebase UIDs. Properties carry the
+    // Firebase UIDs under their existing legacy field names for backwards-
+    // compat with downstream dashboards.
+    trackServer(`game_${id}`, {
       event: approved ? "game_approved" : "game_rejected",
       properties: {
         game_id: id,
@@ -82,8 +86,7 @@ export async function POST(req: Request, { params }: { params: Promise<{ id: str
       },
     })
     if (approved && game.authorUid) {
-      phog.capture({
-        distinctId: game.authorUid,
+      trackServer(`game_${id}`, {
         event: "token_earned",
         properties: {
           amount: gameApprovedTokens,

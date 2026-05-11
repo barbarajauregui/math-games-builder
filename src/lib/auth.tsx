@@ -34,7 +34,7 @@ import {
 import { auth, db } from "@/lib/firebase"
 import type { UserProfile, ProgressDoc } from "@/lib/auth-types"
 import { logFromClient } from "@/lib/log-client"
-import posthog from "posthog-js"
+import { resetUserContext, setUserContext, track } from "@/lib/telemetry/posthog-client"
 
 interface AuthContextValue {
   user: User | null
@@ -309,8 +309,14 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     // Reload profile
     await loadProfile(currentUser.uid)
 
-    posthog.identify(currentUser.uid, { name: trimmedName, role: "student" })
-    posthog.capture("learner_signed_in", { is_new_learner: !matching })
+    // COPPA-clean: identify by personal code, never by Firebase UID or name.
+    // Re-load the profile we just wrote so setUserContext gets the personal
+    // code that was just generated.
+    {
+      const snap = await getDoc(doc(db, "users", currentUser.uid))
+      if (snap.exists()) setUserContext(snap.data() as UserProfile)
+    }
+    track({ event: "learner_signed_in", properties: { is_new_learner: !matching } })
     logFromClient({
       type: "session_start",
       learnerId: currentUser.uid,
@@ -370,8 +376,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     // 5. Reload profile
     await loadProfile(currentUser.uid)
 
-    posthog.identify(currentUser.uid, { name: existingData.name, role: "student" })
-    posthog.capture("learner_signed_in", { is_new_learner: false, via: "personal_code" })
+    setUserContext({ ...existingData, role: "student" })
+    track({ event: "learner_signed_in", properties: { is_new_learner: false, via: "personal_code" } })
     logFromClient({
       type: "session_start",
       learnerId: currentUser.uid,
@@ -384,15 +390,26 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const signInGuide = useCallback(async (email: string, password: string) => {
     const cred = await signInWithEmailAndPassword(auth, email, password)
     await loadProfile(cred.user.uid)
-    posthog.identify(cred.user.uid, { email, role: "guide" })
-    posthog.capture("guide_signed_in", { method: "email" })
+    // Guide identity: still no email/name to PostHog. Identify by Firebase
+    // UID prefixed with "guide_" so the COPPA guard (which rejects raw
+    // Firebase UIDs) doesn't fire, while keeping guide events distinguishable.
+    {
+      const snap = await getDoc(doc(db, "users", cred.user.uid))
+      const guideProfile = snap.exists() ? (snap.data() as UserProfile) : null
+      setUserContext(guideProfile ? { ...guideProfile, role: "guide" } : null)
+    }
+    track({ event: "guide_signed_in", properties: { method: "email" } })
   }, [loadProfile])
 
   const signInGuideWithGoogle = useCallback(async () => {
     const result = await signInWithPopup(auth, googleProvider)
     await loadProfile(result.user.uid)
-    posthog.identify(result.user.uid, { email: result.user.email ?? undefined, role: "guide" })
-    posthog.capture("guide_signed_in", { method: "google" })
+    {
+      const snap = await getDoc(doc(db, "users", result.user.uid))
+      const guideProfile = snap.exists() ? (snap.data() as UserProfile) : null
+      setUserContext(guideProfile ? { ...guideProfile, role: "guide" } : null)
+    }
+    track({ event: "guide_signed_in", properties: { method: "google" } })
   }, [loadProfile])
 
   const linkGoogleAccount = useCallback(async () => {
@@ -407,7 +424,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
     await firebaseSignOut(auth)
     setProfile(null)
-    posthog.reset()
+    resetUserContext()
   }, [])
 
   const startImpersonating = useCallback(async (studentUid: string) => {

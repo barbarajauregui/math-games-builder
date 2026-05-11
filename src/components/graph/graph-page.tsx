@@ -30,7 +30,7 @@ import { GameIframe } from "@/components/game/game-iframe"
 import { apiFetch } from "@/lib/api-fetch"
 import { AgentLadderProgress, buildLadderView, type LadderStageView } from "@/components/builders/agent-ladder-progress"
 import { logFromClient } from "@/lib/log-client"
-import posthog from "posthog-js"
+import { track } from "@/lib/telemetry/posthog-client"
 import { MECHANIC_ANIMATIONS } from "@/lib/mechanic-animations"
 import moonNamesData from "@/data/moon-names.json"
 const MOON_NAMES = moonNamesData as Record<string, string>
@@ -640,7 +640,7 @@ export function GraphPage({ data }: GraphPageProps) {
     if (!node) return
     setSelectedStandard(node)
     setPanelOpen(true)
-    posthog.capture("moon_opened", { standard_id: node.id, domain: node.domain, grade: node.grade })
+    track({ event: "moon_opened", properties: { standard_id: node.id, domain: node.domain, grade: node.grade } })
     if (tutorialStep === 1) setTutorialStep(2)
 
     // Don't mark as in_progress just by opening — only when they
@@ -654,7 +654,7 @@ export function GraphPage({ data }: GraphPageProps) {
 
   // Mini-map: click planet
   const handleMiniMapClick = useCallback((planetId: string) => {
-    posthog.capture("galaxy_minimap_used", { planet_id: planetId })
+    track({ event: "galaxy_minimap_used", properties: { planet_id: planetId } })
     setCurrentPlanetId(planetId)
     setViewMode("planet")
   }, [])
@@ -699,7 +699,7 @@ export function GraphPage({ data }: GraphPageProps) {
         if (allMastered) {
           // Delay slightly so the wave effect plays first
           setTimeout(() => {
-            posthog.capture("supernova_triggered", { planet_id: planet.id })
+            track({ event: "supernova_triggered", properties: { planet_id: planet.id } })
             setMasteryEvent({ planetName: planet.domainName, planetColor: planet.color, tokenGain: 0 })
           }, 800)
         }
@@ -773,7 +773,7 @@ export function GraphPage({ data }: GraphPageProps) {
       // Give the camera a moment to land, then trigger the supernova
       if (fillsPlanet && planet) {
         setTimeout(() => {
-          posthog.capture("supernova_triggered", { planet_id: planet.id })
+          track({ event: "supernova_triggered", properties: { planet_id: planet.id } })
           setMasteryEvent({
             planetName: planet.domainName,
             planetColor: planet.color,
@@ -791,7 +791,7 @@ export function GraphPage({ data }: GraphPageProps) {
           return st === "unlocked" || st === "mastered"
         })
         if (gradeComplete) {
-          posthog.capture("grade_completed", { grade: node.grade })
+          track({ event: "grade_completed", properties: { grade: node.grade } })
           // Award grade completion badge
           if (activeProfile?.uid) {
             updateDoc(doc(db, "users", activeProfile.uid), {

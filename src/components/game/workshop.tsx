@@ -9,7 +9,7 @@ import { MathMomentOverlay } from "./math-moment-overlay"
 import { ArrowLeft, MessageCircle, X, Wrench, Pencil, RotateCcw } from "lucide-react"
 import { useAuth } from "@/lib/auth"
 import { sanitizeGameHtml } from "@/lib/html-sanitizer"
-import posthog from "posthog-js"
+import { track } from "@/lib/telemetry/posthog-client"
 
 interface WorkshopProps {
   initialHtml: string
@@ -160,11 +160,11 @@ export function Workshop({
             html={html}
             className="w-full h-full"
             onLose={() => {
-              posthog.capture("game_tested_in_workshop", { game_id: currentGameId, standard_id: designDoc.standardId, outcome: "lose", hint_mode: hintMode })
+              track({ event: "game_tested_in_workshop", properties: { game_id: currentGameId ?? undefined, standard_id: designDoc.standardId, outcome: "lose", hint_mode: hintMode } })
               setShowMathMoment(true)
             }}
             onWin={(data) => {
-              posthog.capture("game_tested_in_workshop", { game_id: currentGameId, standard_id: designDoc.standardId, outcome: "win", hint_mode: hintMode, hint_used: !!data?.hintUsed })
+              track({ event: "game_tested_in_workshop", properties: { game_id: currentGameId ?? undefined, standard_id: designDoc.standardId, outcome: "win", hint_mode: hintMode, hint_used: !!data?.hintUsed } })
               if (hintMode === "hint") {
                 setHasWonHint(true)
                 setHintMode("prompt_real")
@@ -243,7 +243,7 @@ export function Workshop({
                     onClick={async () => {
                       setIsRefining(true)
                       const fullIssue = selectedFix.issue + (fixDetails.trim() ? " Details from learner: " + fixDetails.trim() : "")
-                      posthog.capture("fix_this_submitted", { game_id: currentGameId, issue: selectedFix.label, details: fixDetails })
+                      track({ event: "fix_this_submitted", properties: { game_id: currentGameId ?? undefined, issue: selectedFix.label, details: fixDetails } })
                       try {
                         const res = await fetch("/api/game/chat", {
                           method: "POST",
@@ -295,7 +295,7 @@ export function Workshop({
                       onKeyDown={async (e) => {
                         if (e.key === "Enter" && input.trim()) {
                           setIsRefining(true)
-                          posthog.capture("fix_this_clicked", { game_id: currentGameId, issue: "other: " + input })
+                          track({ event: "fix_this_clicked", properties: { game_id: currentGameId ?? undefined, issue: "other: " + input } })
                           try {
                             const res = await fetch("/api/game/chat", {
                               method: "POST",
@@ -336,7 +336,7 @@ export function Workshop({
                 onKeyDown={async (e) => {
                   if (e.key === "Enter" && input.trim() && !isRefining) {
                     setIsRefining(true)
-                    posthog.capture("change_request", { game_id: currentGameId, request: input })
+                    track({ event: "change_request", properties: { game_id: currentGameId ?? undefined, request: input } })
                     try {
                       const res = await fetch("/api/game/chat", {
                         method: "POST",
@@ -368,7 +368,7 @@ export function Workshop({
             </p>
             <button
               onClick={() => {
-                posthog.capture("game_submitted_for_review", { game_id: currentGameId, standard_id: designDoc.standardId })
+                track({ event: "game_submitted_for_review", properties: { game_id: currentGameId ?? undefined, standard_id: designDoc.standardId } })
                 onSendForReview(html, currentGameId)
               }}
               disabled={!hasWon}

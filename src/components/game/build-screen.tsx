@@ -7,7 +7,7 @@ import { FunnyStickFigure } from "./funny-stick-figure"
 import { BuildWaitMiniGame } from "./build-wait-mini-game"
 import { useAuth } from "@/lib/auth"
 import { apiFetch } from "@/lib/api-fetch"
-import posthog from "posthog-js"
+import { track } from "@/lib/telemetry/posthog-client"
 
 interface BuildScreenProps {
   designDoc: GameDesignDoc
@@ -137,7 +137,7 @@ export function BuildScreen({ designDoc, onComplete, preSelectedVibe, mechanicId
     } finally {
       // Make sure we leave the loading screen even if the API fails
       setProgress(1)
-      posthog.capture("game_built", { mechanic_id: mechanicId, standard_id: designDoc?.standardId, vibe: preSelectedVibe, source: "ai" })
+      track({ event: "game_built", properties: { mechanic_id: mechanicId, standard_id: designDoc?.standardId, vibe: preSelectedVibe, source: "ai" } })
       setTimeout(() => {
         setPhase("done")
       }, 600)
@@ -171,7 +171,7 @@ export function BuildScreen({ designDoc, onComplete, preSelectedVibe, mechanicId
               // Engine generated instantly!
               setGeneratedHtml(data.html)
               setProgress(1)
-              posthog.capture("game_built", { mechanic_id: mechanicId, standard_id: designDoc?.standardId, vibe: preSelectedVibe, source: "engine" })
+              track({ event: "game_built", properties: { mechanic_id: mechanicId, standard_id: designDoc?.standardId, vibe: preSelectedVibe, source: "engine" } })
               setTimeout(() => setPhase("done"), 600)
             } else {
               // No engine — fall back to AI generation

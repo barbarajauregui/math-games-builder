@@ -6,7 +6,7 @@ import { collection, doc, setDoc } from "firebase/firestore"
 import { db } from "@/lib/firebase"
 import { useAuth } from "@/lib/auth"
 import type { FeedbackType, FeedbackDoc } from "@/lib/feedback-types"
-import posthog from "posthog-js"
+import { track } from "@/lib/telemetry/posthog-client"
 
 interface FeedbackButtonProps {
   // If set, the message goes to this game's author instead of the admin
@@ -182,7 +182,7 @@ export function FeedbackButton({ targetGame }: FeedbackButtonProps) {
         }),
       }).catch(() => {})
 
-      posthog.capture("feedback_submitted", { type, page_url: pageUrl })
+      track({ event: "feedback_submitted", properties: { type, page_url: pageUrl } })
       setSent(true)
       setMessage("")
       setScreenshot(null)
