@@ -1,5 +1,4 @@
-import type { BuildState, BuildAction, StepId } from "./types"
-import type { Operation } from "@/data/scenarios/types"
+import { initialBuildState, type BuildState, type BuildAction, type StepId } from "./types"
 
 const STEP_ORDER: StepId[] = ["scenario", "madlib", "lesson1", "math", "mechanic", "playtest"]
 
@@ -11,10 +10,10 @@ function nextStep(current: StepId): StepId {
 export function buildFlowReducer(state: BuildState, action: BuildAction): BuildState {
   switch (action.type) {
     case "GO_TO_STEP":
-      return { ...state, step: action.payload as StepId }
+      return { ...state, step: action.payload }
 
     case "PICK_SCENARIO": {
-      const scenarioId = action.payload as string
+      const scenarioId = action.payload
       return {
         ...state,
         scenarioId,
@@ -26,7 +25,7 @@ export function buildFlowReducer(state: BuildState, action: BuildAction): BuildS
     }
 
     case "PICK_TEMPLATE": {
-      const templateId = action.payload as string | null
+      const templateId = action.payload
       return {
         ...state,
         templateId,
@@ -36,7 +35,7 @@ export function buildFlowReducer(state: BuildState, action: BuildAction): BuildS
     }
 
     case "SET_BLANK": {
-      const { id, value } = action.payload as { id: string; value: string | number }
+      const { id, value } = action.payload
       return {
         ...state,
         filledBlanks: { ...state.filledBlanks, [id]: value },
@@ -51,15 +50,15 @@ export function buildFlowReducer(state: BuildState, action: BuildAction): BuildS
       return { ...state, lesson1Confirmed: true, step: "math" }
 
     case "SET_OPERATION":
-      return { ...state, operation: action.payload as Operation }
+      return { ...state, operation: action.payload }
 
     case "SET_NUMBER": {
-      const { which, value } = action.payload as { which: "n1" | "n2"; value: number }
+      const { which, value } = action.payload
       return { ...state, [which]: value }
     }
 
     case "PICK_MECHANIC":
-      return { ...state, mechanicId: action.payload as string, step: "playtest" }
+      return { ...state, mechanicId: action.payload, step: "playtest" }
 
     case "MARK_BEATEN":
       return { ...state, hasBeatenOwnGame: true }
@@ -71,24 +70,11 @@ export function buildFlowReducer(state: BuildState, action: BuildAction): BuildS
       return {
         ...state,
         isSubmitting: false,
-        submittedGameId: action.payload as string | null,
+        submittedGameId: action.payload,
       }
 
     case "RESET":
-      return {
-        ...state,
-        step: "scenario",
-        scenarioId: null,
-        templateId: null,
-        filledBlanks: {},
-        lesson1Confirmed: false,
-        operation: null,
-        n1: null,
-        n2: null,
-        mechanicId: null,
-        hasBeatenOwnGame: false,
-        submittedGameId: null,
-      }
+      return initialBuildState(state.standardId)
 
     default:
       return state

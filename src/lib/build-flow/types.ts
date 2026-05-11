@@ -32,23 +32,20 @@ export interface BuildState {
   submittedGameId: string | null
 }
 
-export interface BuildAction {
-  type:
-    | "GO_TO_STEP"
-    | "PICK_SCENARIO"
-    | "PICK_TEMPLATE"
-    | "SET_BLANK"
-    | "CLEAR_LESSON1"
-    | "CONFIRM_LESSON1"
-    | "SET_OPERATION"
-    | "SET_NUMBER"
-    | "PICK_MECHANIC"
-    | "MARK_BEATEN"
-    | "BEGIN_SUBMIT"
-    | "FINISH_SUBMIT"
-    | "RESET"
-  payload?: unknown
-}
+export type BuildAction =
+  | { type: "GO_TO_STEP"; payload: StepId }
+  | { type: "PICK_SCENARIO"; payload: string }
+  | { type: "PICK_TEMPLATE"; payload: string | null }
+  | { type: "SET_BLANK"; payload: { id: string; value: string | number } }
+  | { type: "CLEAR_LESSON1" }
+  | { type: "CONFIRM_LESSON1" }
+  | { type: "SET_OPERATION"; payload: Operation }
+  | { type: "SET_NUMBER"; payload: { which: "n1" | "n2"; value: number } }
+  | { type: "PICK_MECHANIC"; payload: string }
+  | { type: "MARK_BEATEN" }
+  | { type: "BEGIN_SUBMIT" }
+  | { type: "FINISH_SUBMIT"; payload: string | null }
+  | { type: "RESET" }
 
 export function initialBuildState(standardId: string): BuildState {
   return {
