@@ -368,7 +368,9 @@ If the Builder edits and returns to Step 2 then comes back, the editable values 
 
 ---
 
-## §5 — Step 4: Pick a mechanic
+## §5 — Step 4: Pick a Game Type
+
+*User-visible terminology per Audit 17: throughout this step's UI strings, use the term **"Game Type"** (capitalized). The underlying code identifier remains `mechanicId` / `MechanicPicker` (developer-facing). Avoid "Game Option," "Mechanic," "Template" in any Builder- or Player-visible copy.*
 
 ### UI
 

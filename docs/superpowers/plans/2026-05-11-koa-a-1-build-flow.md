@@ -1928,8 +1928,9 @@ export function MechanicPicker({
         ← Back
       </button>
 
-      <h2 className="text-white text-lg font-semibold mb-2">Pick a mechanic</h2>
+      <h2 className="text-white text-lg font-semibold mb-2">Pick a Game Type</h2>
       <p className="text-sm text-zinc-400 mb-6">How does the player solve your problem?</p>
+      {/* v2 2026-05-11 per Audit 17: user-visible term is "Game Type" — keep the developer identifier mechanicId / MechanicPicker for code clarity, but never expose "mechanic" / "game option" / "template" in user-visible strings. */}
 
       {primaryIds.length === 0 ? (
         <div className="rounded-xl bg-amber-950/30 border border-amber-800 p-6">

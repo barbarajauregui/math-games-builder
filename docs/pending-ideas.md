@@ -4,6 +4,46 @@
 
 ---
 
+## From the 2026-05-11 second external-Claude batch (10 deferred items + 2 specs to sequence)
+
+A second pass from a fresh Claude window produced 12 mini-audits (#15–26) and 2 concrete specs (Mastery Check, PostHog Telemetry). Two items addressed before K.OA.A.1 execution (Audit 17 terminology, Audit 22 shim deletion). Ten deferred here:
+
+### Audit 15 — Cluster context invisible in galaxy
+- `docs/audit/15-cluster-context-invisible.md`. Galaxy shows planets/moons but no "this whole planet teaches addition" label. Fix: hover plaque + entry overview card + sibling-moon ribbon. **Defer to Library/Galaxy redesign workstream** — touches the Builder home (Galaxy) which is being rebuilt anyway.
+
+### Audit 16 — Mr. Chesure brief screen missing
+- `docs/audit/16-mr-chesure-brief-missing.md`. The 592-line K.OA briefing content renders nowhere in the build flow UI. The K.OA.A.1 spec accesses it via side-menu "Learn More" but never surfaces it inline. **Decision:** ship K.OA.A.1 with the side-menu access only; watch pilot data. If Builders skip the brief and produce off-pedagogy games, add a mandatory brief step in v1.1 (half a day per the audit).
+
+### Audit 18 — Standard-engine coverage gaps
+- `docs/audit/18-standard-engine-coverage-gaps.md`. Only ~2.5% of standards (13 of 517 leaves) have 3+ vetted engines. K.OA.A.1 has 3; covered. **Fix: 3-tier mapping plan covering ~30 K-3 standards.** Natural Mechanic Inventor build queue. Sequence after K.OA.A.1 ships; first target is 3.OA cluster (cross-age pilot target).
+
+### Audit 19 — Scenario cards flawed (pre-v2)
+- `docs/audit/19-scenario-cards-flawed.md`. Critique of the OLD scenario cards (middle-class US, addition-only, no standardId branching). **Largely addressed in K.OA.A.1 build flow v2:** each scenario has add + subtract templates; cultural broadening is in Audit 14's funds-of-knowledge follow-up. The operation×CGI×culture matrix tagging proposal (~60 cards) is a v1.1 expansion when we extend beyond K.OA.
+
+### Audit 20 — Verb parser edge cases (CONFLICTS with Audit 14 §1)
+- `docs/audit/20-verb-parser-edge-cases.md`. Proposes confidence-tiered soft warnings on ~10 ambiguous CGI verbs. **DEFERRED — conflicts with Audit 14 §1 (Moschkovich corpus) which we locked: keyword-strategy soft warnings reify the strategy ELs are best served avoiding.** Audit 20's telemetry-log proposal (log verb-operation disagreements without UI) can land via the PostHog spec; surfacing soft warnings does not.
+
+### Audit 21 — Engine filter not wired
+- `docs/audit/21-engine-filter-not-wired.md`. `getGameOptions` returns the raw bucket without `practiceOnly` / `srtPasses` filtering. The K.OA.A.1 flow reads from `standard-mechanic-map.json` directly, bypassing `getGameOptions`. But other call sites still use the unfiltered function. **Fix: `getBuildableGameOptions` helper + flag 6 more engines HIDDEN. 1–2 hrs.** Sequence after K.OA.A.1 ships.
+
+### Audit 23 — Agent ladder uncalibrated
+- `docs/audit/23-agent-ladder-calibration.md`. Concrete calibration plan: 50 items × 2 raters × Cohen's kappa ≥ 0.6 per criterion as ship gate; monthly 5% re-review. **~25–35 of Barbara's hours + $200–1000 for external rater.** Replaces the looser "human-expert calibration" note from the first external-reviewer pass. **Compound interaction with the Mastery Check spec:** the calibration set should include Mastery Check items, and the kappa target applies to Mastery Check authoring too.
+
+### Audit 24 — Player learning context invisible
+- `docs/audit/24-player-learning-context-invisible.md`. Players never see what a game was teaching. Fix: post-play (never pre-play) icon-led card, plain-words sentence, tap-to-hear narration. **Defer to Player home workstream** (separate from Builder build flow).
+
+### Audit 25 — Player reading load
+- `docs/audit/25-player-reading-load.md`. Library has 8 text surfaces kindergartners can't decode. Fix: icon-first cards + tap-to-hear narration together (1.5–2 weeks). **Defer to Player home workstream.**
+
+### Audit 26 — Young player rating noise
+- `docs/audit/26-young-player-rating-noise.md`. Stars from under-7s are noise; telemetry reliable from age 4. Confirms the original external-reviewer #7 finding with a concrete proposal: **split Builder dashboard into Kid Telemetry (ranks leaderboard) and Kid Feedback (decoration only)**. Defer to Player home workstream; sequence with the PostHog spec since it depends on the telemetry pipeline.
+
+### Spec — Mastery Check Game (2026-05-10)
+- `docs/superpowers/specs/2026-05-10-mastery-check-game.md`. Hand-authored 8-item Mastery Check per standard, runs after the 3×3 practice-game wins. K.OA.A.1 ships first with 8 items covering all 8 representational modes. **Sequence after K.OA.A.1 build flow ships** — needs published K.OA.A.1 games to make the practice-then-check loop coherent. Replaces the v1 "win 3 different games × 3 wins" being the sole mastery signal; the Mastery Check gates mastery elevation.
+
+### Spec — PostHog Telemetry (2026-05-10)
+- `docs/superpowers/specs/2026-05-10-posthog-telemetry.md`. Operational backbone for 4 other audits (#17 misconception flagging, #20 verb-disagreement logging, #23 drift monitoring, #26 telemetry-over-ratings). PostHog already partially installed (autopageviews + exceptions). **Recommendation: sequence Phase 1 first, before or in parallel with K.OA.A.1 build flow.** ASK BARBARA — do we pause K.OA.A.1 execution to wire PostHog Phase 1 first, or run them in parallel?
+
 ## From the 2026-05-11 external-reviewer pass (6 items deferred from the 10 findings)
 
 A fresh Claude Code window did an external pedagogical review and found 10 gaps in our existing audits. 4 are being addressed before the K.OA.A.1 build flow ships (equal-sign-as-relation, cardinality moment, MP1–MP8 tagging, math anxiety tone scan); the 6 below are tracked here for follow-up workstreams. Full triage in the chat transcript dated 2026-05-11. New agent definition at `docs/agents/the-external-reviewer.md`.
