@@ -30,7 +30,7 @@ A Builder picking K.OA.A.1 walks through **five short screens**, in order:
 1. **Pick a scenario** — they choose from 10 cards (4 from the K.OA.A.1 standard's named real-world applications + 6 evergreen). Each card is a familiar setting like Coin Jar, Fish Tank, Bakery, or Classroom.
 2. **Fill a mad-lib story** — they pick from dropdowns and type a few words to fill in 3 templates the scenario offers, producing a 2-3 sentence story like *"Grandma has 4 pennies. She gives you 3 more pennies. How many pennies now?"* Then a one-click confirmation card asks them to confirm the math is load-bearing in the story (Lesson 1, universalized).
 3. **Set the math** — the operation (+ or −) and the two numbers are pre-filled by parsing the verb in the Builder's story; the Builder confirms or edits. K.OA.A.1's range cap (within 10) is enforced here. If the verb suggests addition but the Builder picks subtraction (or vice versa), a soft inline tip appears — never a block.
-4. **Pick a mechanic** — the Builder sees a filtered card grid of vetted addition/counting engines from the registry (per Audit 11 §3). Each card shows a looping animated preview. A small "see more mechanics →" link surfaces the full engine list with a soft warning.
+4. **Pick a Game Mechanic** — the Builder sees a filtered card grid of vetted Game Mechanics (engines) from the registry (per Audit 11 §3, tightened to PRIMARY-only per Audit 13). Each card shows a looping animated preview. *User-visible terminology = "Game Mechanic" per Audit 17 + Barbara's 2026-05-11 call (Schell 2008, Sicart 2008, Habgood & Ainsworth 2011, Plass et al. 2015 all use this term).*
 5. **Playtest + submit** — the Builder must beat their own game once. The 4-stage Critic ladder runs: Stages 1 and 3 (Critic) skip invisibly because templates are pre-vetted; Stages 2 and 4 (Adversary) run visibly. On all-pass, the game saves with `pending_review` and lands in the Guide queue.
 
 A reduced standard panel (one-line header) sits above the flow. "Learn More" and "Play to Master" are tucked into a side menu, not in the flow.
@@ -368,9 +368,9 @@ If the Builder edits and returns to Step 2 then comes back, the editable values 
 
 ---
 
-## §5 — Step 4: Pick a Game Type
+## §5 — Step 4: Pick a Game Mechanic
 
-*User-visible terminology per Audit 17: throughout this step's UI strings, use the term **"Game Type"** (capitalized). The underlying code identifier remains `mechanicId` / `MechanicPicker` (developer-facing). Avoid "Game Option," "Mechanic," "Template" in any Builder- or Player-visible copy.*
+*User-visible terminology per Audit 17: throughout this step's UI strings, use the term **"Game Mechanic"** (capitalized). The underlying code identifier remains `mechanicId` / `MechanicPicker` (developer-facing). Avoid "Game Option," "Mechanic," "Template" in any Builder- or Player-visible copy.*
 
 ### UI
 

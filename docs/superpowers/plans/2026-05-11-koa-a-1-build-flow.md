@@ -1928,9 +1928,9 @@ export function MechanicPicker({
         ← Back
       </button>
 
-      <h2 className="text-white text-lg font-semibold mb-2">Pick a Game Type</h2>
+      <h2 className="text-white text-lg font-semibold mb-2">Pick a Game Mechanic</h2>
       <p className="text-sm text-zinc-400 mb-6">How does the player solve your problem?</p>
-      {/* v2 2026-05-11 per Audit 17: user-visible term is "Game Type" — keep the developer identifier mechanicId / MechanicPicker for code clarity, but never expose "mechanic" / "game option" / "template" in user-visible strings. */}
+      {/* v2 2026-05-11 per Audit 17: user-visible term is "Game Mechanic" — keep the developer identifier mechanicId / MechanicPicker for code clarity, but never expose "mechanic" / "game option" / "template" in user-visible strings. */}
 
       {primaryIds.length === 0 ? (
         <div className="rounded-xl bg-amber-950/30 border border-amber-800 p-6">
@@ -2664,8 +2664,8 @@ Run `npm run dev`. Sign in. Open galaxy. Click K.OA.A.1 moon. Click "Open Build 
 7. Try a verb-operation mismatch (manually flip the operation): amber hint appears.
 8. Try numbers that sum to >10: the within-10 hint appears (non-blocking).
 9. Try subtraction with n2 > n1: result shows "—", below-zero message shows, Continue is disabled.
-10. Reset to valid values, click Continue. Step 4 mechanic picker shows exactly 4 cards: Ten-Frame Counters, Catch & Count, Length Rods, Bar Model.
-11. Pick a mechanic. Step 5 loads. Engine renders with Builder's numbers.
+10. Reset to valid values, click Continue. Step 4 Game Mechanic picker shows exactly 3 cards: Ten-Frame Counters, Catch & Count, Length Rods (Bar Model demoted to SECONDARY per Audit 14).
+11. Pick a Game Mechanic. Step 5 loads. Engine renders with Builder's numbers.
 12. Play until win. Submit button enables. Click Submit. Success screen appears.
 
 - [ ] **Step 14.2: Walk the "Hmm, needs work" path**
