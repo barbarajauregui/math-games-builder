@@ -8,6 +8,16 @@ const SNACK_ITEMS = ["cookies", "crackers", "grapes", "orange slices", "cheese c
 const SNACK_CHARACTERS = ["Mama", "Papa", "Lucia", "Ben", "your sister", "your brother"]
 const SCHOOL_BUS_CHARACTERS = ["the driver", "Mr. Lee", "Ms. Patel", "the helper"]
 const FISH_TANK_CHARACTERS = ["Mom", "Dad", "the pet store owner", "Lucia", "Ben", "the diver"]
+const BAKERY_ITEMS = ["muffins", "loaves of bread", "croissants", "cookies", "cupcakes", "rolls"]
+const BAKERY_CHARACTERS = ["the baker", "Aunt Rosa", "Chef Lee", "Sami"]
+const TOY_STORE_ITEMS = ["teddy bears", "toy cars", "dolls", "blocks", "kites", "yo-yos"]
+const TOY_STORE_CHARACTERS = ["the clerk", "Mom", "the cashier", "Auntie"]
+const FARM_ITEMS = ["cows", "sheep", "chickens", "horses", "goats", "pigs"]
+const FARM_CHARACTERS = ["the farmer", "Grandpa", "Tía Marta", "the helper"]
+const PARTY_ITEMS = ["balloons", "cupcakes", "hats", "presents", "candles", "streamers"]
+const PARTY_CHARACTERS = ["Mom", "Dad", "Lucia", "the clown", "your friend", "the host"]
+const CLASSROOM_ITEMS = ["crayons", "books", "pencils", "markers", "erasers", "blocks"]
+const CLASSROOM_CHARACTERS = ["the teacher", "Ms. Reyes", "Mr. Park", "the helper"]
 
 /**
  * K.OA.A.1 scenarios — Group A (the four "real-world applications" the standard
@@ -188,5 +198,256 @@ export const K_OA_A_1_SCENARIOS: Scenario[] = [
       },
     ],
   },
-  // Group B added in Task 3
+  {
+    id: "bakery",
+    title: "Bakery",
+    description: "Bread coming out of the oven, or sold to customers.",
+    emoji: "🥐",
+    illustrationAsset: null,
+    templates: [
+      {
+        id: "bakery-t1",
+        template: "The baker pulls {n1} {items} from the oven. Then {n2} more {verbPhrase}. How many {items} are on the tray?",
+        operation: "+",
+        blanks: [
+          { id: "n1", kind: "number", min: 1, max: 9 },
+          { id: "items", kind: "dropdown", options: BAKERY_ITEMS },
+          { id: "n2", kind: "number", min: 1, max: 9 },
+          { id: "verbPhrase", kind: "dropdown", options: ["come out", "are added", "are placed", "appear"] },
+        ],
+      },
+      {
+        id: "bakery-t2",
+        template: "{n1} {items} are on the shelf. A customer {verbPhrase} {n2}. How many {items} are left on the shelf?",
+        operation: "-",
+        blanks: [
+          { id: "n1", kind: "number", min: 2, max: 9 },
+          { id: "items", kind: "dropdown", options: BAKERY_ITEMS },
+          { id: "verbPhrase", kind: "dropdown", options: ["buys", "takes", "asks for", "picks up"] },
+          { id: "n2", kind: "number", min: 1, max: 8 },
+        ],
+      },
+      {
+        id: "bakery-t3",
+        template: "{character} mixes {n1} {items}. The helper mixes {n2} more. How many {items} in all?",
+        operation: "+",
+        blanks: [
+          { id: "character", kind: "dropdown", options: BAKERY_CHARACTERS },
+          { id: "n1", kind: "number", min: 1, max: 9 },
+          { id: "items", kind: "dropdown", options: BAKERY_ITEMS },
+          { id: "n2", kind: "number", min: 1, max: 9 },
+        ],
+      },
+    ],
+  },
+  {
+    id: "toy-store",
+    title: "Toy Store",
+    description: "Toys put on shelves or bought by kids.",
+    emoji: "🧸",
+    illustrationAsset: null,
+    templates: [
+      {
+        id: "toy-store-t1",
+        template: "The shelf has {n1} {items}. The clerk {verbPhrase} {n2} more. How many {items} on the shelf?",
+        operation: "+",
+        blanks: [
+          { id: "n1", kind: "number", min: 1, max: 9 },
+          { id: "items", kind: "dropdown", options: TOY_STORE_ITEMS },
+          { id: "verbPhrase", kind: "dropdown", options: ["stocks", "adds", "lines up", "puts out"] },
+          { id: "n2", kind: "number", min: 1, max: 9 },
+        ],
+      },
+      {
+        id: "toy-store-t2",
+        template: "The store has {n1} {items}. A kid {verbPhrase} {n2}. How many {items} are left on the shelf?",
+        operation: "-",
+        blanks: [
+          { id: "n1", kind: "number", min: 2, max: 9 },
+          { id: "items", kind: "dropdown", options: TOY_STORE_ITEMS },
+          { id: "verbPhrase", kind: "dropdown", options: ["buys", "takes home", "picks", "chooses"] },
+          { id: "n2", kind: "number", min: 1, max: 8 },
+        ],
+      },
+      {
+        id: "toy-store-t3",
+        template: "{n1} {items} sit in a row. {character} {verbPhrase} {n2} to wrap as gifts. How many {items} are still on the shelf?",
+        operation: "-",
+        blanks: [
+          { id: "n1", kind: "number", min: 2, max: 9 },
+          { id: "items", kind: "dropdown", options: TOY_STORE_ITEMS },
+          { id: "character", kind: "dropdown", options: TOY_STORE_CHARACTERS },
+          { id: "verbPhrase", kind: "dropdown", options: ["takes", "pulls", "wraps up", "removes"] },
+          { id: "n2", kind: "number", min: 1, max: 8 },
+        ],
+      },
+    ],
+  },
+  {
+    id: "farm",
+    title: "Farm",
+    description: "Animals coming into the barn or going out to graze.",
+    emoji: "🐄",
+    illustrationAsset: null,
+    templates: [
+      {
+        id: "farm-t1",
+        template: "{n1} {items} are in the barn. {n2} more {verbPhrase} from the field. How many {items} in the barn now?",
+        operation: "+",
+        blanks: [
+          { id: "n1", kind: "number", min: 1, max: 9 },
+          { id: "items", kind: "dropdown", options: FARM_ITEMS },
+          { id: "n2", kind: "number", min: 1, max: 9 },
+          { id: "verbPhrase", kind: "dropdown", options: ["come back", "wander in", "are led in", "arrive"] },
+        ],
+      },
+      {
+        id: "farm-t2",
+        template: "The barn has {n1} {items}. {character} {verbPhrase} {n2} out to graze. How many {items} are still in the barn?",
+        operation: "-",
+        blanks: [
+          { id: "n1", kind: "number", min: 2, max: 9 },
+          { id: "items", kind: "dropdown", options: FARM_ITEMS },
+          { id: "character", kind: "dropdown", options: FARM_CHARACTERS },
+          { id: "verbPhrase", kind: "dropdown", options: ["lets", "sends", "leads", "shoos"] },
+          { id: "n2", kind: "number", min: 1, max: 8 },
+        ],
+      },
+      {
+        id: "farm-t3",
+        template: "{character} sees {n1} {items} near the pond. Then {n2} more {verbPhrase}. How many {items} in all?",
+        operation: "+",
+        blanks: [
+          { id: "character", kind: "dropdown", options: FARM_CHARACTERS },
+          { id: "n1", kind: "number", min: 1, max: 9 },
+          { id: "items", kind: "dropdown", options: FARM_ITEMS },
+          { id: "n2", kind: "number", min: 1, max: 9 },
+          { id: "verbPhrase", kind: "dropdown", options: ["walk over", "show up", "appear", "come closer"] },
+        ],
+      },
+    ],
+  },
+  {
+    id: "sports",
+    title: "Sports",
+    description: "Goals scored, points added, or players running on the field.",
+    emoji: "⚽",
+    illustrationAsset: null,
+    templates: [
+      {
+        id: "sports-t1",
+        template: "The team has {n1} points. They {verbPhrase} {n2} more goals. How many points now?",
+        operation: "+",
+        blanks: [
+          { id: "n1", kind: "number", min: 1, max: 9 },
+          { id: "verbPhrase", kind: "dropdown", options: ["score", "earn", "get", "make"] },
+          { id: "n2", kind: "number", min: 1, max: 9 },
+        ],
+      },
+      {
+        id: "sports-t2",
+        template: "{n1} players are on the field. {n2} more {verbPhrase} from the bench. How many players in all?",
+        operation: "+",
+        blanks: [
+          { id: "n1", kind: "number", min: 1, max: 9 },
+          { id: "n2", kind: "number", min: 1, max: 9 },
+          { id: "verbPhrase", kind: "dropdown", options: ["run on", "sub in", "come out", "join"] },
+        ],
+      },
+      {
+        id: "sports-t3",
+        template: "There are {n1} players on the field. {n2} {verbPhrase} for water. How many players are still on the field?",
+        operation: "-",
+        blanks: [
+          { id: "n1", kind: "number", min: 2, max: 9 },
+          { id: "n2", kind: "number", min: 1, max: 8 },
+          { id: "verbPhrase", kind: "dropdown", options: ["leave", "sub out", "step off", "run off"] },
+        ],
+      },
+    ],
+  },
+  {
+    id: "birthday-party",
+    title: "Birthday Party",
+    description: "Balloons inflated or popped; guests arriving or leaving.",
+    emoji: "🎈",
+    illustrationAsset: null,
+    templates: [
+      {
+        id: "birthday-party-t1",
+        template: "The party has {n1} {items}. {character} {verbPhrase} {n2} more. How many {items} are at the party?",
+        operation: "+",
+        blanks: [
+          { id: "n1", kind: "number", min: 1, max: 9 },
+          { id: "items", kind: "dropdown", options: PARTY_ITEMS },
+          { id: "character", kind: "dropdown", options: PARTY_CHARACTERS },
+          { id: "verbPhrase", kind: "dropdown", options: ["blows up", "brings", "hangs up", "sets out"] },
+          { id: "n2", kind: "number", min: 1, max: 9 },
+        ],
+      },
+      {
+        id: "birthday-party-t2",
+        template: "There are {n1} {items} at the party. {n2} {verbPhrase}. How many {items} are left?",
+        operation: "-",
+        blanks: [
+          { id: "n1", kind: "number", min: 2, max: 9 },
+          { id: "items", kind: "dropdown", options: PARTY_ITEMS },
+          { id: "n2", kind: "number", min: 1, max: 8 },
+          { id: "verbPhrase", kind: "dropdown", options: ["pop", "are eaten", "are taken home", "break"] },
+        ],
+      },
+      {
+        id: "birthday-party-t3",
+        template: "{n1} guests are at the party. {n2} more guests {verbPhrase}. How many guests in all?",
+        operation: "+",
+        blanks: [
+          { id: "n1", kind: "number", min: 1, max: 9 },
+          { id: "n2", kind: "number", min: 1, max: 9 },
+          { id: "verbPhrase", kind: "dropdown", options: ["arrive", "show up", "walk in", "come"] },
+        ],
+      },
+    ],
+  },
+  {
+    id: "classroom",
+    title: "Classroom",
+    description: "Crayons in a bin, books on a shelf, kids at the rug.",
+    emoji: "✏️",
+    illustrationAsset: null,
+    templates: [
+      {
+        id: "classroom-t1",
+        template: "The bin has {n1} {items}. {character} {verbPhrase} {n2} more from the cart. How many {items} in the bin now?",
+        operation: "+",
+        blanks: [
+          { id: "n1", kind: "number", min: 1, max: 9 },
+          { id: "items", kind: "dropdown", options: CLASSROOM_ITEMS },
+          { id: "character", kind: "dropdown", options: CLASSROOM_CHARACTERS },
+          { id: "verbPhrase", kind: "dropdown", options: ["drops in", "adds", "pours in", "puts in"] },
+          { id: "n2", kind: "number", min: 1, max: 9 },
+        ],
+      },
+      {
+        id: "classroom-t2",
+        template: "The shelf has {n1} {items}. {n2} kids {verbPhrase} one each. How many {items} are left on the shelf?",
+        operation: "-",
+        blanks: [
+          { id: "n1", kind: "number", min: 2, max: 9 },
+          { id: "items", kind: "dropdown", options: CLASSROOM_ITEMS },
+          { id: "n2", kind: "number", min: 1, max: 8 },
+          { id: "verbPhrase", kind: "dropdown", options: ["take", "borrow", "pick", "grab"] },
+        ],
+      },
+      {
+        id: "classroom-t3",
+        template: "{n1} kids are at the rug. {n2} more kids {verbPhrase} from the table. How many kids on the rug?",
+        operation: "+",
+        blanks: [
+          { id: "n1", kind: "number", min: 1, max: 9 },
+          { id: "n2", kind: "number", min: 1, max: 9 },
+          { id: "verbPhrase", kind: "dropdown", options: ["come over", "walk in", "sit down", "join"] },
+        ],
+      },
+    ],
+  },
 ]
