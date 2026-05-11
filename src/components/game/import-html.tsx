@@ -23,21 +23,16 @@ function localValidate(html: string): string | null {
   if (!lower.includes("<!doctype html") && !lower.includes("<html")) {
     return "The HTML must start with <!DOCTYPE html> or <html>. Paste a full HTML document."
   }
-  return null
-}
-
-function ensureGameWin(html: string): string {
-  if (/game_win|gameWin\s*\(/.test(html)) return html
-  const script = `<script>
-window._diag_wins = 0;
-document.addEventListener('click', function() {
-  window._diag_wins++;
-  if (window._diag_wins >= 20) {
-    try { window.parent.postMessage({type:'game_win', score: 1}, '*'); } catch(e) {}
+  // Per Audit 22 (2026-05-11): the legacy ensureGameWin shim injected a
+  // 20-click auto-win fallback when the pasted HTML didn't contain a real
+  // game_win postMessage. That defeated the "Builder must beat their own
+  // game" pedagogical gate — any pasted HTML could be force-won in 20
+  // clicks. Shim removed; now we hard-reject HTML that lacks a real win
+  // signal so Builders have to author one explicitly.
+  if (!/game_win|gameWin\s*\(/.test(html)) {
+    return "Your HTML doesn't send a game_win signal when the player wins. Add a postMessage({type:'game_win'}) call at your win condition so the system knows when the game has been beaten. Paste the snippet from the docs into your win handler."
   }
-});
-</script>`
-  return html.replace("</body>", script + "</body>")
+  return null
 }
 
 export function ImportHtml({ standard, onCancel, onPass }: ImportHtmlProps) {
@@ -58,7 +53,7 @@ export function ImportHtml({ standard, onCancel, onPass }: ImportHtmlProps) {
       setLocalError(v)
       return
     }
-    const cleanHtml = ensureGameWin(sanitizeGameHtml(html))
+    const cleanHtml = sanitizeGameHtml(html)
     onPass({
       title: title.trim(),
       html: cleanHtml,
