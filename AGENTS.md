@@ -4,6 +4,40 @@
 This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` before writing any code. Heed deprecation notices.
 <!-- END:nextjs-agent-rules -->
 
+# External Reviewer fires at every major design milestone
+
+Math Games Builder makes pedagogical claims. Our internal agent stack
+(Mr. Chesure, the Critic, Mechanic Inventor, Shortcut Adversary, etc.) is
+designed against the frame we built — meaning it can miss what the broader
+peer-reviewed literature considers load-bearing but that we hadn't thought
+to check.
+
+To prevent this, **dispatch `the-external-reviewer` agent at every major
+design milestone**, including:
+
+- Before any new spec ships to engineering
+- Before a new agent definition lands
+- Before a new pilot starts (school deployment, cross-age experiment,
+  fellowship demo)
+- Before the cluster of engines for a new math domain (1.OA, 2.OA, 3.OA,
+  etc.) gets exposed to Builders
+- At a minimum: quarterly, even with no other trigger
+
+The External Reviewer's job is explicitly to find what our existing
+agents and audits do NOT cover. Its output lives in `docs/audit/` as
+`NN-external-review-YYYY-MM-DD.md`. The team then triages: which findings
+must be addressed before the milestone ships, which are follow-up.
+
+The first informal pass (2026-05-11, via a fresh Claude Code window)
+produced 10 findings including the equal-sign-as-relation misconception,
+counting principles, MP1-MP8 absence, equity / EL gap, math anxiety
+transmission, and human-expert calibration. The agent definition at
+`docs/agents/the-external-reviewer.md` lists these as the calibration
+baseline.
+
+Cross-cutting topics that come out of external reviews land in
+`docs/agents/shared-knowledge/` — every agent consults this directory.
+
 # IMPORTANT: Keep the in-app Rules content in sync
 
 The app has an in-app **Rules** popover (top-right "?" button on the galaxy)

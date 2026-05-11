@@ -4,6 +4,30 @@
 
 ---
 
+## From the 2026-05-11 external-reviewer pass (6 items deferred from the 10 findings)
+
+A fresh Claude Code window did an external pedagogical review and found 10 gaps in our existing audits. 4 are being addressed before the K.OA.A.1 build flow ships (equal-sign-as-relation, cardinality moment, MP1–MP8 tagging, math anxiety tone scan); the 6 below are tracked here for follow-up workstreams. Full triage in the chat transcript dated 2026-05-11. New agent definition at `docs/agents/the-external-reviewer.md`.
+
+### Equity / EL / cultural fit / stereotype threat (Audit 14)
+- The biggest single hole across all 13 prior audits. Audit 14 is running in background as of 2026-05-11; output lands at `docs/audit/14-equity-and-language.md`. Per the audit, build out: an Equity Reviewer agent, an EL-friendly mode for the build flow, additional scenarios from a funds-of-knowledge lens, and stereotype-threat risk analysis on the Builder leaderboard before it returns. Canonical sources: Moschkovich 2002/2015, Civil 2007, González et al. 2005, Boaler 2016, Spencer et al. 1999, Gutiérrez 2008.
+
+### Productive Failure consolidation phase
+- Kapur's PF protocol requires phase (a) generation + phase (b) consolidation with explicit canonical instruction. MGB has (a) — "build first" — but no (b). Loibl, Roll & Rummel 2017 identifies consolidation as the active ingredient. Fix: add a post-Critic-pass, pre-publish "what we learned" screen showing the canonical interpretation of the standard the Builder just built for. Probably one screen of UI. Build after the K.OA.A.1 flow ships its first 50 games and we have material to validate the consolidation against.
+
+### Cross-age window bias — favor 2-3 grade gaps over 5+
+- Cohen-Kulik-Kulik 1982 meta of 65 studies: optimal cross-age tutoring gap is 2-3 grade levels; effect size drops as the gap widens. Topping 2005 echoes this. Audit 1 cited Fitz-Gibbon 1975 (single study, 5-year gap) without running the meta. Fix: in the "Build next" recommender, soft-bias suggestions toward standards 2-3 grade levels below the Builder, not 5+. Touches code we haven't written yet; defer until Builder home is built.
+
+### Player ratings → behavioral telemetry weighting
+- Wellman, Cross & Watson 2001 meta on theory-of-mind: kids under ~7 have limited evaluative judgment. Star/emoji ratings from K-1 are noise. Smileyometer / Fun Toolkit (Read & MacFarlane 2006) is the established instrument for this age. Fix: distinguish two Player signals in the Builder Impact ribbon — behavioral telemetry (replays, completion, time-on-task) is reliable from age 4 up; self-report ratings are noisy below age 7. Weight telemetry higher in the Builder dashboard. Schema-level change in Player signal handling. Defer until Player home is being designed.
+
+### IRT calibration of "wins" toward mastery
+- "Win 3 different games × 3 wins each = mastered" doesn't distinguish wins on Builder A's easy game from wins on Builder B's hard game. Embretson & Reise 2000 IRT framework is the canonical solution: calibrate each engine's difficulty parameter as games accumulate plays. Probably overkill if we ship Audit 5's Mastery Check (an 8-item check per standard); revisit if that doesn't ship.
+
+### Human-expert calibration of the agent ladder
+- Foundation Fix #1 ships a 4-stage agent ladder, but there's no inter-rater reliability data. "The Critic approved" means "Claude thought it was OK," not "this is pedagogically valid." Mislevy 2003 evidence-centered design, Lottridge 2018 on automated-scoring validation. Fix: build a calibration set of ~30-50 already-published games (the K.OA.A.1, K.OA.A.3 work, sandbox samples) rated by Barbara + 1-2 math educators. Run the ladder against the same set. Compute Cohen's kappa. Iterate prompts until kappa > 0.6 (moderate agreement). This is a multi-day workstream; can't start until humans are available. The calibration set DESIGN can be specced now if Barbara wants.
+
+---
+
 ## From session 2026-05-10 (Library brainstorming)
 
 ### Asset bookmarks (saved by Barbara, use TBD)

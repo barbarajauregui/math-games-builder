@@ -148,7 +148,12 @@
       "cluster": "A",
       "grade": "K",
       "classification": "major",
-      "isHub": false
+      "isHub": false,
+      "mathematicalPractices": [
+        "MP2",
+        "MP4",
+        "MP5"
+      ]
     },
     {
       "id": "K.OA.A.2",
