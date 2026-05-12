@@ -266,6 +266,668 @@
       "coverageGap": null,
       "notes": "K.NBT.A.1 is the developmental hinge between K.CC (counting) and 1.NBT (ten as a bundled unit per 1.NBT.B.2). The standard explicitly names 'ten ones and some further ones' — engines that fail to enforce that structure (e.g., 14 counters as an undifferentiated pile) fail Construct Validity even if they pass cardinality. PRIMARY engines (number-frames, place-value-discs, cuisenaire-rods) all structurally encode the ten-and-some-more clause; SECONDARY engines pass cardinality/composition but require Builder-side scenario design to surface the teen-number structure. See `docs/agents/chesure-knowledge/k-nbt-progressions.md` for the K.NBT pedagogy authority (created Phase 2, 2026-05-11)."
     },
+    "1.NBT.A.1": {
+      "standardText": "Count to 120, starting at any number less than 120. In this range, read and write numerals and represent a number of objects with a written numeral.",
+      "namedSkill": "Recite the count sequence 1–120 starting from any number under 120; read and write any numeral in 1–120; given a group of objects, produce the numeral that names its count. Two halves: a recitation/sequence skill and a numeral-writing skill. The 'starting at any number' clause is the new move beyond K.CC.A.1.",
+      "primary": [
+        {
+          "engineId": "place-value-discs",
+          "rationale": "PRIMARY for the numeral-writing half of the standard. The kid places one 10-disc and three 1-discs (or seven 10-discs and two 1-discs, etc.) and the total readout writes the numeral 13 (or 72) on a chalkboard as a recording — Audit 11 verdict 'Total readout IS the truth.' Critic Criterion 4 (Construct Validity): the discs in the tens column physically can only be tens, so the kid cannot write '1006' for 'one hundred six' — the place-value column structure prevents the digit-stacking error the Progressions explicitly name. Does NOT cover the recitation half of the standard; pair with a sequence engine for full coverage."
+        },
+        {
+          "engineId": "hundred-board",
+          "rationale": "CONDITIONAL PRIMARY — requires Fix 2 (drag-and-place + row/column readout) AND Fix 3 (count-trail can start at any tile 1–119) per Audit 11 §2 item 15 and the engine-fixes plan. With Fix 3, the kid drops a counter onto tile 47 and then walks forward to 120 — directly enacting the 'starting at any number less than 120' clause from the standard's verbatim text. The 10-column layout makes the base-ten pattern visible (column-of-9s line up, ones increase by 1 from 91 to 99 — exactly the Progressions sidebar example p. 56). Without Fix 2 the engine is currently REVISABLE (click-correct-cell shortcut); without Fix 3 it cannot start from N. Becomes clean PRIMARY when both fixes ship."
+        },
+        {
+          "engineId": "cuisenaire-rods",
+          "rationale": "PRIMARY for the numeral-as-count half of the standard (object-count to numeral). The kid composes a target two-digit length from 10-rods + unit rods (e.g., 47 = four 10-rods + seven unit rods) and the numeral 47 writes itself as a recording. Length IS the count (Audit 11 VETTED). Critic Criterion 4: the kid cannot fake the count by piling unit rods — the length-snap on the target reveals any miscount. Coverage is partial — supports the 'represent a number of objects with a written numeral' clause but not the 'count to 120 starting at any number' clause."
+        }
+      ],
+      "secondary": [
+        {
+          "engineId": "free-collect",
+          "rationale": "Tap-collect cardinality engine; supports the numeral-as-count half within reasonable ranges (≤50 stays manageable as a tap-field; 120 strains the screen). PRIMARY for K.CC.B.4 cardinality; at 1.NBT.A.1 it's SECONDARY because it doesn't surface the base-ten sequence structure — 47 dots is just 47, not 'four tens and seven ones.' Use for short ranges with a Builder-set scenario."
+        },
+        {
+          "engineId": "number-frames",
+          "rationale": "Double ten-frame works for cardinality up to 20; doesn't scale to 120. Use as a stepping-stone engine for kids still consolidating the K.NBT.A.1 substrate before tackling the full 1.NBT.A.1 range."
+        },
+        {
+          "engineId": "golden-beads",
+          "rationale": "Place-value beads (units / tens / hundreds) cover the numeral-writing half of 1.NBT.A.1 with the same Critic Criterion 4 protection as place-value-discs. Listed SECONDARY only because 1.NBT.A.1's range tops out at 120 — the hundreds column is barely used (one or two hundred-flats max). Golden beads come into their own at 2.NBT and 3.NBT where the hundreds column carries the work."
+        }
+      ],
+      "revisable": [
+        {
+          "engineId": "hundred-board",
+          "fix": "Two fixes needed: (1) Fix 2 — drag-and-place with row/column readout (Audit 11 §2 item 15) replaces the click-correct-cell shortcut; (2) Fix 3 — count-trail must be able to start at any tile 1–119 to support the 'starting at any number less than 120' clause from the standard's verbatim text. Once both ship, hundred-board is the strongest construct-validity engine for 1.NBT.A.1 because it makes the full 1–120 sequence structurally visible. Listed in PRIMARY above as conditional."
+        }
+      ],
+      "coverageGap": "No clean PRIMARY today for the 'count starting at any number less than 120' clause; depends on Fix 3 shipping. `hundred-board` is the right engine; the fix is in the build queue.",
+      "notes": "1.NBT.A.1 has two halves that few single engines satisfy together. The split between (recitation/sequence) and (numeral-writing) is structural; treat as two parallel skill-streams within one standard. See §3.1 of `docs/agents/chesure-knowledge/1-nbt-progressions.md`."
+    },
+    "1.NBT.B.2": {
+      "standardText": "Understand that the two digits of a two-digit number represent amounts of tens and ones.",
+      "namedSkill": "View any two-digit number 10–99 as some tens and some ones. The tens digit represents a count of tens; the ones digit represents a count of ones. The 'two digits represent amounts' wording is load-bearing — the engine must physically separate the two amounts, not just display them.",
+      "primary": [
+        {
+          "engineId": "place-value-discs",
+          "rationale": "PRIMARY because the discs physically separate tens from ones into columns. Audit 11 VETTED: 'Total readout IS the truth.' Critic Criterion 4: place a 10-disc in the ones column and the engine rejects it — the wrong-column rejection IS the standard's 'tens and ones' clause enforced. The kid cannot win by ignoring place; the engine forces the structure. Canonical for 1.NBT.B.2 per the K-5 NBT Progression (p. 56, 'saying 67 as 6 tens, 7 ones')."
+        },
+        {
+          "engineId": "golden-beads",
+          "rationale": "PRIMARY because Audit 11 verdict is 'Wrong-column rejection enforces place value.' Montessori golden beads physically distinguish unit cubes (1s), ten-bars (10s) — and a ten-bar IS visibly composed of ten unit beads, preserving the K.NBT.A.1 substrate (Chesure §3.3 anti-pattern: don't collapse ten into an opaque atom; golden beads do not). Critic Criterion 4 holds: trying to build 47 with seven 10-bars and four units yields a tower of length 74, not 47 — the kid's hand has to use the right column."
+        },
+        {
+          "engineId": "stamp-game",
+          "rationale": "PRIMARY for two-digit place value as the next step beyond golden beads. Stamps are pictorial-abstract (the unit and ten are stamps rather than physical beads), pairing well with the standard's 'amounts of tens and ones' phrasing. Audit 11 VETTED for place value with thousands; 1.NBT.B.2 is fully within its range (uses only ones and tens columns)."
+        }
+      ],
+      "secondary": [
+        {
+          "engineId": "cuisenaire-rods",
+          "rationale": "Length-composition with 10-rods + unit rods models any two-digit number (e.g., 47 = four 10-rods + seven unit rods). Listed SECONDARY rather than PRIMARY because length-as-quantity reads less directly than column-of-discs for two-digit places — the kid sees a long train rather than two clearly-separated columns. Strong for K.NBT.A.1's teen range; at 1.NBT.B.2 the full 10–99 range is better served by column-structured engines."
+        },
+        {
+          "engineId": "number-frames",
+          "rationale": "Double ten-frame works for the teen sub-case (1.NBT.B.2b) but doesn't scale to multi-column two-digit numbers like 47 without re-instantiating multiple ten-frames. SECONDARY for the cluster parent; PRIMARY only for the teen-specific 1.NBT.B.2b."
+        },
+        {
+          "engineId": "bar-model",
+          "rationale": "A two-part bar (tens portion + ones portion) can model 47 as a long bar of 40 plus a short bar of 7. CPA canonical, but bar-model's strongest fit is in the addition and subtraction standards (1.NBT.C.4 / C.6). For the conceptual 'two digits represent amounts' standard, place-value-discs and beads are more direct."
+        }
+      ],
+      "revisable": [],
+      "coverageGap": null,
+      "notes": "1.NBT.B.2 is the parent of three sub-standards (B.2a, B.2b, B.2c). The PRIMARY engines listed here cover the general case (any two-digit number); see the sub-standard entries for sharper fits where one part of the range is in focus. See §3.2 of `docs/agents/chesure-knowledge/1-nbt-progressions.md`."
+    },
+    "1.NBT.B.2a": {
+      "standardText": "10 can be thought of as a bundle of ten ones — called a \"ten.\"",
+      "namedSkill": "Treat a group of 10 ones as a single new unit called 'a ten.' The bundling step — 10 separate ones become 1 ten — is the load-bearing developmental move. Engines that pre-bundle the ten without showing the kid's hand performing the bundle fail Construct Validity for 1.NBT.B.2a (they may still be PRIMARY for the downstream B.2 cases where the bundling step is assumed).",
+      "primary": [
+        {
+          "engineId": "number-frames",
+          "rationale": "PRIMARY because the double ten-frame literally enacts the bundling step the standard names. Round 1: the kid drags ones into the first ten-frame, one by one. When the 10th counter lands, the frame visibly seals (animation: outline glows, chime, the ten counters become a single 'TEN!' badge). The kid has just performed the bundle. Critic Criterion 4 (Construct Validity): the bundling animation IS the standard's named clause made physical — 'a bundle of ten ones, called a ten' is exactly what the kid sees. Math Learning Center canonical; the bundling animation is the central pedagogical move in MLC's Grade 1 unit on place value."
+        },
+        {
+          "engineId": "cuisenaire-rods",
+          "rationale": "PRIMARY because the 10-rod IS visibly the length of ten unit rods — and Cuisenaire pedagogy explicitly trains the kid to substitute ten unit rods for one 10-rod (the equivalence move). The kid can physically lay ten unit rods alongside the orange 10-rod and see they're the same length. Critic Criterion 4: the equivalence is structural, not a popup — length-IS-quantity (Audit 11 VETTED). Pair with Builder-side scenario where the substitution is the win condition (e.g., 'Maya wants to trade ten pennies for one dime'); the trade IS the bundle."
+        },
+        {
+          "engineId": "place-value-discs",
+          "rationale": "CONDITIONAL PRIMARY — strongest fit when the Builder configures a 'bundling round' where the kid places 10 unit-discs and the system replaces them with one 10-disc (the canonical bundling animation Math Learning Center uses for grade-1 place value). Audit 11 VETTED for place value generally; for 1.NBT.B.2a specifically the bundling animation must be present, or the discs appear as red-and-blue from the start (Chesure §2 anti-pattern: pre-bundled-ten with no decomposition view). With the bundling animation, place-value-discs is PRIMARY because the bundle event is right there on screen. Without it, demote to SECONDARY."
+        }
+      ],
+      "secondary": [
+        {
+          "engineId": "golden-beads",
+          "rationale": "Golden bead ten-bars ARE visibly composed of ten unit beads (the bar shows ten distinct round beads). At 1.NBT.B.2a the kid can lay ten unit beads alongside a ten-bar and see the correspondence — same construct as cuisenaire-rods. Listed SECONDARY only because the bead-bar comes pre-made; the kid sees the equivalence but does not perform the bundling action (no animation of ten ones becoming one ten). Solid for B.2b and B.2c where the bundling is assumed; weaker for B.2a's bundling-as-the-skill clause."
+        },
+        {
+          "engineId": "stamp-game",
+          "rationale": "Stamps for units and tens; the kid stamps ten 1s or one 10. The pictorial-abstract level matches grade 1 but does NOT include the bundling animation — the kid stamps a '10' that comes ready-made. SECONDARY for 1.NBT.B.2a because the bundling step is invisible; PRIMARY for the broader B.2 cluster where the bundling is assumed."
+        },
+        {
+          "engineId": "free-collect",
+          "rationale": "Tap-collect to grow a field of 10 dots; with Builder-scenario design the field can visibly group at 10 (the ten dots compress into a single shape labeled '10'). Without that scenario, free-collect is K.CC.B.5 cardinality, not the bundling move. Listed SECONDARY for scenarios where the bundling is built into the win condition."
+        }
+      ],
+      "revisable": [],
+      "coverageGap": null,
+      "notes": "1.NBT.B.2a is the narrowest, sharpest standard in the cluster — and Mr. Chesure's review is sharpest here. The bundling animation is the load-bearing pedagogical move; engines that skip it (red-disc-from-start, pre-made 10-bar) fail Construct Validity even though they pass it for downstream standards. See §3.3 of `docs/agents/chesure-knowledge/1-nbt-progressions.md`."
+    },
+    "1.NBT.B.2b": {
+      "standardText": "The numbers from 11 to 19 are composed of a ten and one, two, three, four, five, six, seven, eight, or nine ones.",
+      "namedSkill": "See a teen number 11–19 as 'a ten' (singular unit) plus 1–9 ones. The 1.NBT version of K.NBT.A.1 — same range, but the ten has become a bundled unit rather than ten separate ones. The kid composes/decomposes treating the ten as one thing.",
+      "primary": [
+        {
+          "engineId": "place-value-discs",
+          "rationale": "PRIMARY because one 10-disc + N unit-discs IS the standard's 'a ten and N ones' made physical at the 1.NBT abstraction level. Discs naturally treat the 10 as a single unit (one disc labeled '10'). Audit 11 VETTED — 'Total readout IS the truth.' Critic Criterion 4: the kid places a 10-disc in the tens column and N discs in the ones column; the engine rejects mis-column placement. The K → 1 bridge IS this engine — at K it previews bundled-ten without enforcing the abstraction; at 1.NBT.B.2b it IS the abstraction."
+        },
+        {
+          "engineId": "golden-beads",
+          "rationale": "PRIMARY because a Montessori ten-bar paired with N unit beads physically encodes 'a ten and N ones' — and unlike at K.NBT, the kid is now expected to treat the ten-bar as one unit (not constantly decompose it into ten beads). Wrong-column rejection enforces place value (Audit 11 VETTED). Critic Criterion 4: the kid cannot build 14 with 14 unit beads — they must use one ten-bar plus four units."
+        },
+        {
+          "engineId": "number-frames",
+          "rationale": "PRIMARY at 1.NBT.B.2b — the double ten-frame's first frame fills to 10 (the bundle), then the second frame holds the 'and N ones.' Same engine as K.NBT.A.1 but reframed: at 1.NBT.B.2b the sealed first frame IS 'a ten' (one unit), not ten ones. Critic Criterion 4: the win condition requires the first frame to seal at exactly 10 and the second to hold 1–9; the kid cannot satisfy with 14 random counters. Math Learning Center canonical for both K.NBT and 1.NBT."
+        }
+      ],
+      "secondary": [
+        {
+          "engineId": "cuisenaire-rods",
+          "rationale": "A 10-rod + N unit rods composes any teen number by length — same engine as K.NBT.A.1, valid at 1.NBT.B.2b. Listed SECONDARY rather than PRIMARY at 1.NBT because the column-structure engines (discs, beads) more directly enact 'a ten' as a UNIT; rods encode it as length, which slightly understates the unit-shift the standard names."
+        },
+        {
+          "engineId": "bar-model",
+          "rationale": "Two-part bar (length-10 part + length-N part) models teens at 1.NBT vocabulary level — Audit 14 EL concern was K-specific. SECONDARY for B.2b; the column-structured engines are more direct for the 'a ten as a unit' clause."
+        },
+        {
+          "engineId": "stamp-game",
+          "rationale": "Stamp a '10' once and a '1' N times; pictorial-abstract level. Valid; SECONDARY because golden beads and place-value-discs are more concrete and the standard sits at concrete-pictorial transition."
+        }
+      ],
+      "revisable": [
+        {
+          "engineId": "number-bonds",
+          "fix": "Same fix as K.NBT.A.1: lock the whole at 11–19 and pre-render one branch with '10'; the kid produces the other branch. With the hide-third fix from K.OA.A.3 applied (kid commits a guess before reveal), the engine becomes a clean teen-number bond builder."
+        }
+      ],
+      "coverageGap": null,
+      "notes": "1.NBT.B.2b is K.NBT.A.1's older twin. The numerical range is identical; what changes is the conceptual framing (ten as a UNIT vs. ten as ten individual ones grouped). See §3.4 of `docs/agents/chesure-knowledge/1-nbt-progressions.md`."
+    },
+    "1.NBT.B.2c": {
+      "standardText": "The numbers 10, 20, 30, 40, 50, 60, 70, 80, 90 refer to one, two, three, four, five, six, seven, eight, or nine tens (and 0 ones).",
+      "namedSkill": "See each decade number 10, 20, 30, ..., 90 as a count of tens with zero ones. Forty IS four tens. The Progressions specifically flag the decade-word-to-tens-count mapping as a linguistic obstacle: 'forty' does not sound like 'four tens.'",
+      "primary": [
+        {
+          "engineId": "place-value-discs",
+          "rationale": "PRIMARY because the kid places N tens-discs in the tens column (and zero discs in the ones column) and the readout writes the decade numeral. The 'zero ones' part of the standard is visible — the ones column is intentionally empty. Critic Criterion 4: the kid cannot fake 40 by placing 4 unit-discs (wrong-column rejection); they must place 4 tens-discs."
+        },
+        {
+          "engineId": "golden-beads",
+          "rationale": "PRIMARY because N ten-bars laid out (with no unit beads) IS 'N tens and 0 ones' — directly visible. Audit 11 VETTED: 'Wrong-column rejection enforces place value.' The bars also reinforce the K.NBT substrate by remaining visibly composed of ten beads each."
+        },
+        {
+          "engineId": "stamp-game",
+          "rationale": "PRIMARY because N '10'-stamps with no '1'-stamps IS the standard's 'N tens (and 0 ones)' representation at the pictorial-abstract level. Audit 11 VETTED."
+        }
+      ],
+      "secondary": [
+        {
+          "engineId": "cuisenaire-rods",
+          "rationale": "N 10-rods laid end-to-end model decade numbers by length (40 = four orange rods). Length-IS-quantity (Audit 11 VETTED). Listed SECONDARY because the 'zero ones' framing isn't as visible in a rod train as in a discs/beads layout — the empty ones column makes the 'and 0 ones' clause physical, where the rod train just looks like a 40-length train."
+        },
+        {
+          "engineId": "bar-model",
+          "rationale": "A bar partitioned into N equal length-10 segments models a decade number; valid CPA. SECONDARY because the addition/subtraction engines (1.NBT.C.4 / C.6) are bar-model's stronger home."
+        }
+      ],
+      "revisable": [],
+      "coverageGap": null,
+      "notes": "The 'forty sounds like four-tens' linguistic obstacle is named in the Progressions but not directly encodable in mechanics — engines support audio reinforcement of the decade-word ↔ tens-count mapping. See §3.5 of `docs/agents/chesure-knowledge/1-nbt-progressions.md`."
+    },
+    "1.NBT.B.3": {
+      "standardText": "Compare two two-digit numbers based on meanings of the tens and ones digits, recording the results of comparisons with the symbols >, =, and <.",
+      "namedSkill": "Compare two two-digit numbers by inspecting the tens digit first; if tied, then compare ones. Record with >, =, <. The 'based on meanings of the tens and ones digits' clause is load-bearing — engines that compare by overall position or tower height without surfacing the tens-vs-ones reasoning miss the standard's named skill.",
+      "primary": [
+        {
+          "engineId": "place-value-discs",
+          "rationale": "PRIMARY because the discs make the tens-then-ones comparison structurally visible. The kid builds 47 with four 10-discs + seven 1-discs, builds 39 with three 10-discs + nine 1-discs, and the tens columns sit side by side — four tens-discs vs. three tens-discs immediately reads larger. The kid then taps the > symbol to record. Critic Criterion 4: the comparison happens in the tens column first (the kid SEES four > three); the ones-column comparison only matters when tens are tied. This is the standard's named skill made literal. Avoids the Progressions-flagged alligator/fish-eating metaphor — the symbol comparison is between numerals, not anthropomorphic mouths."
+        },
+        {
+          "engineId": "golden-beads",
+          "rationale": "PRIMARY for the same reason as discs — N ten-bars side by side make the tens-count comparison physical. Wrong-column rejection enforces place value (Audit 11 VETTED). Critic Criterion 4: comparing 47 to 39 means comparing four ten-bars to three ten-bars first, then seven units to nine units only if tied."
+        },
+        {
+          "engineId": "hundred-board",
+          "rationale": "CONDITIONAL PRIMARY — requires Fix 2 (drag-and-place + row/column readout) per Audit 11 §2 item 15. With the fix, the kid drops counters on 47 and 39 and the row/column readout makes the tens-and-ones positions explicit (47 is on row 5, column 7; 39 is on row 4, column 9). The kid compares by row first (the tens), then by column (the ones) — directly enacting the standard's clause. Without Fix 2 the engine is click-correct-cell (Critic Criterion 3 FAIL); becomes clean PRIMARY when the fix ships."
+        }
+      ],
+      "secondary": [
+        {
+          "engineId": "sorting-lane",
+          "rationale": "Audit 11 VETTED — block widths show value, physics validates order. Two-digit numbers represented as towers of unit blocks can be compared by tower width/height. SECONDARY rather than PRIMARY because the comparison happens by overall magnitude, not by the tens-first-then-ones reasoning the standard explicitly names. Pair with Builder-side scenario that forces the tower to be built in tens-stacks-plus-ones (then the comparison becomes structurally tens-first), and the engine moves closer to PRIMARY."
+        },
+        {
+          "engineId": "leaderboard-fix",
+          "rationale": "Same construct as sorting-lane — swap-by-tap ordering. SECONDARY for the same reason: position/height comparison without surfacing tens-vs-ones reasoning."
+        },
+        {
+          "engineId": "stamp-game",
+          "rationale": "Two-digit stamps side by side support the visual comparison but the engine's strongest pattern is composition rather than comparison. SECONDARY."
+        },
+        {
+          "engineId": "cuisenaire-rods",
+          "rationale": "Two rod-trains for the two two-digit numbers, laid side by side; length comparison is direct. SECONDARY because length-comparison reads overall magnitude rather than tens-then-ones."
+        }
+      ],
+      "revisable": [
+        {
+          "engineId": "number-line-drop",
+          "fix": "Per Audit 11 §2 item 10: tighten snap zone and show numerical position-of-drop. With that fix, the kid drops two two-digit numbers on a 0–100 line and the numerical readout makes the comparison explicit — but the standard's tens-and-ones-digit reasoning is still not surfaced (the line shows magnitude, not place-value structure). Even after the fix, this is a number-sense engine, not a place-value engine; demote to SECONDARY even fixed. Listed under revisable for completeness."
+        }
+      ],
+      "coverageGap": null,
+      "notes": "The Progressions explicitly warn against the alligator/fish-eating metaphor for >/< symbols ('problematic because it is external to the symbols themselves'). 1.NBT.B.3 games must use the 'the wide part is next to the larger number' framing — see §3.6 of `docs/agents/chesure-knowledge/1-nbt-progressions.md`."
+    },
+    "1.NBT.C.4": {
+      "standardText": "Add within 100, including adding a two-digit number and a one-digit number, and adding a two-digit number and a multiple of 10, using concrete models or drawings and strategies based on place value, properties of operations, and/or the relationship between addition and subtraction; relate the strategy to a written method and explain the reasoning used. Understand that in adding two-digit numbers, one adds tens and tens, ones and ones; and sometimes it is necessary to compose a ten.",
+      "namedSkill": "Add within 100 using place-value strategies — combine tens with tens, ones with ones, and compose a ten when ones sum to 10 or more. Two named sub-cases: (a) two-digit + one-digit (e.g., 47 + 8 = 55 — composing a ten); (b) two-digit + multiple of 10 (e.g., 47 + 30 = 77 — adding tens to tens). The 'compose a ten' clause is the load-bearing new move beyond 1.OA.C.6.",
+      "primary": [
+        {
+          "engineId": "place-value-discs",
+          "rationale": "PRIMARY because the discs structurally enforce 'tens to tens, ones to ones.' To add 47 + 8: the kid places 47 (four 10-discs + seven 1-discs), then adds 8 (eight more 1-discs), the ones column visibly holds 15, and the system prompts the bundling step — 10 of the ones-discs convert to one 10-disc, leaving 5 in the ones column. Total: 5 tens + 5 ones = 55. The composing-a-ten event is right there on screen. Critic Criterion 4 (Construct Validity): the bundling animation IS the standard's load-bearing 'compose a ten' clause. For the multiple-of-10 case (47 + 30): place 47, add three more 10-discs to the tens column, readout 77 — directly enacting 'adding tens and tens.' Audit 11 VETTED; Math Learning Center canonical."
+        },
+        {
+          "engineId": "golden-beads",
+          "rationale": "PRIMARY same construct as place-value-discs but more concrete — ten unit beads become one ten-bar in the composing-a-ten step (the kid physically trades). Audit 11 VETTED — 'Wrong-column rejection enforces place value.' The trade event is the standard's 'compose a ten' clause."
+        },
+        {
+          "engineId": "bar-model",
+          "rationale": "PRIMARY at 1.NBT.C.4 — Singapore CPA canonical for two-part addition. A bar of length 47 plus a bar of length 8 (or 30) joins into a total bar; the visible decomposition into tens-portion and ones-portion supports the place-value strategy. Audit 11 VETTED. Bar-model returns to PRIMARY at 1.NBT (was SECONDARY at K.OA/K.NBT per Audit 14 EL concern; vocabulary scaffolding has caught up by grade 1)."
+        }
+      ],
+      "secondary": [
+        {
+          "engineId": "cuisenaire-rods",
+          "rationale": "Length-composition models 47 + 8 as a rod train; valid CPA. SECONDARY rather than PRIMARY because the column-structured engines surface the 'tens to tens, ones to ones' clause more directly than a single rod train."
+        },
+        {
+          "engineId": "number-frames",
+          "rationale": "Double ten-frame supports the teen-range and within-20 cases; doesn't scale to two full two-digit numbers without re-instantiating. SECONDARY for the small-end of the standard's range."
+        },
+        {
+          "engineId": "stamp-game",
+          "rationale": "Stamps support the tens-and-ones distinction at pictorial-abstract level; valid for grade-1 add-within-100. SECONDARY because golden beads + place-value-discs are more concrete."
+        },
+        {
+          "engineId": "hundred-board",
+          "rationale": "(With Fix 2 applied) — adding +10 or +20 on a hundred-board IS jumping down 1 or 2 rows. Becomes a strong SECONDARY for the multiple-of-10 sub-case once Fix 2 ships. Still SECONDARY rather than PRIMARY because hundred-board doesn't enact the compose-a-ten clause for the two-digit + one-digit case."
+        }
+      ],
+      "revisable": [
+        {
+          "engineId": "hundred-board",
+          "fix": "Fix 2 (drag-and-place + row/column readout). With the fix, hundred-board becomes a strong SECONDARY for the multiple-of-10 sub-case (47 + 30 = drop counter on 47, jump down 3 rows, land on 77) — and arguably PRIMARY for that narrow sub-case. Not raised to PRIMARY here because the standard's main load-bearing move is the compose-a-ten step, which hundred-board doesn't enact."
+        }
+      ],
+      "coverageGap": null,
+      "notes": "Two sub-cases in this standard: (1) two-digit + one-digit with possible composing a ten; (2) two-digit + multiple of 10. PRIMARY engines cover both; hundred-board (with Fix 2) is particularly strong on sub-case 2. See §3.7 of `docs/agents/chesure-knowledge/1-nbt-progressions.md`."
+    },
+    "1.NBT.C.5": {
+      "standardText": "Given a two-digit number, mentally find 10 more or 10 less than the number, without having to count; explain the reasoning used.",
+      "namedSkill": "Given any two-digit number, produce '10 more' or '10 less' without counting by ones — the kid reasons 'I have one more (or less) ten than before.' The fluency clause ('mentally', 'without having to count') is load-bearing. Strong CPA engines build the substrate; the fluency itself is a derivative skill that lives beyond visible-model gameplay.",
+      "primary": [
+        {
+          "engineId": "place-value-discs",
+          "rationale": "PRIMARY for the reasoning-and-explanation half of the standard. The kid sees 47 (four 10-discs + seven 1-discs), and the +10 action is literally 'add one more 10-disc to the tens column.' The ones column doesn't change — the kid SEES that the ones digit stays the same (Progressions named explanation: 'one more ten'). Critic Criterion 4: the kid cannot 'compute' 57 by guessing — they must place one more disc in the correct column. The discs make 'one more ten than before' visible. Pair with a fluency phase (no-discs round) for the 'mentally' aspect."
+        },
+        {
+          "engineId": "hundred-board",
+          "rationale": "CONDITIONAL PRIMARY — requires Fix 2 (drag-and-place + row/column readout) per Audit 11 §2 item 15. Hundred-board is THE canonical representation for 1.NBT.C.5 (Progressions p. 57). +10 = drop counter, jump down ONE row; the ones digit stays the same (column position is the same row→row); the kid SEES the pattern. With Fix 2, the engine becomes the strongest construct-validity fit in the library because the +10/-10 pattern is structurally visible. Without Fix 2 the engine is click-correct-cell — fails Critic Criterion 3. Becomes clean PRIMARY when Fix 2 ships."
+        },
+        {
+          "engineId": "golden-beads",
+          "rationale": "CONDITIONAL PRIMARY — same construct as place-value-discs (add or remove one ten-bar; ones unchanged). Listed as conditional because golden beads at 1.NBT.C.5 don't add anything beyond what place-value-discs provide; the cluster benefits more from hundred-board's row-pattern visualization once Fix 2 ships. If the team treats it as a stable PRIMARY alongside discs, count it as 2 clean + 1 conditional; otherwise it's a third VETTED concrete option to round out the floor."
+        }
+      ],
+      "secondary": [
+        {
+          "engineId": "cuisenaire-rods",
+          "rationale": "Add or remove one 10-rod from a rod train; valid CPA. SECONDARY because the 'ones digit stays the same' framing isn't intrinsic to length on a rod train (the kid sees the train get longer or shorter by one rod-length, but doesn't see a digit at all)."
+        },
+        {
+          "engineId": "stamp-game",
+          "rationale": "Stamp one more '10' or remove one '10' stamp; ones unchanged. Pictorial-abstract level. SECONDARY because place-value-discs at the same abstraction level provides the same construct with stronger physical separation."
+        },
+        {
+          "engineId": "bar-model",
+          "rationale": "Extend a bar by length 10 or shorten by length 10; valid CPA. SECONDARY because bar-model's strength is composition-and-decomposition (1.NBT.C.4/C.6), not the +10 pattern specifically."
+        }
+      ],
+      "revisable": [
+        {
+          "engineId": "hundred-board",
+          "fix": "Fix 2 (drag-and-place + row/column readout, per Audit 11 §2 item 15). For 1.NBT.C.5 specifically, the row-jump pattern must be the win condition — kid drops on 47, the engine offers 'find 10 more,' kid drags down one row to 57, the column position (the ones digit) explicitly does not change in the readout. The 'ones digit stays the same' framing should be made explicit by the engine. With this fix, hundred-board is the strongest engine in the library for 1.NBT.C.5."
+        }
+      ],
+      "coverageGap": "1.NBT.C.5 is named as a *fluency* standard ('mentally', 'without counting'). The current engine library is CPA-biased and supports the *understanding substrate* (1.NBT.B.2) cleanly, but the fluency-on-top is not the engines' native target. A 'flash-card-style' 10-more/10-less Mechanic Inventor engine that uses the hundred-board substrate but builds in a no-counting fluency phase would be the right closure. Flag for the build queue.",
+      "notes": "The cleanest path forward for 1.NBT.C.5 is to ship Fix 2 on `hundred-board` and treat the engine as PRIMARY thereafter. Without Fix 2, only `place-value-discs` is clean PRIMARY and the standard drops below the 3-PRIMARY floor. See §3.8 of `docs/agents/chesure-knowledge/1-nbt-progressions.md`."
+    },
+    "1.NBT.C.6": {
+      "standardText": "Subtract multiples of 10 in the range 10–90 from multiples of 10 in the range 10–90 (positive or zero differences), using concrete models or drawings and strategies based on place value, properties of operations, and/or the relationship between addition and subtraction; relate the strategy to a written method and explain the reasoning used.",
+      "namedSkill": "Subtract a multiple of 10 from another multiple of 10 (both in 10–90), e.g., 70 − 40 = 30. The Progressions name two strategies: (1) 'view as 7 tens minus 4 tens'; (2) view as unknown-addend ('70 + ? = 80'). No decomposing a ten — that's deferred to 2.NBT.B.7. Range is narrow; engine fit is tight.",
+      "primary": [
+        {
+          "engineId": "place-value-discs",
+          "rationale": "PRIMARY because removing N tens-discs from M tens-discs IS the standard's 'M tens minus N tens' clause made physical. The kid places 70 (seven 10-discs), removes 40 (four 10-discs), reads out 30. Audit 11 VETTED. Critic Criterion 4: the kid cannot fake the result — they must physically remove tens-discs, which keeps the place-value structure explicit. The ones column stays empty throughout, matching the standard's 'multiples of 10' constraint."
+        },
+        {
+          "engineId": "golden-beads",
+          "rationale": "PRIMARY same construct — remove N ten-bars from M ten-bars; the difference is K - N ten-bars. Audit 11 VETTED. Reinforces the K.NBT substrate by keeping ten-bars visibly composed of ten beads each."
+        },
+        {
+          "engineId": "bar-model",
+          "rationale": "PRIMARY because Singapore part-whole bar-model is canonical for the unknown-addend subtraction strategy the Progressions name. To find 80 − 40: a bar of length 80 with a 40-length portion removed leaves a 40-length portion. To find 80 − 70 as unknown-addend ('70 + ? = 80'): a 70-bar plus an unknown bar equals 80; the unknown bar is 10. Audit 11 VETTED. Bar-model PRIMARY at 1.NBT (cleared the Audit 14 K-grade EL concern)."
+        }
+      ],
+      "secondary": [
+        {
+          "engineId": "cuisenaire-rods",
+          "rationale": "Remove 10-rods from a 10-rod train; length-difference IS the answer. Valid CPA. SECONDARY because column-structured engines (discs, beads) more directly enact the 'tens minus tens' clause."
+        },
+        {
+          "engineId": "stamp-game",
+          "rationale": "Cross out N 10-stamps from M 10-stamps; pictorial-abstract level. Valid; SECONDARY because more concrete engines are PRIMARY at grade 1."
+        },
+        {
+          "engineId": "free-balance",
+          "rationale": "Balance beam can model unknown-addend subtraction (place 70 on one side, ask 'what plus 40 makes the other side balance at 80'). Audit 11 VETTED for unknown-addend. SECONDARY because the engine doesn't naturally constrain to multiples-of-10."
+        },
+        {
+          "engineId": "hundred-board",
+          "rationale": "(With Fix 2) — subtracting multiples of 10 IS jumping up rows on the hundred-board (70 - 40 = drop counter on 70, jump up four rows to 30). Becomes a strong SECONDARY once Fix 2 ships. Listed here so the Builder knows the option exists once Fix 2 is in."
+        }
+      ],
+      "revisable": [],
+      "coverageGap": null,
+      "notes": "1.NBT.C.6's narrow range (multiples-of-10 minus multiples-of-10) makes the engine fit unusually clean. Reuses the same PRIMARY engines as 1.NBT.C.4. The unknown-addend strategy named in the Progressions is best served by bar-model; the direct-subtraction strategy by discs and beads. See §3.9 of `docs/agents/chesure-knowledge/1-nbt-progressions.md`."
+    },
+    "1.OA.A.1": {
+      "standardText": "Use addition and subtraction within 20 to solve word problems involving situations of adding to, taking from, putting together, taking apart, and comparing, with unknowns in all positions, e.g., by using objects, drawings, and equations with a symbol for the unknown number to represent the problem. (See Glossary)",
+      "namedSkill": "Solve word problems within 20 across the four CGI situation types (Add-To, Take-From, Put-Together/Take-Apart, Compare), with the unknown in any position (Result-Unknown, Change-Unknown, Start-Unknown, and the comparison-difference). Represent each problem with objects, drawings, or an equation containing a symbol for the unknown.",
+      "primary": [
+        {
+          "engineId": "bar-model",
+          "rationale": "Singapore CPA canonical for word problems with unknowns in all positions. The standard says verbatim 'equations with a symbol for the unknown number to represent the problem' — the bar model IS that representation, made physical. Critic Criterion 4 (Construct Validity): the kid places one bar for the known part, leaves a labeled empty bar for the unknown, and the unknown's length is enforced by the part-whole physics — not by reading an answer. Covers Add-To, Take-From, Put-Together, and (with two-bar staggered alignment) Compare. Bar-model returns to PRIMARY at grade 1 from its K.OA SECONDARY demotion (K-grade Moschkovich/de Koning EL concern eases at grade 1 with reading vocabulary catching up). Audit 11 VETTED."
+        },
+        {
+          "engineId": "number-frames",
+          "rationale": "Double ten-frame supports addition and subtraction within 20 (the standard's range). Critic Criterion 4: counters in the frame ARE the objects the standard names ('by using objects'); the kid taps counters one at a time so the count is produced, not read. Equation appears as recording after commit (Chesure equation-as-record discipline). Supports Add-To and Take-From cleanly; Put-Together via two-color counters in a single frame. Builder must design the scenario to cover unknown-position variety — engine doesn't force it, but supports it. Registry note maps engine to K.OA.A.1, A.2, A.5 — extends naturally to 1.OA.A.1 within 20."
+        },
+        {
+          "engineId": "cuisenaire-rods",
+          "rationale": "Length-snap composition models all four situation types: rod placed on rod (Add-To), rod removed from train (Take-From), two rods side-by-side equaling a target (Put-Together), train-to-target with one missing rod (unknown-addend variants). Critic Criterion 4: the rod's physical length IS the count; the kid must produce a missing rod by selecting it from the bin, not by reading a digit. Within 20 covered by 10-rod + unit rods. Order-irrelevance (commutative) is structural — same train can be built with rods in any order. Audit 11 VETTED."
+        }
+      ],
+      "secondary": [
+        {
+          "engineId": "free-collect",
+          "rationale": "Tap-and-collect models Add-To naturally and Put-Together with multi-cluster targets; Result-Unknown is the engine's default; the kid would need scenario design to surface Change-Unknown or Start-Unknown."
+        },
+        {
+          "engineId": "conveyor-belt",
+          "rationale": "Tank level IS the sum; valid for Add-To within 20 but continuous quantity (liquid) is harder to map to discrete-object word problems at grade 1."
+        },
+        {
+          "engineId": "stack-to-target",
+          "rationale": "Pan-height composition; works for Result-Unknown within 20 but block-height is less direct than counted objects for the 'objects or drawings' clause."
+        },
+        {
+          "engineId": "free-balance",
+          "rationale": "Beam supports unknown-addend (Change-Unknown, Start-Unknown) cleanly; demoted to SECONDARY because the balance metaphor isn't the most natural for 'word problems' (the standard's emphasis is on representing the story, not weighing). PRIMARY for 1.OA.B.4 and 1.OA.D.7 where balance physics is the literal mechanic."
+        }
+      ],
+      "revisable": [
+        {
+          "engineId": "number-bonds",
+          "fix": "Hide the auto-revealed third value until the kid commits a guess; supports Start-Unknown and Change-Unknown for 1.OA.A.1's unknowns-in-all-positions clause. Same fix already queued for K.OA.A.3, K.OA.A.4."
+        }
+      ],
+      "coverageGap": null,
+      "notes": "1.OA.A.1 has unknowns in ALL positions — engines that only handle Result-Unknown (a+b=?) are SECONDARY for this standard. PRIMARY engines must support unknown-addend and start-unknown configurations too. Bar-model and cuisenaire-rods support all positions structurally; number-frames requires Builder-side scenario design to cover them all. CGI problem-type taxonomy (Carpenter et al. 1999) — Builder should cover ≥3 of the 4 CGI types across rounds."
+    },
+    "1.OA.A.2": {
+      "standardText": "Solve word problems that call for addition of three whole numbers whose sum is less than or equal to 20, e.g., by using objects, drawings, and equations with a symbol for the unknown number to represent the problem.",
+      "namedSkill": "Add three numbers whose total is ≤ 20 in the context of a word problem. The associative-property opportunity is implicit: kids often regroup the three addends to make a ten first (e.g., 2 + 6 + 4 = 2 + 10 = 12), which is named explicitly in 1.OA.B.3 but practiced here.",
+      "primary": [
+        {
+          "engineId": "bar-model",
+          "rationale": "Three-rod composition into a single bar: place three labeled bars end-to-end; total length is the sum. Critic Criterion 4: the kid produces three separate addends (not one combined number) — the standard's 'addition of three whole numbers' clause is structurally enforced because the bar has three distinct sections. Within 20 covered by sufficiently long base rod. Audit 11 VETTED."
+        },
+        {
+          "engineId": "number-frames",
+          "rationale": "Double ten-frame holds totals up to 20 naturally. Three counter-color groups (e.g., red + blue + yellow) all placed in the frames map directly to three addends. Critic Criterion 4: the kid taps three distinct color clusters — the three-addend structure is visible in the frame after commit. Associative regrouping emerges naturally because the kid often fills the first frame to 10 with two colors and the third color goes in the second frame (e.g., 6 + 4 + 3 fills first frame with 6 red and 4 blue, second frame with 3 yellow)."
+        },
+        {
+          "engineId": "cuisenaire-rods",
+          "rationale": "Three rods snapped end-to-end into a train within length 20. Critic Criterion 4: the rod lengths are the three addends; the train length is the sum; the kid cannot avoid producing three distinct rod values. Order-irrelevance demonstrates the associative property structurally (2 + 6 + 4 = 6 + 2 + 4 = 2 + 4 + 6 — same train, different snap order)."
+        },
+        {
+          "engineId": "stack-to-target",
+          "rationale": "Pan/stack height is the sum of three block heights stacked. Critic Criterion 4: three distinct blocks stacked — the kid sees three addends as three visible block layers; the pan-height IS the sum within 20. Audit 11 VETTED. Particularly clean for the three-addend constraint because the stack has visible 'layers.'"
+        }
+      ],
+      "secondary": [
+        {
+          "engineId": "free-collect",
+          "rationale": "Three pre-defined cluster colors collected to a target; works for the result-sum but loses the discrete 'three numbers' visual unless scenarios pre-structure them."
+        },
+        {
+          "engineId": "conveyor-belt",
+          "rationale": "Tank fills from three different sources; continuous quantity is less ideal for grade 1 'objects and drawings' framing."
+        },
+        {
+          "engineId": "shape-decomposer",
+          "rationale": "Three-region area decomposition models three addends as three colored areas in a target shape; valid but defaults to area-as-sum framing (3.MD rather than 1.OA)."
+        }
+      ],
+      "revisable": [],
+      "coverageGap": null,
+      "notes": "Strong coverage with four clean PRIMARY engines. The associative-property regrouping opportunity (2 + 6 + 4 → 2 + 10 = 12) is an emergent payoff of any of the PRIMARY engines but is named explicitly in 1.OA.B.3. Builder should design at least one round where two of the three addends naturally combine to a known sum (a ten, a double)."
+    },
+    "1.OA.B.3": {
+      "standardText": "Apply properties of operations as strategies to add and subtract. (Students need not use formal terms for these properties.) Examples: If 8 + 3 = 11 is known, then 3 + 8 = 11 is also known. (Commutative property of addition.) To add 2 + 6 + 4, the second two numbers can be added to make a ten, so 2 + 6 + 4 = 2 + 10 = 12. (Associative property of addition.)",
+      "namedSkill": "Use the commutative property (order doesn't change the sum: 8 + 3 = 3 + 8) and the associative property (regrouping to make a ten or a known sum: 2 + 6 + 4 = 2 + 10 = 12) as addition strategies. Kids do this AS A STRATEGY, not by stating a property by name. The engine must show that rearranging or regrouping leaves the total unchanged.",
+      "primary": [
+        {
+          "engineId": "cuisenaire-rods",
+          "rationale": "The strongest engine for properties-of-operations because the rod length IS the count and rod-order is irrelevant. Commutative: a 3-rod + 8-rod and an 8-rod + 3-rod build trains of identical length — the kid sees the property by building both versions. Associative: 2 + 6 + 4 can be assembled as the 2-rod first then the 10-rod (built from the 6 + 4), or as three separate rods — same final length. Critic Criterion 4: the standard's verbatim example '8 + 3 = 11 is known, then 3 + 8 = 11 is also known' is enacted physically — two trains, same length. Audit 11 VETTED."
+        },
+        {
+          "engineId": "bar-model",
+          "rationale": "Side-by-side bars with addends in different orders visibly match in length — commutative property shown by alignment. Three-bar composition with the option to combine two adjacent bars into one (a + (b + c) vs (a + b) + c) demonstrates associative. Critic Criterion 4: the standard's example '2 + 6 + 4 = 2 + 10 = 12' is enacted when the kid combines the 6-bar and 4-bar into a single 10-bar then aligns it with the 2-bar — the recombination is the property."
+        },
+        {
+          "engineId": "free-balance",
+          "rationale": "Beam balances with rearranged addends: place 8 + 3 weights on left, 3 + 8 on right — beam remains level. Critic Criterion 4: the standard's clause 'If 8 + 3 = 11 is known, then 3 + 8 = 11 is also known' is shown by the beam's literal balance under reordering. Associative shown similarly: (2 + 6) + 4 on left, 2 + (6 + 4) on right — balanced. Beam physics IS the equality the property guarantees."
+        }
+      ],
+      "secondary": [
+        {
+          "engineId": "number-frames",
+          "rationale": "Ten-frame fills can be reordered (red counters then blue, or blue then red — same total) showing commutative; making-a-ten with three addends shows associative. Less structurally direct than cuisenaire-rods, where length IS invariant under order."
+        },
+        {
+          "engineId": "free-collect",
+          "rationale": "Collecting clusters in different orders reaches the same field-size — commutative is structural to the tap mechanic, but the engine doesn't visibly contrast 'a + b' with 'b + a' side-by-side."
+        }
+      ],
+      "revisable": [
+        {
+          "engineId": "split-the-loot",
+          "fix": "Lock total at known sum; show the kid that filling silo A with N items and silo B with M, vs filling A with M and B with N, gives the same total — explicit commutative demonstration. Currently the engine accepts any split; the fix is a scenario constraint (commit two splits with reversed values per round)."
+        }
+      ],
+      "coverageGap": null,
+      "notes": "Strong coverage. The standard explicitly says 'Students need not use formal terms for these properties' — Builders should NOT label the property by name in the game. The game shows the property by mechanic. CGI literature: Carpenter, Franke & Levi (2003) Thinking Mathematically — properties as relational understanding."
+    },
+    "1.OA.B.4": {
+      "standardText": "Understand subtraction as an unknown-addend problem. For example, subtract 10 – 8 by finding the number that makes 10 when added to 8.",
+      "namedSkill": "Reframe subtraction (10 − 8) as the unknown-addend question 'What goes with 8 to make 10?' The kid finds the unknown by adding up from the smaller part, not by taking away. This is the conceptual bridge between addition and subtraction that 1.OA.C.6's 'relationship between addition and subtraction' strategy depends on.",
+      "primary": [
+        {
+          "engineId": "free-balance",
+          "rationale": "The reference engine for this standard. Beam pre-filled with the total (10) on one side and a known part (8) on the other; the kid adds weights to the partial side until the beam balances — the count they add IS the unknown addend (the answer to '10 − 8'). Critic Criterion 4: the standard's verbatim example 'subtract 10 – 8 by finding the number that makes 10 when added to 8' is enacted literally — the kid is finding the number that makes 10 when added to 8, by adding weight until balance. Audit 11 VETTED."
+        },
+        {
+          "engineId": "bar-model",
+          "rationale": "Two-bar setup: top bar = total (10); bottom bar shows one part (8) with a labeled empty section for the unknown. Kid extends the empty section with unit rods until bottom bar matches top bar — the rods placed ARE the unknown addend. Critic Criterion 4: the standard's clause 'finding the number that makes 10 when added to 8' is exactly the bar-completion action. Singapore CPA's part-whole-unknown is built for this standard."
+        },
+        {
+          "engineId": "cuisenaire-rods",
+          "rationale": "Length-train completion: target length is the total (10); a known rod (8) placed at the start; kid selects the rod that completes the train (the 2-rod). Critic Criterion 4: the kid produces the unknown addend by selecting it from the bin and snapping it on, not by computing the difference. The selection IS the answer; the snap-into-place IS the proof."
+        }
+      ],
+      "secondary": [
+        {
+          "engineId": "number-frames",
+          "rationale": "Ten-frame pre-filled with 8 counters; kid taps empty cells until the frame is full — number of taps is the unknown addend. Works mechanically; SECONDARY because the framing is more commonly used for K.OA.A.4 partners-of-10 than for 1.OA.B.4's general unknown-addend pattern."
+        },
+        {
+          "engineId": "mystery-side",
+          "rationale": "True algebraic identity (remove same from both sides) — mathematically valid for 1.OA.B.4 but the 'remove from both sides' move is 6.EE territory and developmentally premature for grade 1. PRIMARY at 1.OA.D.7 and 1.OA.D.8 where the equation framing is the point."
+        }
+      ],
+      "revisable": [
+        {
+          "engineId": "number-bonds",
+          "fix": "Hide the auto-revealed third value (the unknown addend) until the kid commits a guess. With the fix, the engine becomes the canonical unknown-addend bond builder: whole shown, one part shown, kid produces the other. Same fix queued for K.OA.A.3, K.OA.A.4, 1.OA.A.1."
+        },
+        {
+          "engineId": "split-the-loot",
+          "fix": "Lock total at the minuend (e.g., 10), pre-fill one silo with the subtrahend (e.g., 8); kid fills the other silo until total is reached — the count they produced IS the difference, reframed as an unknown-addend. Same configuration logic as the K.OA.A.4 partners-of-10 use; no new engine change needed."
+        }
+      ],
+      "coverageGap": null,
+      "notes": "Three clean PRIMARY engines. This is the conceptual bridge standard — it's why the 'relationship between addition and subtraction' strategy works at 1.OA.C.6. The Chesure file §3 'B.4 — subtraction as unknown-addend' walks the Builder through why this reframe matters."
+    },
+    "1.OA.C.5": {
+      "standardText": "Relate counting to addition and subtraction (e.g., by counting on 2 to add 2).",
+      "namedSkill": "See addition as 'count forward from the bigger number' and subtraction as 'count back.' Specifically: to add 8 + 2, the kid says '8 ... 9, 10' (counting on 2), not '1, 2, 3, 4, 5, 6, 7, 8, 9, 10' (counting all). This is the Level-2 strategy in the K-5 OA Progression and the prerequisite for 1.OA.C.6's named strategies.",
+      "primary": [
+        {
+          "engineId": "cuisenaire-rods",
+          "rationale": "Place the 'starting' rod (e.g., 8-rod) on the table; kid adds unit rods one at a time on the end — each new unit rod is the literal 'count on by one' move. Critic Criterion 4: the standard's verbatim example 'counting on 2 to add 2' is enacted physically — the 8-rod stays, the kid adds 2 unit rods, and the train length goes 8 → 9 → 10. Counting back enacted by removing unit rods from the end. The kid cannot recount the starting rod's units because the rod is a single physical piece — the 'don't start over from 1' discipline is structural."
+        },
+        {
+          "engineId": "number-frames",
+          "rationale": "PRIMARY conditional on the K.CC.A.2 'counting-on mode' fix already queued in the JSON map (`standard-mechanic-map.json`'s K.CC.A.2 entry, REVISABLE). With the fix: pre-fill first frame with N counters as a 'given start,' kid taps additional counters and the running count begins at N+1, not 1. Critic Criterion 4: the standard's 'count on by 2 to add 2' is the literal mechanic — count starts at N. Without the fix, the engine recounts from 1 and FAILS the standard's verbatim definition. MOVE FROM CONDITIONAL TO CLEAN PRIMARY ONCE THE COUNTING-ON FIX SHIPS."
+        },
+        {
+          "engineId": "hundred-board",
+          "rationale": "PRIMARY conditional on the Audit 11 §2 hundred-board trail fix PLUS a start-from-N variant (both already queued). With the fixes, the kid is placed at cell N (e.g., cell 8) and taps forward: cell 9, cell 10 — the trail glows the visited cells. Critic Criterion 4: the standard's 'counting on N to add N' is the literal cell-trail; counting back is the reverse trail. Within 20 covered by the first two rows of the 100 board. NOT PRIMARY UNTIL THE TRAIL FIX AND START-FROM-N VARIANT SHIP."
+        }
+      ],
+      "secondary": [
+        {
+          "engineId": "bar-model",
+          "rationale": "Bar extension by unit rods models counting on; works mechanically but doesn't enforce 'don't start over' the way cuisenaire-rods does (a kid could recount the starting bar's units)."
+        },
+        {
+          "engineId": "free-collect",
+          "rationale": "If the field is pre-stocked with N dots and the kid taps additional clusters with the running count beginning at N+1 (a Builder scenario choice), models counting on. Same engine flag as K.CC.A.2 PRIMARY conditional."
+        }
+      ],
+      "revisable": [
+        {
+          "engineId": "number-frames",
+          "fix": "Add 'counting-on' mode (already queued in K.CC.A.2 entry): pre-fill first frame with N counters as a given start; child taps additional counters and the count starts at N+1, not 1. Critical for 1.OA.C.5 to clean-PRIMARY."
+        },
+        {
+          "engineId": "hundred-board",
+          "fix": "Forward-counting-trail mechanic (kid taps cells in order; trail glows) PLUS start-from-N variant (kid begins at cell N rather than cell 1). Both queued in Audit 11 §2 and the K.CC.A.2 entry."
+        }
+      ],
+      "coverageGap": "Only 1 clean PRIMARY (`cuisenaire-rods`). The other two PRIMARY engines depend on engine fixes that have already been queued in Audit 11 §2 and in the K.CC.A.2 JSON entry but have not shipped. Audit 11 §5 #2 names this as an open gap. Mechanic Inventor opportunity: a 'count-on number-line hop' engine where the kid taps the starting number and then taps each successive integer in order, with no option to recount from 1.",
+      "notes": "1.OA.C.5 is the standard that depends most heavily on the K.CC.A.2 counting-on fixes. Cross-cluster cross-cutting concern. Bus-stop number line, hundred-board trail, and pre-stocked free-collect all need to ship for this standard to have robust coverage."
+    },
+    "1.OA.C.6": {
+      "standardText": "Add and subtract within 20, demonstrating fluency for addition and subtraction within 10. Use strategies such as counting on; making ten (e.g., 8 + 6 = 8 + 2 + 4 = 10 + 4 = 14); decomposing a number leading to a ten (e.g., 13 – 4 = 13 – 3 – 1 = 10 – 1 = 9); using the relationship between addition and subtraction (e.g., knowing that 8 + 4 = 12, one knows 12 – 8 = 4); and creating equivalent but easier or known sums (e.g., adding 6 + 7 by creating the known equivalent 6 + 6 + 1 = 12 + 1 = 13).",
+      "namedSkill": "Add and subtract within 20; fluent within 10. The standard names five strategies: (1) counting on, (2) making ten, (3) decomposing a number leading to a ten, (4) using the add/sub relationship, (5) creating equivalent or known sums (doubles plus/minus 1). Each PRIMARY engine should map to one or more of these named strategies. Per Baroody (2006), 'fluency' at grade 1 is efficient, not flashcard-fast — no timer.",
+      "primary": [
+        {
+          "engineId": "number-frames",
+          "rationale": "Double ten-frame is the canonical 'making-ten' representation in K-5 (Van de Walle 2018; Math Learning Center). For 8 + 6: kid fills first frame with 8, then adds 2 to complete the first frame (now 10), then drops 4 more in the second frame — visibly enacts the standard's verbatim example '8 + 6 = 8 + 2 + 4 = 10 + 4 = 14.' Critic Criterion 4: the standard's named 'making ten' strategy IS the engine's default mechanic, not a popup. Decomposing-leading-to-ten (13 − 4 = 13 − 3 − 1) shown by emptying the second frame to 0 then removing 1 from the now-full first frame."
+        },
+        {
+          "engineId": "cuisenaire-rods",
+          "rationale": "Rod composition supports all five named strategies cleanly. Counting on: add unit rods to a starting rod. Making ten: swap a (6+4) pair for the 10-rod. Decomposing-leading-to-ten: break the 13-train into 10-rod + 3-rod before removing. Add/sub relationship: same train of 8 + 4 = 12 lets the kid see that removing the 8-rod leaves the 4-rod (the standard's example '8 + 4 = 12, one knows 12 – 8 = 4' is literal). Equivalent sums (doubles ± 1): swap the 7-rod for a 6-rod + 1-rod and see the train length unchanged. Critic Criterion 4: every named strategy is enacted by the engine's primitive moves (snap, swap, remove)."
+        },
+        {
+          "engineId": "bar-model",
+          "rationale": "Singapore CPA supports making-ten and decomposing-leading-to-ten via rod-swap inside the bar (replace a 6-rod with a 4-rod + 2-rod to enable the 8 + 2 making-ten move). The add/sub relationship strategy is shown by reading the same part-whole bar two ways (whole − one part = other part). Critic Criterion 4: the bar's rigid part-whole structure forces the kid to track all the regrouping moves visibly — no hidden computation."
+        }
+      ],
+      "secondary": [
+        {
+          "engineId": "free-balance",
+          "rationale": "Beam supports the add/sub relationship strategy (place 8 + 4 on left = 12 on right; remove 8 from left and the beam tilts by exactly 8, showing 12 − 8 = 4) and equivalent sums (swap a 7 for a 6 + 1, beam remains level). Less direct for making-ten than the ten-frame."
+        },
+        {
+          "engineId": "free-collect",
+          "rationale": "Tap-collect within 20; can support counting on and equivalent sums but not the specific making-ten visual that the ten-frame supplies."
+        },
+        {
+          "engineId": "split-the-loot",
+          "rationale": "Two-silo split with locked totals can model the add/sub relationship (total − part = other part) but defaults to single-decomposition rather than the multi-strategy practice this standard demands."
+        },
+        {
+          "engineId": "stack-to-target",
+          "rationale": "Pan height composition within 20; supports making-ten if Builder lays a visible '10' marker line on the pan. Less direct than ten-frame."
+        }
+      ],
+      "revisable": [
+        {
+          "engineId": "number-bonds",
+          "fix": "Hide the auto-revealed third value until the kid commits a guess. Supports add/sub relationship strategy (whole + one part shown, kid produces the missing part — same fix queued for K.OA.A.3, K.OA.A.4, 1.OA.A.1, 1.OA.B.4)."
+        }
+      ],
+      "coverageGap": null,
+      "notes": "Five named strategies, three PRIMARY engines covering all five collectively. Builder should design rounds that practice ≥3 of the five strategies. Critical: NO timer pressure at grade 1 — fluency at this stage is efficient strategy use, NOT flashcard speed (Baroody 2006; Boaler on math anxiety). The classic-overlay drill engines (snake-math, falling-blocks-math, etc.) remain HIDDEN even though they ostensibly cover 'add and subtract within 20' — they're timer-driven extrinsic-integration designs (Audit 11 §4)."
+    },
+    "1.OA.D.7": {
+      "standardText": "Understand the meaning of the equal sign, and determine if equations involving addition and subtraction are true or false. For example, which of the following equations are true and which are false? 6 = 6, 7 = 8 – 1, 5 + 2 = 2 + 5, 4 + 1 = 5 + 2.",
+      "namedSkill": "Understand '=' as a relation meaning 'the two sides are the same' — NOT as a command meaning 'compute the answer.' Judge equations as true or false across all four forms named in the example: identity (6 = 6), right-to-left (7 = 8 − 1), commutative (5 + 2 = 2 + 5), and non-canonical with operations on both sides (4 + 1 = 5 + 2). Engines that only show 'a + b = ?' (computation-prompt form) actively reinforce the operator-misconception (Behr et al. 1980; McNeil & Alibali 2005); they fail Construct Validity for this standard.",
+      "primary": [
+        {
+          "engineId": "free-balance",
+          "rationale": "Beam IS the literal equal sign. A beam in balance encodes the relational meaning of '=' — the two sides are the same weight. Place '5 + 2' on the left and '2 + 5' on the right: beam balances (true). Place '4 + 1' on the left and '5 + 2' on the right: beam tilts (false). Critic Criterion 4: the standard's verbatim example set ('5 + 2 = 2 + 5, 4 + 1 = 5 + 2') is enacted by the beam's tilt-or-balance state. No popup says 'true' or 'false' — the physics says it. The beam supports all four equation forms named in the standard (identity, right-to-left, commutative, both-sides-have-operations). Audit 11 VETTED. This is the canonical engine for 1.OA.D.7."
+        },
+        {
+          "engineId": "mystery-side",
+          "rationale": "The engine's core move is 'remove the same from both sides without changing the equality.' Critic Criterion 4: the standard's 'meaning of the equal sign' is operationalized by the engine's invariant — the equation stays true under symmetric operations, which IS the relational meaning of '='. Particularly strong for the both-sides-have-operations form (4 + 1 = 5 + 2): the kid simplifies both sides to 5 and 7, sees they don't match, marks false. Engine's algebra framing (6.EE) is technically above grade but the basic balance-preservation idea translates cleanly to grade 1 with whole-number-only configuration. Audit 11 VETTED."
+        }
+      ],
+      "secondary": [
+        {
+          "engineId": "expression-transformer",
+          "rationale": "Algebra-tile zero-pair cancellation shows that 5 + 2 and 2 + 5 are the same expression by reordering; that 5 + 0 = 5; that 5 − 5 = 0. Supports the relational meaning of '=' but the engine's default framing is 6.EE (combine like terms), not 1.OA. SECONDARY because re-skinning for grade 1 whole-numbers-only is a Builder-side scenario decision, not an engine fix."
+        },
+        {
+          "engineId": "bar-model",
+          "rationale": "Two bars of equal length encode '=' as 'same length' (a relational view). For 4 + 1 = 5 + 2: the kid builds two bars (one of length 5, one of length 7) and sees they don't match. Works but the engine's default is 'build the answer,' not 'judge whether two expressions match' — Builder must design the scenario to surface the true/false judgment."
+        },
+        {
+          "engineId": "cuisenaire-rods",
+          "rationale": "Two trains of equal length show '='; reordering rods within a train (5 + 2 vs 2 + 5) keeps the length the same. Same caveat as bar-model — engine's default is composition, not equation-judgment."
+        }
+      ],
+      "revisable": [],
+      "coverageGap": "Below 3-PRIMARY floor — 2 strong balance-based PRIMARY engines (free-balance, mystery-side). A 'true/false equation sorter' engine is needed to round out coverage; tracked as a Mechanic Inventor opportunity.",
+      "notes": "1.OA.D.7 is the equal-sign relational-understanding standard. Per Carpenter, Franke & Levi (2003) and McNeil & Alibali (2005), engines that only show 'a + b = ?' (left-to-right computation-prompt form) actively reinforce the misconception that '=' means 'compute the answer.' For D.7, every PRIMARY engine MUST support equations in BOTH directions (5 = 2+3 AND 2+3 = 5) and the non-canonical 'both sides have operations' form (4+1 = 5+2). The free-balance and mystery-side engines do this structurally because their physics is symmetric."
+    },
+    "1.OA.D.8": {
+      "standardText": "Determine the unknown whole number in an addition or subtraction equation relating to three whole numbers. For example, determine the unknown number that makes the equation true in each of the equations 8 + ? = 11, 5 = � – 3, 6 + 6 = �.",
+      "namedSkill": "Find the missing number in equations of the form a + ? = c, ? + b = c, a + b = ?, c − ? = b, c − a = ?, and ? − a = b — the unknown in any position. Within 20. The standard's examples deliberately include the right-to-left form (5 = ? − 3) to reinforce 1.OA.D.7's relational meaning of '='.",
+      "primary": [
+        {
+          "engineId": "free-balance",
+          "rationale": "Beam with one side known and a mystery weight to be determined. For '8 + ? = 11': pre-place 11 on the right side and 8 on the left; kid adds weights to the left until the beam balances — the weight they added IS the unknown. Critic Criterion 4: the standard's verbatim example '8 + ? = 11' is enacted exactly. Supports all unknown positions including the right-to-left form '5 = ? − 3' (place 5 on one side, place a mystery and remove 3 from the other side, balance reveals the mystery). Audit 11 VETTED. Strongest 1.OA.D.8 engine."
+        },
+        {
+          "engineId": "bar-model",
+          "rationale": "Part-whole bar with unknown section labeled. For '8 + ? = 11': total bar of length 11, known part of length 8, kid fills the empty section until the bar matches. Critic Criterion 4: the unknown is produced by physical bar-completion, not by reading a digit. Supports all six unknown positions named above through different part-whole configurations. Singapore CPA canonical."
+        },
+        {
+          "engineId": "split-the-loot",
+          "rationale": "Two Silos configured for the unknown-addend case: lock total at the known sum (e.g., 11), pre-fill one silo with the known addend (e.g., 8); kid drops items into the empty silo until total is reached — the count they produced IS the unknown. Critic Criterion 4: the standard's verbatim example '8 + ? = 11' is enacted by the silo-fill — kid counts each tap (no auto-counter), and the silo's final count is the answer. Already VETTED in Audit 11; configuration for this standard is locked-total + pre-filled silo, no engine change needed."
+        }
+      ],
+      "secondary": [
+        {
+          "engineId": "mystery-side",
+          "rationale": "True algebraic identity (remove same from both sides) finds the unknown by symmetric operations. Works for all forms but the algebra framing is 6.EE — developmentally premature for grade 1, where the equation should be a recording of a part-whole story, not an algebraic manipulation. PRIMARY for 1.OA.D.7 where the framing is the point."
+        },
+        {
+          "engineId": "number-frames",
+          "rationale": "Ten-frame pre-filled with known addend; kid taps empty cells until target count reached — same as K.OA.A.4 partners-of-10 but extended to within 20 (double ten-frame). Works mechanically; SECONDARY because the engine's default framing is K-grade (within 10)."
+        },
+        {
+          "engineId": "cuisenaire-rods",
+          "rationale": "Train-completion with a missing rod; kid selects the rod from the bin. Strong mechanic but the engine doesn't surface 'equation' framing — the standard explicitly says 'in an addition or subtraction equation,' which is the bar-model's and free-balance's strength."
+        }
+      ],
+      "revisable": [
+        {
+          "engineId": "number-bonds",
+          "fix": "Hide the auto-revealed third value until the kid commits a guess. With the fix, number-bonds becomes a direct unknown-addend engine — whole shown, one part shown, kid produces the unknown. Same fix already queued for K.OA.A.3, K.OA.A.4, 1.OA.A.1, 1.OA.B.4."
+        }
+      ],
+      "coverageGap": null,
+      "notes": "Three clean PRIMARY engines. 1.OA.D.8 and 1.OA.B.4 are conceptually adjacent — both are unknown-addend; D.8 makes the equation framing explicit. The standard's example '5 = ? − 3' reinforces 1.OA.D.7's relational equal-sign meaning by putting the unknown on the right of '='. Builders should include the right-to-left example deliberately."
+    },
     "3.OA.A.1": {
       "standardText": "Interpret products of whole numbers, e.g., interpret 5 × 7 as the total number of objects in 5 groups of 7 objects each. For example, describe a context in which a total number of objects can be expressed as 5 × 7.",
       "namedSkill": "Interpret a × b as 'a groups of b objects each' — the equal-groups meaning of multiplication. Within 100. The standard names a specific interpretation (groups), not arrays (3.OA.A.3) or area (3.MD).",
