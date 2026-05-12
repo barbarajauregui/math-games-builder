@@ -614,6 +614,374 @@
       "coverageGap": null,
       "notes": "1.NBT.C.6's narrow range (multiples-of-10 minus multiples-of-10) makes the engine fit unusually clean. Reuses the same PRIMARY engines as 1.NBT.C.4. The unknown-addend strategy named in the Progressions is best served by bar-model; the direct-subtraction strategy by discs and beads. See §3.9 of `docs/agents/chesure-knowledge/1-nbt-progressions.md`."
     },
+    "2.NBT.A.1": {
+      "standardText": "Understand that the three digits of a three-digit number represent amounts of hundreds, tens, and ones; e.g., 706 equals 7 hundreds, 0 tens, and 6 ones.",
+      "namedSkill": "View any three-digit number 100–999 as some hundreds, some tens, and some ones. Each digit represents a count of its place-value unit. The 'three digits represent amounts' wording is load-bearing — the engine must physically separate the three amounts, not just display them. Critic Criterion 4: includes at least one round with a 0 in the middle position (the named 706 example).",
+      "primary": [
+        {
+          "engineId": "place-value-discs",
+          "rationale": "PRIMARY because the discs physically separate hundreds from tens from ones across three columns. Audit 11 VETTED: 'Total readout IS the truth.' Critic Criterion 4: place a 10-disc in the hundreds column and the engine rejects it — wrong-column rejection IS the standard's 'hundreds, tens, ones' clause enforced. The kid cannot win by ignoring place; the engine forces the structure. The 0-tens case (e.g., 706) is naturally surfaced — the kid places 7 hundred-discs and 6 ones-discs and the tens column stays visibly empty. Math Learning Center grade-2 canonical."
+        },
+        {
+          "engineId": "golden-beads",
+          "rationale": "PRIMARY because Audit 11 verdict is 'Wrong-column rejection enforces place value (3-digit).' Bead-hundred-squares (10 ten-bars side by side), ten-bars, and unit beads physically distinguish all three places. Critic Criterion 4: building 706 requires 7 hundred-squares + 0 ten-bars + 6 unit beads; the kid's hand has to use the right column. Montessori canonical for grade-2 place value."
+        },
+        {
+          "engineId": "stamp-game",
+          "rationale": "PRIMARY because Audit 11 VETTED for place value with thousands. Three-digit numbers are fully within stamp game's intended range. Pictorial-abstract level above golden beads — stamps for 1s, 10s, 100s, 1000s. Same column rejection structurally. Particularly well-suited to 2.NBT because the bridge from concrete (beads) to abstract (numeral) is what grade-2 kids need."
+        }
+      ],
+      "secondary": [
+        {
+          "engineId": "bar-model",
+          "rationale": "A three-part bar (hundreds + tens + ones) can model 463 as a long bar of 400 plus a medium bar of 60 plus a short bar of 3. CPA canonical, but bar-model's strongest fit is in the addition/subtraction standards (B.5, B.6, B.7). For the conceptual 'three digits represent amounts' standard, place-value-discs and beads are more direct because the column structure is intrinsic."
+        },
+        {
+          "engineId": "cuisenaire-rods",
+          "rationale": "Length-composition with 100-flats (or 10 ten-rods side by side) + 10-rods + unit rods can model three-digit numbers but reads less directly than column-of-discs. SECONDARY here; PRIMARY for the counting/skip-counting standard 2.NBT.A.2."
+        },
+        {
+          "engineId": "number-frames",
+          "rationale": "Double ten-frame works to 20 only; doesn't scale to three-digit numbers without re-instantiating dozens of frames. SECONDARY only as a stepping-stone engine for kids still consolidating 1.NBT substrate."
+        }
+      ],
+      "revisable": [],
+      "coverageGap": null,
+      "notes": "Parent standard for 2.NBT.A.1a (bundling-the-hundred) and 2.NBT.A.1b (decade-of-hundreds). Builders should be encouraged to use the cluster collectively. See §3.1 of `docs/agents/chesure-knowledge/2-nbt-progressions.md`."
+    },
+    "2.NBT.A.1a": {
+      "standardText": "100 can be thought of as a bundle of ten tens — called a \"hundred.\"",
+      "namedSkill": "Treat a group of 10 tens as a single new unit called 'a hundred.' The second bundling event — 10 tens become 1 hundred — is the load-bearing developmental move of the 2.NBT cluster, mirroring 1.NBT.B.2a one level up. Engines that pre-bundle the hundred without showing the kid's hand performing the bundle fail Construct Validity for 2.NBT.A.1a (they may still be PRIMARY for downstream 2.NBT cases where the hundred-bundle is assumed).",
+      "primary": [
+        {
+          "engineId": "place-value-discs",
+          "rationale": "CONDITIONAL PRIMARY — strongest fit when the Builder configures a 'bundling round' where the kid places 10 ten-discs and the system replaces them with one 100-disc (the canonical bundling animation Math Learning Center uses for grade-2 place value, parallel to MLC's grade-1 ten-bundling). Audit 11 VETTED for place value generally. Critic Criterion 4: the bundling animation IS the standard's 'a bundle of ten tens, called a hundred' clause made physical. Without the bundling animation, the discs appear as red-green-blue from the start (Chesure §2 anti-pattern #1) — demote to SECONDARY in that case."
+        },
+        {
+          "engineId": "golden-beads",
+          "rationale": "PRIMARY because the bead-hundred-square IS visibly composed of ten ten-bars laid side by side — the Montessori material is engineered for exactly this standard's named skill. The kid can lay ten ten-bars next to a hundred-square and see they're the same. Critic Criterion 4: the equivalence is structural, not a popup. With a Builder scenario that explicitly requires the kid to compose ten 10-bars into one hundred-square (then break a hundred-square back into ten ten-bars in a later round), the standard's named bundling skill is the gameplay. Montessori canonical for the second bundling move."
+        },
+        {
+          "engineId": "stamp-game",
+          "rationale": "CONDITIONAL PRIMARY — strongest when the Builder configures a bundling round where the kid stamps ten 10s and then taps 'bundle these' to convert them into one 100-stamp. Like place-value-discs, the bundling animation has to be present. Audit 11 VETTED for place value; the pictorial-abstract level is well-suited to grade-2 kids who've already done the concrete bundling at K-1 with beads or rods. Without the bundling animation, demote to SECONDARY."
+        }
+      ],
+      "secondary": [
+        {
+          "engineId": "bar-model",
+          "rationale": "A 100-bar can be shown as visibly composed of 10 ten-segments. The bundling event is less crisp than with discs or beads (bars don't 'snap together' the same way), so SECONDARY. Works well as a recording layer paired with discs."
+        },
+        {
+          "engineId": "cuisenaire-rods",
+          "rationale": "Ten 10-rods placed side by side equal a 100-square (or a 10×10 area). The kid can physically perform the equivalence. Listed SECONDARY rather than PRIMARY because cuisenaire rods don't have a native 'bundle these' affordance the way discs do — the kid sees the equivalence but doesn't perform a discrete bundling action. Strong for hands-on classroom; weaker as a digital engine for A.1a."
+        }
+      ],
+      "revisable": [],
+      "coverageGap": null,
+      "notes": "Gate standard for the 2.NBT cluster — mirror of 1.NBT.B.2a one level up. Mr. Chesure's review is sharpest here: the bundling animation is the load-bearing pedagogical move. Engines that skip it (pre-made hundred-disc from round 1, pre-made hundred-square shown without composition view) fail Construct Validity even though they pass it for downstream standards. See §3.2 of `docs/agents/chesure-knowledge/2-nbt-progressions.md`."
+    },
+    "2.NBT.A.1b": {
+      "standardText": "The numbers 100, 200, 300, 400, 500, 600, 700, 800, 900 refer to one, two, three, four, five, six, seven, eight, or nine hundreds (and 0 tens and 0 ones).",
+      "namedSkill": "See each of 100, 200, …, 900 as N hundreds with zero tens and zero ones. Parallel to 1.NBT.B.2c (decade numbers = N tens, 0 ones), one level up. The two trailing zeros must register as placeholders, not decoration.",
+      "primary": [
+        {
+          "engineId": "place-value-discs",
+          "rationale": "PRIMARY because the kid places N hundred-discs in the hundreds column; the tens and ones columns stay visibly empty. Audit 11 VETTED. Critic Criterion 4: the recording writes 'N00' with the 0s in the tens and ones positions — the kid can see that the zeros mean 'zero tens, zero ones' because the columns ARE empty. Direct enactment of the standard's '(and 0 tens and 0 ones)' clause."
+        },
+        {
+          "engineId": "golden-beads",
+          "rationale": "PRIMARY because the kid places N hundred-squares in the hundreds tray; the tens and ones trays stay visibly empty. Audit 11 VETTED — wrong-column rejection enforces place value. Critic Criterion 4: the zeros in '400' correspond directly to empty trays, making the placeholder framing visible."
+        },
+        {
+          "engineId": "stamp-game",
+          "rationale": "PRIMARY because the kid stamps N 100-stamps in the hundreds column; tens and ones columns visibly empty. Same column rejection as golden beads. Pictorial-abstract level matches grade 2."
+        }
+      ],
+      "secondary": [
+        {
+          "engineId": "bar-model",
+          "rationale": "A single bar of length 400 (or four bars of 100) models the standard but doesn't surface the 'zero tens, zero ones' clause as crisply as columnar engines. SECONDARY."
+        },
+        {
+          "engineId": "cuisenaire-rods",
+          "rationale": "N hundred-flats (or N stacks of ten 10-rods) on a length line. Surfaces the multiples-of-100 structure but not the empty-columns placeholder framing. SECONDARY."
+        }
+      ],
+      "revisable": [],
+      "coverageGap": null,
+      "notes": "Parallel to 1.NBT.B.2c one level up. The two-zeros-as-placeholders framing is the standard-specific Critic check. See §3.3 of `docs/agents/chesure-knowledge/2-nbt-progressions.md`."
+    },
+    "2.NBT.A.2": {
+      "standardText": "Count within 1000; skip-count by 5s, 10s, and 100s.",
+      "namedSkill": "Count by 1s up to 1000, and skip-count by 5s, 10s, and 100s. The skip-count step (5, 10, or 100) must be the kid's repeated action — each step is placing or saying one more group, not the engine reciting for them.",
+      "primary": [
+        {
+          "engineId": "bead-chain",
+          "rationale": "PRIMARY because Audit 11 VETTED for multiplication-as-skip-count — 'Marker on chain; readout shows N × groups.' The standard's named skip-counting skill IS the engine's primary action. Critic Criterion 4: the marker advances by the chosen group size (5, 10, or 100); the kid sees the skip-count emerge as a physical movement along the chain. CPA canonical for grade-2 skip-counting per Montessori."
+        },
+        {
+          "engineId": "cuisenaire-rods",
+          "rationale": "PRIMARY because skip-counting by 5s = laying down successive yellow rods; by 10s = laying down orange rods; by 100s = laying down hundred-flats. Length-IS-quantity (Audit 11 VETTED). Critic Criterion 4: each rod placement adds exactly its value to the train; the kid cannot fake the skip-count because the length-snap reveals miscounts."
+        },
+        {
+          "engineId": "hundred-board",
+          "rationale": "CONDITIONAL PRIMARY — requires Fix 2 (drag-and-place + row/column readout) per Audit 11 §2 item 15. With Fix 2, the kid drops markers in sequence — the 10-column layout makes the skip-count-by-10 pattern structurally visible (drop one row down each time). Skip-count by 5 traces a column-pair pattern; skip-count by 100 doesn't fit a single hundred-board (extends to thousand-board, a Mechanic Inventor candidate). Without Fix 2 the engine is REVISABLE (click-correct-cell shortcut). Becomes clean PRIMARY for the within-100 half once Fix 2 ships; the full within-1000 half awaits a thousand-board engine."
+        }
+      ],
+      "secondary": [
+        {
+          "engineId": "place-value-discs",
+          "rationale": "Counting up by placing discs (one disc per count for 1s; one 5-disc per skip for 5s; one 10-disc per skip for 10s; one 100-disc per skip for 100s). Surfaces the skip-count but doesn't visualize the sequence as a continuous count the way bead-chain or rod-trains do. SECONDARY because the standard names *counting* — a sequenced action — and discs read as separate placements rather than a continuous count."
+        },
+        {
+          "engineId": "stamp-game",
+          "rationale": "Same as place-value-discs reasoning — works for skip-count but doesn't visualize the sequence. SECONDARY."
+        }
+      ],
+      "revisable": [
+        {
+          "engineId": "hundred-board",
+          "fix": "Fix 2 — drag-and-place with row/column readout (Audit 11 §2 item 15) replaces the click-correct-cell shortcut. Once shipped, hundred-board is the canonical engine for skip-count-by-10 within 100. The within-1000 counting half awaits a thousand-board engine (Mechanic Inventor candidate). Listed in PRIMARY above as conditional."
+        }
+      ],
+      "coverageGap": "No native thousand-board engine for the within-1000 / +100 skip-count visualizations. `bead-chain` and `cuisenaire-rods` cover the action; `place-value-discs` covers the recording. A thousand-board would deepen construct validity for the full standard range.",
+      "notes": "2.NBT.A.2 has two halves (count to 1000; skip-count by 5/10/100). The PRIMARY engines cover skip-counting cleanly; the within-1000 counting half is well-served by bead-chain and rod-trains, with hundred-board adding canonical position-on-a-grid view after Fix 2. See §3.4 of `docs/agents/chesure-knowledge/2-nbt-progressions.md`."
+    },
+    "2.NBT.A.3": {
+      "standardText": "Read and write numbers to 1000 using base-ten numerals, number names, and expanded form.",
+      "namedSkill": "Translate any number 0–1000 between three representations: numeral (563), number name ('five hundred sixty-three'), and expanded form (500 + 60 + 3). The kid must be able to start from any of the three and produce the other two. Critic Criterion 4: at least two representations must be surfaced in the engine; the 'one hundred six = 1006' misconception (Progressions p. 58) is the canonical failure to guard against.",
+      "primary": [
+        {
+          "engineId": "place-value-discs",
+          "rationale": "PRIMARY because the discs in columns automatically write the numeral as a recording. Pair with an expanded-form recording panel (the kid places 5 hundred-discs and the panel writes '500'; places 6 ten-discs and the panel adds '+ 60'; places 3 ones-discs and the panel adds '+ 3'). Two representations surfaced natively (numeral + expanded form); the third (number name) comes from the Builder's audio scenario. Audit 11 VETTED. Critic Criterion 4: the '1006' misconception is structurally prevented — the kid cannot place 1 hundred + 0 + 0 + 6 because the columns enforce single-digit-per-column."
+        },
+        {
+          "engineId": "golden-beads",
+          "rationale": "PRIMARY because the bead arrangement (N hundred-squares + M ten-bars + P unit beads) directly produces both numeral and expanded form when paired with a recording panel. The Montessori 'large number cards' (layered place-value cards) are designed for exactly this standard — they make the expanded-form-to-numeral overlap visible. Audit 11 VETTED. The bundling visible in the bead-hundred-square also reinforces the structure."
+        },
+        {
+          "engineId": "stamp-game",
+          "rationale": "PRIMARY because stamps in three columns produce numeral + expanded form on a recording panel. Same reasoning as place-value-discs but at pictorial-abstract level — closer to the written numeral the standard names. Particularly strong for the 'write the numeral when you hear the name' direction because the stamp icons sit at the pictorial-abstract level the kid is moving toward."
+        }
+      ],
+      "secondary": [
+        {
+          "engineId": "bar-model",
+          "rationale": "A three-part bar can model the expanded form (400 + 60 + 3) and pair with a numeral readout. Works but doesn't surface number names natively. SECONDARY."
+        },
+        {
+          "engineId": "cuisenaire-rods",
+          "rationale": "Rod trains can model the expanded form via length composition (4 hundred-flats + 6 ten-rods + 3 unit rods). Doesn't natively surface number names. SECONDARY — same range issue as A.1."
+        }
+      ],
+      "revisable": [],
+      "coverageGap": null,
+      "notes": "The three-representation requirement is the standard-specific Critic check. PRIMARY engines surface numeral + expanded form natively; number name comes from Builder audio. Cover at least one number with a 0 in the middle position (the named 706 case from A.1). See §3.5 of `docs/agents/chesure-knowledge/2-nbt-progressions.md`."
+    },
+    "2.NBT.A.4": {
+      "standardText": "Compare two three-digit numbers based on meanings of the hundreds, tens, and ones digits, using >, =, and < symbols to record the results of comparisons.",
+      "namedSkill": "Compare two three-digit numbers by hundreds first, then tens, then ones. Record with >, =, or <. Critic Criterion 4: the comparison must be structurally place-value-based (hundreds-first), not visual-height-based. Equal-hundreds and equal-hundreds-and-tens cases must be in scope.",
+      "primary": [
+        {
+          "engineId": "place-value-discs",
+          "rationale": "PRIMARY because two parallel three-column workspaces let the kid see hundreds-tens-ones for both numbers side by side. Audit 11 VETTED. Critic Criterion 4: the comparison happens by counting hundreds-discs first (if different, that's the answer); if equal, drop to tens; if equal, drop to ones. The hundreds-first reasoning is the structural flow the kid is forced into."
+        },
+        {
+          "engineId": "golden-beads",
+          "rationale": "PRIMARY because two side-by-side bead trays make hundreds-vs-hundreds visually direct (and same for tens, ones). Audit 11 VETTED — wrong-column rejection enforces the place-value structure. Critic Criterion 4: the kid cannot win by overall-height comparison because the trays separate columns; the hundreds-bead-square comparison comes first naturally."
+        },
+        {
+          "engineId": "stamp-game",
+          "rationale": "PRIMARY for the same reason as place-value-discs — parallel three-column workspaces enforce hundreds-first comparison. Pictorial-abstract level matches grade-2."
+        }
+      ],
+      "secondary": [
+        {
+          "engineId": "sorting-lane",
+          "rationale": "Block-widths-show-value engine; supports ordering but the comparison happens by overall width, not by place-value reasoning. Works as a recording layer after the kid has compared with discs (drop the numerals into the sorting lane in order). Listed SECONDARY rather than PRIMARY because the standard's 'based on meanings of the digits' clause is invisible when comparing by width alone."
+        },
+        {
+          "engineId": "leaderboard-fix",
+          "rationale": "Swap-by-tap ordering — same construct as sorting-lane. Works as recording layer. SECONDARY for the same reason."
+        },
+        {
+          "engineId": "bar-model",
+          "rationale": "Two bars side by side; comparison by visible length. Same concern as sorting-lane — visual height instead of place-value reasoning. SECONDARY."
+        }
+      ],
+      "revisable": [
+        {
+          "engineId": "number-line-drop",
+          "fix": "Fix 10 — tighter snap zone + numerical readout of where the drop landed (Audit 11 §2 item 10) would make this engine viable as a SECONDARY recording layer (drop both numerals on a 0-1000 line, see relative positions). Even after the fix it's SECONDARY for A.4 because the comparison-by-position is magnitude, not place-value reasoning."
+        }
+      ],
+      "coverageGap": null,
+      "notes": "Mirror of 1.NBT.B.3 one level up. Same anti-pattern guards: do NOT use alligator-eating metaphors for >/< symbols (Progressions p. 56/58); use 'wide part is next to the larger number.' See §3.6 of `docs/agents/chesure-knowledge/2-nbt-progressions.md`."
+    },
+    "2.NBT.B.5": {
+      "standardText": "Fluently add and subtract within 100 using strategies based on place value, properties of operations, and/or the relationship between addition and subtraction.",
+      "namedSkill": "Add and subtract any two numbers in 0–100, accurately, efficiently, and flexibly (Baroody 2006). The 'fluently' clause is fluency-with-understanding, not fluency-with-speed. The named strategies are place-value-based (decompose into tens and ones, work column by column), property-based (commutative/associative reorder), or relationship-based (use + to reason about −). Critic Criterion 4: no visible timer; multiple strategy paths allowed; subtraction with regrouping in scope.",
+      "primary": [
+        {
+          "engineId": "place-value-discs",
+          "rationale": "PRIMARY because the discs make place-value strategies physical. Adding 47 + 28: place 4 ten-discs and 7 one-discs; place 2 ten-discs and 8 one-discs; combine — see 6 ten-discs and 15 one-discs; bundle 10 ones into a ten → 7 ten-discs and 5 one-discs = 75. The strategy IS the action sequence. Audit 11 VETTED. Critic Criterion 4: the regrouping is a kid action, not a system animation; the equation writes itself as a recording."
+        },
+        {
+          "engineId": "bar-model",
+          "rationale": "PRIMARY because Singapore CPA is canonical for part-part-whole within 100 (Audit 11 VETTED). The bar-model surfaces the relationship between addition and subtraction directly — the same diagram of two parts and a whole supports 47 + 28 = ? (find whole) AND 75 − 47 = ? (find part). Critic Criterion 4: the +/− relationship the standard explicitly names is built into the engine."
+        },
+        {
+          "engineId": "golden-beads",
+          "rationale": "PRIMARY because beads physically support place-value addition and subtraction with composing/decomposing tens. Audit 11 VETTED. Critic Criterion 4: 47 + 28 by combining bead-bars and units, then bundling 10 units into a ten — the named place-value strategy is the action."
+        }
+      ],
+      "secondary": [
+        {
+          "engineId": "stamp-game",
+          "rationale": "Stamps in two columns support place-value addition and subtraction at pictorial-abstract level. PRIMARY-adjacent — works very similarly to discs/beads. Listed SECONDARY here only because at grade-2 within-100 the discs/beads are the most concrete fit; stamps come into their PRIMARY at 2.NBT.B.6 / B.7 where the range extends into hundreds and the pictorial-abstract level is needed."
+        },
+        {
+          "engineId": "number-frames",
+          "rationale": "Useful for the within-20 inner loop of place-value strategies (7 + 8 inside 47 + 28 = ten-frame composition). SECONDARY because the engine doesn't natively scale to two-digit place value."
+        },
+        {
+          "engineId": "cuisenaire-rods",
+          "rationale": "Rod-train length composition supports addition within 100. SECONDARY because the column structure isn't intrinsic — length is a single line, not parallel tens/ones."
+        }
+      ],
+      "revisable": [],
+      "coverageGap": null,
+      "notes": "Mr. Chesure rejects any 2.NBT.B.5 game with a visible timer or 'beat the clock' framing (Chesure §2 anti-pattern #3). The standard's 'fluently' clause is fluency-with-understanding, per Baroody 2006. See §3.7 of `docs/agents/chesure-knowledge/2-nbt-progressions.md`."
+    },
+    "2.NBT.B.6": {
+      "standardText": "Add up to four two-digit numbers using strategies based on place value and properties of operations.",
+      "namedSkill": "Add 2, 3, or 4 two-digit numbers in one problem. Use commutative and associative properties to reorder and regroup addends to make the computation easier. Compose tens when ones-digit sums exceed 10 (across multiple addends). Critic Criterion 4: at least one round with 4 addends; reordering or regrouping addends must be a physical action (drag, group), not a system suggestion.",
+      "primary": [
+        {
+          "engineId": "place-value-discs",
+          "rationale": "PRIMARY because the discs let the kid place all addends concurrently (4 separate addend zones plus a combine area). The reorder is physical: drag addends together; group them by ones-sum-to-10. The compose-a-ten happens when the combined ones column hits 10+ and the kid bundles. Audit 11 VETTED. Critic Criterion 4: the commutative/associative property is enacted, not stated."
+        },
+        {
+          "engineId": "stamp-game",
+          "rationale": "PRIMARY because stamps in two columns (and four addend rows) support multi-addend addition at pictorial-abstract level. Same kid-action structure as place-value-discs. Audit 11 VETTED for place value."
+        },
+        {
+          "engineId": "bar-model",
+          "rationale": "PRIMARY because a multi-part bar (4 segments) physically encodes 4 addends summing to a whole. The kid can reorder the segments to find easy pairings (segments that sum to 10s). Singapore CPA canonical. Audit 11 VETTED."
+        }
+      ],
+      "secondary": [
+        {
+          "engineId": "golden-beads",
+          "rationale": "Beads support multi-addend addition with composing tens. PRIMARY-adjacent (works very similarly to discs/stamps) but slightly less natural for 4-addend rounds because the bead tray fills up. SECONDARY at this standard; PRIMARY at 2.NBT.B.5 and B.7."
+        },
+        {
+          "engineId": "cuisenaire-rods",
+          "rationale": "Rod trains support multi-addend composition by length. SECONDARY — the column structure isn't intrinsic, and 4 addends in a single rod train reads as one long length, losing the per-addend structure."
+        }
+      ],
+      "revisable": [],
+      "coverageGap": null,
+      "notes": "At least one round must use 4 addends; don't stay at 2 or 3. Compose-a-ten across multiple addends must be in scope (ones-digits summing to 10+ across 3-4 addends). See §3.8 of `docs/agents/chesure-knowledge/2-nbt-progressions.md`."
+    },
+    "2.NBT.B.7": {
+      "standardText": "Add and subtract within 1000, using concrete models or drawings and strategies based on place value, properties of operations, and/or the relationship between addition and subtraction; relate the strategy to a written method. Understand that in adding or subtracting three-digit numbers, one adds or subtracts hundreds and hundreds, tens and tens, ones and ones; and sometimes it is necessary to compose or decompose tens or hundreds.",
+      "namedSkill": "Add and subtract within 1000 using concrete models and place-value strategies. Compose tens and hundreds when ones or tens overflow. Decompose tens and hundreds when subtracting requires more of a smaller unit. Relate the strategy to a written equation. Critic Criterion 4: composing AND decomposing must both be kid actions (not system animations); both directions covered; the written equation appears as a recording after action, not as a fill-in prompt.",
+      "primary": [
+        {
+          "engineId": "place-value-discs",
+          "rationale": "PRIMARY because the discs support BOTH composing (10 ones → 1 ten; 10 tens → 1 hundred) AND decomposing (1 hundred → 10 tens; 1 ten → 10 ones) as discrete kid actions. Audit 11 VETTED. Critic Criterion 4 (the load-bearing criterion at B.7): the kid taps 'bundle these' to compose; taps 'unbundle this' to decompose; the engine confirms by replacing the discs. The compose/decompose event is BY the kid, not TO the kid (Chesure §2 anti-pattern #2 explicitly guarded). Reversible — the kid can re-bundle after unbundling and see the total quantity is preserved."
+        },
+        {
+          "engineId": "golden-beads",
+          "rationale": "PRIMARY because beads support both compose and decompose with the same wrong-column rejection as discs (Audit 11 VETTED). Critic Criterion 4: the kid trades 10 unit beads for 1 ten-bar (compose), or trades 1 ten-bar for 10 unit beads (decompose). The Montessori 'change game' is engineered for exactly this skill. Range covers 1000 with hundred-squares plus ten-bars plus units."
+        },
+        {
+          "engineId": "stamp-game",
+          "rationale": "PRIMARY because the stamp game supports composing and decomposing at pictorial-abstract level — particularly well-suited because the stamp icons sit at the pictorial-abstract level grade-2 kids are moving toward. Audit 11 VETTED for place value with thousands. Range covers 1000 fully."
+        }
+      ],
+      "secondary": [
+        {
+          "engineId": "bar-model",
+          "rationale": "Bar-model surfaces the relationship between addition and subtraction directly (same diagram supports both) — the standard explicitly names this relationship as a strategy. PRIMARY-adjacent at B.7; listed SECONDARY only because the compose/decompose-as-discrete-action is less crisp with bars than with discs/beads/stamps (bars don't 'bundle' the same way)."
+        },
+        {
+          "engineId": "cuisenaire-rods",
+          "rationale": "Rod composition supports the addition half cleanly (lay down ten 10-rods, swap for a 100-flat). For decomposition the engine doesn't natively support unbundling a 100-flat back into ten 10-rods as a discrete action. SECONDARY."
+        }
+      ],
+      "revisable": [],
+      "coverageGap": null,
+      "notes": "The compose AND decompose mandate is the load-bearing Critic check. Engines that auto-regroup (Chesure §2 anti-pattern #2) fail. Cover at least one no-regrouping case AND one regrouping case in each direction per scenario. See §3.9 of `docs/agents/chesure-knowledge/2-nbt-progressions.md`."
+    },
+    "2.NBT.B.8": {
+      "standardText": "Mentally add 10 or 100 to a given number 100–900, and mentally subtract 10 or 100 from a given number 100–900.",
+      "namedSkill": "Given any three-digit number 100–900, immediately produce the result of +10, −10, +100, or −100 — without counting by ones. The structural pattern: +10 changes only the tens digit; +100 changes only the hundreds digit. Critic Criterion 4: 'only one column changes' must be visibly surfaced; cover all four directions (+10, −10, +100, −100); fade from visible-model to no-model only after the kid is fluent, with re-grounding when wrong.",
+      "primary": [
+        {
+          "engineId": "place-value-discs",
+          "rationale": "PRIMARY because the structural insight is visible: add one 10-disc → only the tens column changes (the hundreds and ones columns are untouched). Add one 100-disc → only the hundreds column changes. Audit 11 VETTED. Critic Criterion 4: the 'ones and tens stay the same when you add 100' clause is structurally enforced by the engine — the kid sees that two columns didn't change. Only clean PRIMARY today for both halves of the standard."
+        },
+        {
+          "engineId": "hundred-board",
+          "rationale": "CONDITIONAL PRIMARY for the ±10 half only — requires Fix 2 (drag-and-place + row/column readout) per Audit 11 §2 item 15. With Fix 2, the kid drops a marker one row down for +10 — directly enacting 'one more ten; ones digit stays the same' (the standard's structural insight) because the column position is preserved. Without Fix 2 the engine is REVISABLE (click-correct-cell). The ±100 half is NOT covered by hundred-board (the board tops out at 100); awaits a thousand-board engine."
+        },
+        {
+          "engineId": "stamp-game",
+          "rationale": "CONDITIONAL PRIMARY — same structural reasoning as place-value-discs: stamp one more 10 (or 100) in the right column; the other columns are visibly unchanged. Audit 11 VETTED for place value with thousands. Critic Criterion 4 satisfied for both halves. Listed in PRIMARY but flagged conditional because the engine's primary design intent is broader place-value work; for B.8's pattern-recognition specifically the discs read more directly."
+        }
+      ],
+      "secondary": [
+        {
+          "engineId": "golden-beads",
+          "rationale": "Adding/subtracting bead-units mirrors place-value-discs but with more physical bulk for 100s (hundred-squares are larger). Works structurally; SECONDARY because discs are more direct for the pattern-recognition focus of B.8."
+        },
+        {
+          "engineId": "bar-model",
+          "rationale": "Can model 347 + 100 as a 347-bar with a 100-bar added. Doesn't surface the 'only one column changes' insight as crisply as columnar engines. SECONDARY."
+        }
+      ],
+      "revisable": [
+        {
+          "engineId": "hundred-board",
+          "fix": "Fix 2 — drag-and-place with row/column readout (Audit 11 §2 item 15). Once shipped, hundred-board becomes clean PRIMARY for the ±10 half of B.8. The ±100 half awaits a thousand-board engine (Mechanic Inventor candidate per Audit 11 §5). Listed in PRIMARY above as conditional."
+        }
+      ],
+      "coverageGap": "No native thousand-board engine for the ±100 pattern visualization. `place-value-discs` covers the structural insight, but a 0-1000 grid (10 hundred-charts in a column, or a single 100-row × 10-column grid) would surface the +100 column-jump pattern the way hundred-board surfaces the +10 row-jump pattern. Mechanic Inventor candidate.",
+      "notes": "Extends 1.NBT.C.5 one level up. Mr. Chesure rejects any +100-on-a-number-line game that doesn't highlight the hundreds-digit change (Chesure §2 anti-pattern #8). The 'fade to no-model after fluent' design pattern from 1.NBT.C.5 carries over. See §3.10 of `docs/agents/chesure-knowledge/2-nbt-progressions.md`."
+    },
+    "2.NBT.B.9": {
+      "standardText": "Explain why addition and subtraction strategies work, using place value and the properties of operations. (Explanations may be supported by drawings or objects.)",
+      "namedSkill": "Produce an explanation of why a strategy works. The explanation references place value or properties of operations explicitly. Drawings, objects, or equations may support the explanation. The explanation IS the named skill; correct-answer-without-explanation does not satisfy the standard. Critic Criterion 4: the engine MUST capture an explanation (action-sequence replay, audio capture, drag-labels-onto-steps, or written equation chain); 'Done' should not advance the round without an explanation produced.",
+      "primary": [
+        {
+          "engineId": "place-value-discs",
+          "rationale": "CONDITIONAL PRIMARY — requires the Builder's scenario to include an explanation-capture step. With it, the kid's action sequence (the moves they made with discs) IS the explanation, and a peer-character or labeling step asks the kid to attach 'why' to each step ('I added 4 tens to 3 tens because tens combine with tens'). Audit 11 VETTED. Critic Criterion 4: with the explanation-capture scenario, the recording IS the explanation in the kid's own action sequence; without it, the engine is SECONDARY (manipulation only)."
+        },
+        {
+          "engineId": "bar-model",
+          "rationale": "CONDITIONAL PRIMARY — same condition. The bar-model surfaces the relationship between addition and subtraction visually (same diagram, two operations); pairing this with a labeling step where the kid attaches 'this works because the whole equals the sum of the parts, no matter what order' makes the explanation explicit. Audit 11 VETTED — Singapore CPA canonical. Without the labeling/replay step, SECONDARY."
+        },
+        {
+          "engineId": "golden-beads",
+          "rationale": "CONDITIONAL PRIMARY — same condition as discs. The kid's bead-tray manipulation sequence becomes the explanation when paired with a labeling step. Wrong-column rejection (Audit 11 VETTED) means the kid's actions are structurally tied to place-value reasoning, making the 'because tens combine with tens' explanation natural. Without the labeling step, SECONDARY."
+        }
+      ],
+      "secondary": [
+        {
+          "engineId": "stamp-game",
+          "rationale": "Same conditional structure as the three primaries — works as a recording layer if the Builder scenario includes explanation-capture. Listed SECONDARY here only because at this standard the most concrete engines (discs, beads) read more directly to the place-value explanation than the more abstract stamps."
+        },
+        {
+          "engineId": "cuisenaire-rods",
+          "rationale": "Length-composition supports strategy enactment but doesn't natively pair with explanation-capture as cleanly as columnar engines. SECONDARY."
+        }
+      ],
+      "revisable": [],
+      "coverageGap": "The 'explanation-capture step' is a Builder UX requirement, not an engine gap. The Critic must flag any 2.NBT.B.9 submission where the engine never asks the kid to produce a why. A scenario template ('peer asks why,' 'drag the labels onto the steps,' 'narrate the strategy') would harden this — flagged as a Builder-side design pattern rather than an engine fix.",
+      "notes": "The standard explicitly names explanation as the skill. Engines manipulate; explanation has to be elicited by the Builder's scenario layer. Mr. Chesure flags any B.9 submission where the engine never asks the kid to produce a why. See §3.11 of `docs/agents/chesure-knowledge/2-nbt-progressions.md`."
+    },
     "1.OA.A.1": {
       "standardText": "Use addition and subtraction within 20 to solve word problems involving situations of adding to, taking from, putting together, taking apart, and comparing, with unknowns in all positions, e.g., by using objects, drawings, and equations with a symbol for the unknown number to represent the problem. (See Glossary)",
       "namedSkill": "Solve word problems within 20 across the four CGI situation types (Add-To, Take-From, Put-Together/Take-Apart, Compare), with the unknown in any position (Result-Unknown, Change-Unknown, Start-Unknown, and the comparison-difference). Represent each problem with objects, drawings, or an equation containing a symbol for the unknown.",
@@ -1113,6 +1481,177 @@
       ],
       "coverageGap": "Only 2 PRIMARY. Most candidates are REVISABLE because their default framing is build-the-product (3.OA.A.1 mode). Mechanic Inventor opportunity: a 'fact-family triangle' engine where kid drags any 2 of {a, b, c} into the triangle and the third auto-fits — explicitly serves 3.OA.A.4 + 3.OA.B.6.",
       "notes": "If the REVISABLE engines get the unknown-factor mode, this standard moves to strong coverage. Priority fix list for the build queue."
+    },
+    "2.OA.A.1": {
+      "standardText": "Use addition and subtraction within 100 to solve one- and two-step word problems involving situations of adding to, taking from, putting together, taking apart, and comparing, with unknowns in all positions, e.g., by using drawings and equations with a symbol for the unknown number to represent the problem. (See Glossary)",
+      "namedSkill": "Solve one- and two-step word problems within 100 across the three CGI situation types (Add-To, Take-From, Put-Together/Take-Apart, Compare), with the unknown in any position. Rewrite a situation equation (e.g., ? − 38 = 49) as a solution equation (49 + 38 = ?). The big jump from 1.OA.A.1 is the within-100 range AND the introduction of TWO-STEP problems — engines that only show a single operation are SECONDARY for this standard; PRIMARY engines must chain or support multi-step compositions.",
+      "primary": [
+        {
+          "engineId": "bar-model",
+          "rationale": "Singapore CPA canonical — the strongest engine for 2.OA.A.1 because the bar model supports both two-step problems (two stacked or sequenced bars, each its own operation) and unknowns-in-all-positions (any segment can be the labeled-empty unknown). Critic Criterion 4 (Construct Validity): for a two-step problem 'Maya has 38 marbles. She gets 12 more, then gives 5 to her brother. How many now?' the kid builds a bar of 38, extends it by 12, then shortens by 5 — the equation `38 + 12 − 5 = ?` writes itself as the bar's history. For a situation equation `? − 38 = 49` the kid sees the total bar (49 + 38 = 87) and the known-subtracted-part (38), and produces the start (87) — the rewrite from situation to solution equation is enacted physically. Within 100 covered by 10-rods + unit rods. Audit 11 VETTED. Bar-model's part-whole-with-unknown is the Singapore method's central representation for exactly this standard."
+        },
+        {
+          "engineId": "cuisenaire-rods",
+          "rationale": "Length-snap composition supports all three situation types and chains naturally for two-step problems. Critic Criterion 4: for a two-step problem the kid snaps a 10-rod + an 8-rod (first step: 18), then adds a 5-rod (second step: 23) — the train's growing length IS the running total of a multi-step process. Within 100 supported by combining 10-rods. The kid produces each addend or minuend as a physical rod selection, so the count is produced, not read. Two-step shown by visible composition history (the snap-on order is visible). Audit 11 VETTED."
+        },
+        {
+          "engineId": "number-frames",
+          "rationale": "Double ten-frame extends to within-100 work when configured as a 'tens frame' (each cell = 10) — a standard Math Learning Center scenario decision documented in Bridges Grade 2. Critic Criterion 4: for 'Maya had 38 stickers. She buys 24 more. How many?' the kid drops 3 ten-cells + 8 unit-counters as 38, then 2 ten-cells + 4 unit-counters as 24 — the sum 62 reads from the final frame state. Two-step problems chain across two consecutive frame configurations. Builder scenario design must specify the tens-frame configuration for within-100 totals; the engine supports it natively. Note: for kids still cementing within-20 strategies (slower 2nd graders) the unit-counter mode is fine. SECONDARY scenarios would use the within-20 unit-only mode."
+        }
+      ],
+      "secondary": [
+        {
+          "engineId": "free-balance",
+          "rationale": "Beam supports unknown-position equations (the standard's 'unknowns in all positions' clause) including the rewriting of `? − 38 = 49` as `49 + 38 = ?`. Within 100 covered by configurable weight labels. SECONDARY because the engine is single-equation by default — chaining for two-step problems requires Builder scenario design to fire two consecutive beam rounds. PRIMARY when the standard is 2.OA-adjacent equation work; SECONDARY here because the standard emphasizes WORD PROBLEMS where the bar model and rod composition are more natural."
+        },
+        {
+          "engineId": "split-the-loot",
+          "rationale": "Two-silo split models Put-Together/Take-Apart within 100 with one silo locked. Supports unknown-addend (Change-Unknown) cleanly. SECONDARY because the engine is single-operation by default — two-step problems require Builder-side chaining."
+        },
+        {
+          "engineId": "conveyor-belt",
+          "rationale": "Tank level as the sum supports Add-To within 100 with sufficient tank capacity. Continuous liquid is less direct for discrete-object word problems but works for measurement-themed scenarios. SECONDARY because the within-100 range stretches the engine's visual capacity (very large tanks are hard to read)."
+        },
+        {
+          "engineId": "stack-to-target",
+          "rationale": "Pan-height composition for within-100 totals; works for single-step Result-Unknown problems. SECONDARY because of the discreteness limitations at higher counts (stacks of 80 blocks are awkward to render) and because two-step chaining is Builder-design rather than engine-native."
+        }
+      ],
+      "revisable": [
+        {
+          "engineId": "number-bonds",
+          "fix": "Hide the auto-revealed third value until the kid commits a guess; supports Start-Unknown and Change-Unknown for 2.OA.A.1's unknowns-in-all-positions clause. Same fix queued for K.OA.A.3, K.OA.A.4, 1.OA.A.1, 1.OA.B.4."
+        }
+      ],
+      "coverageGap": null,
+      "notes": "The big lift from 1.OA.A.1 is (a) within 100 and (b) TWO-STEP problems. PRIMARY engines must support both. Builder design should include at least one two-step round per game and at least one round where the unknown is NOT in the result position. The Progressions doc warns that 'two-step problems should not involve the most difficult subtypes' for grade-2 students — Builders should keep two-step problems away from Start-Unknown and Compare-with-opposite-language until late in the cluster. MECHANIC INVENTOR OPPORTUNITY: a dedicated two-step word-problem engine with two visible operation slots (e.g., 'first add 12, then subtract 5') and a labeled running total."
+    },
+    "2.OA.B.2": {
+      "standardText": "Fluently add and subtract within 20 using mental strategies. (See standard 1.OA.6 for a list of mental strategies.) By end of Grade 2, know from memory all sums of two one-digit numbers.",
+      "namedSkill": "Add and subtract within 20 'fast and accurate' using the mental strategies named in 1.OA.C.6 (counting on, making ten, decomposing leading to ten, the add/sub relationship, doubles/near-doubles). Know from memory all sums of two one-digit numbers by end of grade 2. Per the Progressions doc verbatim: this is 'not a matter of instilling facts divorced from their meanings' — it's the outcome of multi-year practice plus reasoning. Per Baroody (2006), fluency is efficient strategy use, NOT flashcard speed.",
+      "primary": [
+        {
+          "engineId": "number-frames",
+          "rationale": "Double ten-frame is the canonical 'making-ten' representation in K-5 (Van de Walle 2018; Math Learning Center Bridges Grade 2). 2.OA.B.2 extends 1.OA.C.6's within-20 strategy work to fluency — and the ten-frame is the engine where the strategy is most visible. Critic Criterion 4: for 8 + 6 the kid fills first frame with 8, then 2 more complete the first frame (the making-ten move), then 4 more in the second frame — the strategy is enacted, not memorized. For 13 − 4 the kid removes 3 from the second frame (emptying it) and 1 from the first frame — the decomposing-leading-to-ten strategy is enacted. This is the strongest 2.OA.B.2 engine BECAUSE it surfaces mental strategies rather than just demanding fast answers. Note: NO TIMER per Baroody 2006."
+        },
+        {
+          "engineId": "cuisenaire-rods",
+          "rationale": "Rod composition supports all five named strategies (counting on, making ten, decomposing-leading-to-ten, add/sub relationship, doubles/near-doubles) — same as the 1.OA.C.6 PRIMARY rationale. For 2.OA.B.2 the practice is the SAME mechanic with the goal shifted from 'use a strategy' to 'use a strategy fluently.' Critic Criterion 4: for 6 + 7 the kid can swap the 7-rod for a 6-rod + 1-rod (near-doubles) — train length unchanged at 13. The kid PHYSICALLY enacts the strategy; speed builds through repeated practice. Audit 11 VETTED. NO TIMER."
+        }
+      ],
+      "secondary": [
+        {
+          "engineId": "bar-model",
+          "rationale": "Singapore CPA supports making-ten and decomposing-leading-to-ten via rod-swap inside the bar — same as 1.OA.C.6 secondary rationale. Works for the strategy work but less direct than the ten-frame for visualizing the make-a-ten move."
+        },
+        {
+          "engineId": "free-balance",
+          "rationale": "Beam supports the add/sub relationship strategy (place 8 + 4 on left, 12 on right; remove 8 from left, beam tilts by 8 showing 12 − 8 = 4) and equivalent sums (swap 7 for 6 + 1, beam remains level). SECONDARY because the engine is single-equation by default — fluency requires many repetitions across varied strategies, which the beam handles round-by-round but slower than ten-frames or rods."
+        },
+        {
+          "engineId": "split-the-loot",
+          "rationale": "Two-silo split practices the add/sub relationship (total − part = other part) within 20. SECONDARY because the engine defaults to single-decomposition rather than the multi-strategy fluency practice this standard requires."
+        },
+        {
+          "engineId": "stack-to-target",
+          "rationale": "Pan-height composition supports making-ten if Builder lays a visible '10' marker line. Less direct than the ten-frame."
+        }
+      ],
+      "revisable": [
+        {
+          "engineId": "number-bonds",
+          "fix": "Hide the auto-revealed third value until the kid commits a guess; with fix, supports the add/sub-relationship strategy AND doubles-recognition practice (e.g., whole 12, one part 6, kid produces 6 — sees the double)."
+        }
+      ],
+      "coverageGap": "Below 3-PRIMARY floor — 2 strong strategy-surfacing engines (number-frames, cuisenaire-rods). The fast-and-accurate fluency assessment is handled by the calibrated Mastery Check (separate spec) rather than padded with weak Builder-game fits. This is structural to the app's 'math IS the gameplay, no timers' philosophy.",
+      "notes": "2.OA.B.2 is the standard most likely to be tight in this mapping because the app's pedagogical principles (intrinsic integration, no timers, no flashcards) deliberately exclude the most common 'fluency game' designs (flash-card races, falling-numbers games, etc.). The HIDDEN classic-overlay engines (snake-math, falling-blocks-math, etc.) ostensibly cover this standard but fail Critic Criterion 2 (math IS the gameplay) — they're timer-driven extrinsic-integration designs. Builders building 2.OA.B.2 games should design rounds that practice ≥3 of the 5 named strategies and should NOT add timers. The Progressions doc warns explicitly: 'not a matter of instilling facts divorced from their meanings.'"
+    },
+    "2.OA.C.3": {
+      "standardText": "Determine whether a group of objects (up to 20) has an odd or even number of members, e.g., by pairing objects or counting them by 2s; write an equation to express an even number as a sum of two equal addends.",
+      "namedSkill": "Decide whether a group of up to 20 objects is odd or even. Use either pairing (two-by-two arrangement; one left over = odd; no leftover = even) or counting by 2s. For even numbers, write an equation expressing the total as a sum of two equal addends (e.g., 8 = 4 + 4). The standard sets the stage for 3.OA multiplication by establishing equal-groups thinking — 2.OA.C.3 and 2.OA.C.4 are paired in the Progressions doc as the Level-1 setup for multiplication.",
+      "primary": [
+        {
+          "engineId": "number-frames",
+          "rationale": "Double ten-frame visualizes pairing structurally — a ten-frame has 5 columns of 2 cells each, so any number ≤ 10 placed by columns shows parity at a glance (full columns = pairs, partial column = odd). Critic Criterion 4: for 7 the kid places counters column-by-column (column 1 = 2 counters, column 2 = 2 counters, column 3 = 2 counters, column 4 = 1 counter); the half-filled column IS the 'one left over' that proves odd. For 8 the kid places 4 full columns — equal-addend equation 4 + 4 = 8 reads from the column structure (4 columns of 2, OR 2 rows of 4). The pairing-by-2s strategy is enacted by the frame's column structure. Audit 11 VETTED."
+        },
+        {
+          "engineId": "cuisenaire-rods",
+          "rationale": "Pairing by 2s using 2-rods: the kid covers a target length (e.g., 8) with as many 2-rods as fit. For even: the 2-rods tile exactly (4 × 2-rod = 8); the equal-addend equation 4 + 4 = 8 reads as 'two trains of 4, each built from 2-rods.' For odd: the last 2-rod doesn't fit (e.g., 7 needs three 2-rods + one 1-rod left over). Critic Criterion 4: parity is structural — the kid SEES whether the 2-rods tile or leave a 1-rod gap. Skip-counting-by-2s is enacted by counting the 2-rods one by one (2, 4, 6, ...). Audit 11 VETTED."
+        },
+        {
+          "engineId": "category-sort",
+          "rationale": "Self-Revealing Buckets is the discovery-of-rule engine — perfectly suited to odd/even as a hidden classification rule. Critic Criterion 4: an 'Odd' bin and an 'Even' bin are presented; the kid drags groups of objects (up to 20) into bins; correct placements stick, incorrect ones bounce back. The kid discovers the rule (pairing leaves no leftover for one bin, leaves one leftover for the other). The bin physics IS the truth-test — no popup says 'correct.' Strong for the standard's 'determine whether...' clause because the engine's entire premise is determination by rule-discovery. Audit 11 VETTED. The equal-addend equation recording is a secondary mode for the even-bucket items."
+        }
+      ],
+      "secondary": [
+        {
+          "engineId": "bar-model",
+          "rationale": "A target bar of length N can be split into two equal sub-bars iff N is even — the bar-completion mechanic supports the equal-addend equation directly (8 = 4 + 4 as two 4-bars). Works for the equation-recording half of the standard; less direct for the pairing-discovery half."
+        },
+        {
+          "engineId": "stack-to-target",
+          "rationale": "Pan-height composition: build a target height using only 2-block pieces; even targets reach exactly, odd targets leave a 1-block gap. Works for parity by 2-piece tiling; SECONDARY because the engine is more naturally used for sum-to-target work than for parity-classification."
+        },
+        {
+          "engineId": "free-collect",
+          "rationale": "Tap-and-pair: tap two dots at a time to form a 'pair' that visually clusters; if a leftover dot remains, the count is odd. Works for the pairing mechanic; SECONDARY because the engine's default is single-tap collection, not pair-tap. Builder scenario design needed."
+        }
+      ],
+      "revisable": [
+        {
+          "engineId": "split-the-loot",
+          "fix": "Lock both silos to require EQUAL counts for the even-number rounds (the engine currently accepts any split). With the fix, the kid drops items alternately into two silos and the system enforces equal totals — for even numbers it works; for odd, the kid sees they can't reach the target without one silo being one item shorter, structurally proving odd. Same 'multiplicity / constraint' flavor as the K.OA.A.3 fix."
+        },
+        {
+          "engineId": "number-bonds",
+          "fix": "Add 'equal-addend mode' where the two parts are constrained to be equal; with the fix, supports the equal-addend equation directly (whole 8, both parts 4)."
+        }
+      ],
+      "coverageGap": null,
+      "notes": "2.OA.C.3 has two distinct demands: (a) determine odd/even by pairing or skip-by-2s, (b) write equal-addend equation for evens. PRIMARY engines must support BOTH. `number-frames` and `cuisenaire-rods` handle both natively; `category-sort` handles (a) directly and (b) as a follow-up recording step. The Progressions doc (p. 34) makes explicit that 2.OA.C.3 and 2.OA.C.4 together prepare for 3.OA multiplication — the equal-groups thinking starts here. Builder design should include rounds that VARY between odd and even targets, NOT only evens, and should record the equal-addend equation for each even round."
+    },
+    "2.OA.C.4": {
+      "standardText": "Use addition to find the total number of objects arranged in rectangular arrays with up to 5 rows and up to 5 columns; write an equation to express the total as a sum of equal addends.",
+      "namedSkill": "Find the total number of objects in a rectangular array up to 5 rows × 5 columns by adding equal addends (one addend per row, OR one per column). Write the equation as a sum of equal addends (e.g., 3 + 3 + 3 + 3 = 12 for a 4-row × 3-column array). This is THE foundation for 3.OA.A.1 (multiplication as equal groups). Builders at 2.OA.C.4 must NOT use multiplication notation — only repeated addition.",
+      "primary": [
+        {
+          "engineId": "checkerboard-multiply",
+          "rationale": "Equal-groups area model — Audit 11 calls this 'the strongest 3.OA engine,' and 2.OA.C.4 is the Level-1 setup for 3.OA. Critic Criterion 4: the engine renders a grid of cells (up to 5 × 5 for this standard); the kid fills row by row (or column by column); a running total is written to the right of each row as the Progressions doc explicitly recommends ('a running total written to the right of each row, e.g., 3, 6, 9, 12, 15'). The equal-addend equation 3 + 3 + 3 + 3 = 12 reads directly from the row-tallies. Constraint for 2.OA.C.4: scenario must cap at 5×5 AND display the equation in repeated-addition form (NOT multiplication). Audit 11 VETTED."
+        },
+        {
+          "engineId": "fill-the-floor",
+          "rationale": "Resizable Rectangle — Audit 11 VETTED; W×H readout shows the array dimensions live. Critic Criterion 4: the kid drags row/column counts to build a rectangle (e.g., 3 rows × 4 columns); the area readout reads 12 (and ideally 3 + 3 + 3 + 3 = 12 in repeated-addition form, configured per scenario). Strong for the standard because shape AND number both matter — the kid sees the array's geometric structure, not just the total count. For 2.OA.C.4 the live-readout should display the equal-addend equation, not the multiplication."
+        },
+        {
+          "engineId": "assembly-line",
+          "rationale": "Two-slider equal-groups model — Audit 11 VETTED. Critic Criterion 4: one slider sets the number of groups (rows); the other sets the per-group count (columns); pallets are visible per group. For a 3 × 4 array: 3 groups of 4 pallets each. The equal-addend equation 4 + 4 + 4 = 12 reads from the pallet groups. Engine is normally cited for 3.OA but the Level-1 framing (visible pallets, repeated-addition equation) is exactly 2.OA.C.4. Constraint: scenario caps at 5 groups × 5 per-group AND displays repeated-addition (not multiplication)."
+        },
+        {
+          "engineId": "investment-sim",
+          "rationale": "Multiplication Array (despite the name) — Audit 11 VETTED, 'visible dot-splitting; multiplication you SEE.' Critic Criterion 4: dots arranged in a rectangular array with row/column structure visible; the kid taps rows or columns to count them. For 2.OA.C.4 the engine is configured to cap at 5 × 5 and display the equal-addend equation (e.g., 3 + 3 + 3 + 3 + 3 = 15 for a 5 × 3 array). The 'visible dot-splitting' is exactly the Level-1 'show all the quantities' move the Progressions doc names."
+        }
+      ],
+      "secondary": [
+        {
+          "engineId": "bead-chain",
+          "rationale": "Skip-counting on a bead chain models the equal-addend running totals (3, 6, 9, 12, 15). Critic Criterion 4: the kid taps each group of 3 beads, calling out the running total. SECONDARY because the engine doesn't display the array's 2-D structure (rows and columns) — it's a 1-D representation of the skip-count, which is one of the two strategies the standard names but not the array structure itself. PRIMARY for skip-count work at 2.NBT.A.2 and 3.OA.A.4."
+        },
+        {
+          "engineId": "number-frames",
+          "rationale": "Double ten-frame can hold a 2 × 5 or 5 × 2 array natively; arrays up to 5 × 4 fit in the second frame; full 5 × 5 doesn't fit cleanly. Works for the small arrays (2 × N and 5 × N) but the engine's structure is fixed at 2 rows of 5 — not all 5 × 5 array shapes. SECONDARY for that reason."
+        },
+        {
+          "engineId": "bar-model",
+          "rationale": "Equal-addend bar composition (e.g., four bars of length 3 stacked or aligned) models the equal-addend equation 3 + 3 + 3 + 3 = 12 but loses the rectangular 2-D structure that the standard names verbatim. SECONDARY."
+        },
+        {
+          "engineId": "stack-to-target",
+          "rationale": "Equal-block stacking models repeated addition but not the rectangular array structure. SECONDARY."
+        }
+      ],
+      "revisable": [],
+      "coverageGap": null,
+      "notes": "Strongest coverage of any 2.OA standard — 4 clean PRIMARY engines. The shared constraint for all PRIMARY engines is: (a) cap at 5 rows × 5 columns, (b) display the equation in repeated-addition form (3 + 3 + 3 + 3 = 12), NOT multiplication. The Progressions doc (p. 34) warns explicitly that Grade 3 students should move to relational diagrams — at Grade 2 we MUST show all the quantities. Mr. Chesure's brief for this standard MUST tell Builders to surface the row-or-column count strategy (kids count by rows OR by columns — early commutativity discovery, but not labeled as such). This is the foundation standard for 3.OA.A.1 — same engines, different equation form."
     },
     "K.CC.A.1": {
       "standardText": "Count to 100 by ones and by tens.",
