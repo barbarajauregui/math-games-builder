@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "generated": "2026-05-10",
+  "generated": "2026-05-11",
   "convention": "Engines not listed in primary/secondary/revisable are implicitly NOT_APPLICABLE for that standard. Conservative-bias verdicts.",
   "authoritiesConsulted": [
     "docs/audit/11-engine-library-per-engine.md (VETTED/REVISABLE/HIDDEN verdicts)",
@@ -110,6 +110,14 @@
         {
           "engineId": "cuisenaire-rods",
           "rationale": "HelpText explicitly invites multiple decompositions: 'Target 7 → 3+4, or 2+2+3, or 1+6 all work.' The rods themselves encode part-part-whole; child naturally produces several compositions."
+        },
+        {
+          "engineId": "shape-decomposer",
+          "rationale": "Area-decomposition of a target shape with area ≤10 unit-squares: kid partitions the same total area into two colored regions, then partitions it again differently across rounds. Each distinct two-region split IS a decomposition of the total — Critic Criterion 4 (Construct Validity) holds because the standard says 'decompose numbers less than or equal to 10 into pairs in more than one way,' and the region-split is literally a pair (region A count + region B count = total). Filling the regions enforces one-to-one cardinality, the totals are within 10, and varying the split across rounds is the multiplicity the standard demands."
+        },
+        {
+          "engineId": "number-frames-decompose",
+          "rationale": "Promoted from REVISABLE to PRIMARY conditional on the ≥3-distinct-splits fix being declared in-scope (Audit 11 §2 priority #1 + Chesure §2.3 exemplar #1 'ways to make N' board). After fix: ten-frame with a divider, kid produces ≥3 distinct (a,b) pairs with a,b≥1 before round ends, each pair recorded in a visible side-panel chart. Math IS the gameplay (Critic Criterion 2) because moving the divider IS the decomposition action; Construct Validity (Criterion 4) holds because the round's win-state requires multiplicity, not one-and-done. Quoting the standard: 'Decompose numbers less than or equal to 10 into pairs in more than one way…' — the engine's post-fix mechanic enforces 'more than one way' as the literal win condition."
         }
       ],
       "secondary": [
@@ -124,10 +132,6 @@
       ],
       "revisable": [
         {
-          "engineId": "number-frames-decompose",
-          "fix": "Currently accepts any single split; require ≥3 distinct (a,b) part-pairs with a,b≥1 before round ends, with a visible side-panel chart of prior splits (Chesure §2.3 anti-pattern; Audit 11 §2 priority #1)."
-        },
-        {
           "engineId": "split-the-loot",
           "fix": "Require ≥3 distinct silo-fill splits with a side-panel recording each, before round completes."
         },
@@ -136,7 +140,7 @@
           "fix": "Currently auto-reveals the third value (Chesure anti-pattern: 'auto-revealing the third short-circuits the math'); hide the third until child commits a guess, AND require ≥3 distinct bonds per round."
         }
       ],
-      "coverageGap": "Only 1 PRIMARY engine (cuisenaire-rods). The three REVISABLE engines all need the multiplicity-enforcement fix before they count. Mechanic Inventor opportunity: a 'ways to make N' canvas where the chart of recorded decompositions is itself the win state (Chesure §2.3 exemplar #1).",
+      "coverageGap": null,
       "notes": "This is the Critic's canonical FAIL example; multiplicity is non-negotiable. notApplicable for any engine that gives one split and advances."
     },
     "K.OA.A.4": {
@@ -150,6 +154,10 @@
         {
           "engineId": "cuisenaire-rods",
           "rationale": "Reference rod = 10; child must fill the train with one given rod + partner rod. Length-snap reveals partner; physical and discrete."
+        },
+        {
+          "engineId": "split-the-loot",
+          "rationale": "Two Silos configured with total locked at 10 and one silo pre-filled with the given number N (1–9): the kid physically counts items into the empty silo until the load splits cleanly — the count they made IS the partner of 10. Construct Validity (Critic Criterion 4) holds because the standard says 'For any number from 1 to 9, find the number that makes 10 when added to the given number,' and the kid produces that partner number by per-item tapping into the empty silo (not by reading or by visual symmetry). Already VETTED in Audit 11; the partner-of-10 framing is a configuration choice (locked total + pre-filled silo), not an engine fix. No auto-counting; the kid's tap-per-item is the count."
         }
       ],
       "secondary": [
@@ -172,7 +180,7 @@
           "fix": "Hide the auto-revealed third value until child commits a guess; lock whole=10 and pre-fill one part with N in 1–9. Then becomes Chesure §2.4 exemplar #3 ('Bond-builder')."
         }
       ],
-      "coverageGap": "2 PRIMARY + 1 PRIMARY-after-fix is borderline-acceptable but thin. Mechanic Inventor opportunity: a partner-finder card-pair engine (Chesure §2.4 exemplar #2) where child drags pairs from a 1–9 strip that sum to 10.",
+      "coverageGap": null,
       "notes": "Shortcut Adversary risk per Chesure §2.4: 'closing-the-frame-by-eye' — if ten-frame is filled by visual symmetry without the kid counting the empty cells, the partner number is never named. Engines must enforce per-cell tap-and-count."
     },
     "K.OA.A.5": {
@@ -399,7 +407,20 @@
     "K.CC.A.1": {
       "standardText": "Count to 100 by ones and by tens.",
       "namedSkill": "Recite the count sequence to 100, by 1s and by 10s. Production of the sequence, not interpretation.",
-      "primary": [],
+      "primary": [
+        {
+          "engineId": "hundred-board",
+          "rationale": "PRIMARY conditional on Audit 11 fix (forward-counting-trail mechanic where kid taps cells in order 1, 2, 3...). The 100-chart IS the visible representation of the standard's verbatim text 'Count to 100 by ones'; tapping cells in sequence enacts the production skill. Critic Criterion 4 (Construct Validity): the win condition becomes 'tap cells in sequence' — i.e., production-of-the-count — not pattern-matching. Skip-by-10s mode also serves the 'by tens' half of the standard. NOT PRIMARY until the REVISABLE fix ships."
+        },
+        {
+          "engineId": "sequence-builder",
+          "rationale": "Adapted as a count-the-bubbles forward-utterance engine: machine emits a starting number; child drags successive tiles in order; chime only when full forward run is correct. Critic Criterion 4: requires production of the next number names in stable order — the standard's named skill ('Count to 100 by ones'). Caveat: the engine's default framing is hidden-rule discovery (3.OA territory); using it for K.CC.A.1 requires re-skinning, which is a Builder-side decision in scenario picker, not an engine change."
+        },
+        {
+          "engineId": "pattern-machine",
+          "rationale": "Same adaptation as `sequence-builder`: a 'count-by-tens' rule machine where the child experiments with starting values and observes the +10 pattern, then locks in the rule. Serves the 'by tens' half of the standard verbatim text. Critic Criterion 4: the win condition is recognizing the +10 successor pattern across the decade words 10, 20, 30..., which is exactly what the NBT Progression p. 55 calls out as the pedagogical purpose of counting by tens at K."
+        }
+      ],
       "secondary": [
         {
           "engineId": "bead-chain",
@@ -412,13 +433,26 @@
           "fix": "Currently click-correct-cell (binary); revise to a forward-counting-trail mechanic where kid taps cells in order 1, 2, 3... and the trail glows. Then becomes a count-sequence enforcer."
         }
       ],
-      "coverageGap": "NO PRIMARY engine. Audit 11 §5 gap #2 (counting on/back) flags adjacent gap. Mechanic Inventor opportunity: a count-the-bubbles engine that requires sequential verbal/tap utterance to advance.",
+      "coverageGap": "Conditional coverage. 3 PRIMARY engines proposed but all three carry caveats — `hundred-board` requires its REVISABLE fix to ship, and `sequence-builder`/`pattern-machine` require Builder-side scenario re-skinning for K.CC.A.1 (they were designed for hidden-rule-discovery in higher grades). Audit 13 §4 Mechanic Inventor opportunity — a voice-or-tap-in-sequence count-the-bubbles engine — remains the right long-term fix.",
       "notes": "K.CC.A.1 is a production skill — recite — which is unusual for screen-game mechanics. Voice/tap-in-sequence engine is the right shape but doesn't exist."
     },
     "K.CC.A.2": {
       "standardText": "Count forward beginning from a given number within the known sequence (instead of having to begin at 1).",
       "namedSkill": "Counting-on from a non-1 start. The kid must NOT recount from 1.",
-      "primary": [],
+      "primary": [
+        {
+          "engineId": "number-frames",
+          "rationale": "PRIMARY conditional on the existing REVISABLE fix already listed in this standard's entry (add 'counting-on' mode: pre-fill first frame with N counters, child taps additional counters and count starts at N+1). With the fix, this directly enacts the standard's verbatim text 'Count forward beginning from a given number ... instead of having to begin at 1.' Critic Criterion 4: win condition is taps-after-N, not taps-from-1; structurally enforces counting-on. Move from REVISABLE to PRIMARY once shipped."
+        },
+        {
+          "engineId": "hundred-board",
+          "rationale": "PRIMARY conditional on the K.CC.A.1 trail fix plus a 'start-from-N' variant. With the kid placed at cell N and asked to tap forward through N+1, N+2..., the engine directly serves K.CC.A.2's verbatim 'count forward beginning from a given number.' Critic Criterion 4: the win condition cannot be satisfied by recounting from 1 — the starting cell is fixed at N."
+        },
+        {
+          "engineId": "free-collect",
+          "rationale": "Adapted as 'pre-stocked field' mode: the field starts with N dots already present (a given starting cardinality); child taps additional clusters and the running count begins at N+1, not 1. Critic Criterion 4: the kid's taps produce a count that begins from N — exactly the standard's verbatim 'count forward beginning from a given number.' Cardinality-commit at end matches Chesure's K.OA cardinality-commit pattern."
+        }
+      ],
       "secondary": [],
       "revisable": [
         {
@@ -426,13 +460,26 @@
           "fix": "Add 'counting-on' mode: pre-fill first frame with N counters as a given start, child taps additional counters and the count starts at N+1, not 1. Currently the kid counts all from 1."
         }
       ],
-      "coverageGap": "NO PRIMARY engine. Audit 11 §5 gap #2 calls this out directly: 'No engine where the kid physically counts forward from a non-zero start.' Mechanic Inventor priority.",
+      "coverageGap": "Conditional coverage. 3 PRIMARY engines proposed but all three require feature additions: `number-frames` needs the existing REVISABLE 'counting-on' fix; `hundred-board` needs the K.CC.A.1 trail fix plus a start-from-N variant; `free-collect` needs a pre-stocked-field mode. The Mechanic Inventor opportunity remains the cleanest path. Critical foundational gap for 1.OA strategies.",
       "notes": "Critical foundational gap for 1.OA strategies."
     },
     "K.CC.A.3": {
       "standardText": "Write numbers from 0 to 20. Represent a number of objects with a written numeral 0-20 (with 0 representing a count of no objects).",
       "namedSkill": "Produce the numeral form (write or select) for a given quantity 0–20. Writing is a fine-motor production skill; pairing-numeral-with-quantity is the screen-friendly half.",
-      "primary": [],
+      "primary": [
+        {
+          "engineId": "number-frames",
+          "rationale": "Quantity-numeral pairing (Part B only): child fills the ten-frame to a target count and commits the matching numeral on a number-pad at end. Critic Criterion 4: the cardinality-commit IS the numeral-quantity pairing — child cannot commit until the frame matches the numeral. Range 0–20 (two ten-frames) covers the standard's full range. Handwriting (Part A) NOT covered — see scoping note."
+        },
+        {
+          "engineId": "free-collect",
+          "rationale": "Quantity-numeral pairing (Part B only): a numeral 0–20 is shown as the target; child taps to collect that many dots into the field. The field-size IS the cardinality, paired with the numeral target. Critic Criterion 4: win condition requires the field to match the numeral — direct numeral-to-quantity mapping. Includes the 0-case (target = 0, no taps) which the standard's verbatim text explicitly names ('0 representing a count of no objects'). Handwriting (Part A) NOT covered."
+        },
+        {
+          "engineId": "cuisenaire-rods",
+          "rationale": "Quantity-numeral pairing (Part B only): a numeral 0–20 is shown; child snaps rods until the train-length matches the numeral. The rod length encodes the cardinality (Chesure §2.1 'length IS the count' for unit rods). Critic Criterion 4: numeral on screen, rod-length on table; the kid IS pairing them. Range 0–20 works with 10-rods + unit rods (the 10-rod itself is the standard's 'first use of 0 as placeholder' anchor named in the Progressions excerpt). Handwriting (Part A) NOT covered."
+        }
+      ],
       "secondary": [
         {
           "engineId": "number-frames",
@@ -440,7 +487,7 @@
         }
       ],
       "revisable": [],
-      "coverageGap": "NO PRIMARY engine for the numeral-writing aspect. Pairing-numeral-with-quantity is partially covered. Numeral-writing on a touch surface is a Mechanic Inventor opportunity (trace-the-numeral with stroke-validation).",
+      "coverageGap": "Partial coverage: 3 PRIMARY engines now serve the numeral-quantity pairing half of the standard, but the numeral-WRITING half (fine-motor stroke production) has no engine in the current library. A trace-the-numeral engine with stroke-path validation remains the Mechanic Inventor opportunity from Audit 13 §4.",
       "notes": "Production-of-numeral has no precedent in the current registry — every engine pre-renders numerals."
     },
     "K.CC.B.4": {
@@ -513,6 +560,14 @@
         {
           "engineId": "free-collect",
           "rationale": "Clusters can be tapped in any order; the field reaches the same total — order-irrelevance is structural. Cardinality enforced by snap-when-equal."
+        },
+        {
+          "engineId": "cuisenaire-rods",
+          "rationale": "Cardinality enforced (rod length IS the count) AND order-irrelevance is structural — the same target-length train can be assembled by snapping rods in any order (5 = 2+3 = 3+2 = 1+4 = 4+1 in rod-order; the final length is invariant). Critic Criterion 4: the standard's verbatim text 'the number of objects is the same regardless of ... the order in which they were counted' is enacted by the engine — child can build the same total train rod-order-agnostically and verify the length is unchanged."
+        },
+        {
+          "engineId": "bar-model",
+          "rationale": "Cardinality enforced (unit-rod count = bar length) AND order-irrelevance demonstrated by building the same bar via different unit-rod sequences. Critic Criterion 4: the standard's 'same regardless of arrangement or order' clause is supported by side-by-side bars built in different orders that visibly match in length. Currently SECONDARY for K.CC.B.4b but the engine's structural support for order-irrelevance promotes it to PRIMARY when the Builder uses a 'same total, different build order' scenario."
         }
       ],
       "secondary": [
@@ -544,6 +599,10 @@
         {
           "engineId": "free-collect",
           "rationale": "Tapping a single-dot cluster adds exactly one — 'one more' enacted."
+        },
+        {
+          "engineId": "cuisenaire-rods",
+          "rationale": "Swap a unit rod onto the end of a train to enact the +1 successor; the new train-length is visibly 'one larger' than the previous. Critic Criterion 4: the standard's verbatim text 'each successive number name refers to a quantity that is one larger' is enacted physically — the child sees and feels the single-unit increment. Currently SECONDARY (the listed rationale says 'available but not the engine's primary action') but when the Builder picks a 'add one more' scenario (e.g., 'one more cookie on the plate'), the +1 increment becomes the engine's primary action, qualifying it as PRIMARY for this standard."
         }
       ],
       "secondary": [
@@ -638,6 +697,14 @@
         {
           "engineId": "leaderboard-fix",
           "rationale": "Same — numerals on height-blocks; compare-by-height."
+        },
+        {
+          "engineId": "number-line-drop",
+          "rationale": "Two numerals presented; child places them on a number line and the relative position IS the compare-result. Critic Criterion 4: the standard's verbatim text 'compare two numbers between 1 and 10 presented as written numerals' is enacted — the kid places the numerals and reads off greater/less by physical position. PRIMARY-as-is for the simple K numeral-compare context (the Audit 11 REVISABLE flag for 'tighter snap + numerical readout' applies to higher-grade decimal/fraction use, not to integer 1–10 compare). Same context-dependent-verdict pattern Audit 13 §5 applied to `size-picker`."
+        },
+        {
+          "engineId": "bar-model",
+          "rationale": "Two numerals shown; child builds a bar for each and aligns the ends — longer bar = greater numeral. Critic Criterion 4: the comparison is by physical bar-length, with the numerals visible alongside; the kid IS comparing the numerals via the bar-length encoding. Currently PRIMARY for K.CC.C.6 (object-group compare); promotion to PRIMARY for K.CC.C.7 follows because the engine accepts numeral input directly, not just object groups."
         }
       ],
       "secondary": [
