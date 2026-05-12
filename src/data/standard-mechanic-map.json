@@ -889,7 +889,7 @@
       "notes": "1.OA.D.7 is the equal-sign relational-understanding standard. Per Carpenter, Franke & Levi (2003) and McNeil & Alibali (2005), engines that only show 'a + b = ?' (left-to-right computation-prompt form) actively reinforce the misconception that '=' means 'compute the answer.' For D.7, every PRIMARY engine MUST support equations in BOTH directions (5 = 2+3 AND 2+3 = 5) and the non-canonical 'both sides have operations' form (4+1 = 5+2). The free-balance and mystery-side engines do this structurally because their physics is symmetric."
     },
     "1.OA.D.8": {
-      "standardText": "Determine the unknown whole number in an addition or subtraction equation relating to three whole numbers. For example, determine the unknown number that makes the equation true in each of the equations 8 + ? = 11, 5 = � – 3, 6 + 6 = �.",
+      "standardText": "Determine the unknown whole number in an addition or subtraction equation relating three whole numbers. For example, determine the unknown number that makes the equation true in each of the equations 8 + ? = 11, 5 = ? – 3, 6 + 6 = ?.",
       "namedSkill": "Find the missing number in equations of the form a + ? = c, ? + b = c, a + b = ?, c − ? = b, c − a = ?, and ? − a = b — the unknown in any position. Within 20. The standard's examples deliberately include the right-to-left form (5 = ? − 3) to reinforce 1.OA.D.7's relational meaning of '='.",
       "primary": [
         {
