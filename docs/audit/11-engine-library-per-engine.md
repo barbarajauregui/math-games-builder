@@ -122,7 +122,7 @@ Verdicts: P=pass, F=fail, ~=borderline (works for some standards; fails for othe
 
 Eighteen engines fail one or two criteria but are mechanically fixable. Listed by impact:
 
-1. **`number-frames-decompose` (K.OA.A.3 multiplicity).** *High priority — this is in the live K.OA.A.3 verified mapping.* Add round-state that demands ≥ 3 distinct part-pairs before completion. Mirrors The Critic's PASS example for K.OA.A.3.
+1. **FIXED 2026-05-11** — **`number-frames-decompose` (K.OA.A.3 multiplicity).** *High priority — this is in the live K.OA.A.3 verified mapping.* Add round-state that demands ≥ 3 distinct part-pairs before completion. Mirrors The Critic's PASS example for K.OA.A.3. (Shipped in `src/lib/game-engines/number-frames.ts`: `minWays` config, `waysFound` dedup array, side-panel chips, repeat rejection, "you found N ways" celebration.)
 2. **`split-the-loot` for K.OA.A.3 use.** Currently passes single-split addition; for the decomposition-multiplicity standard, require ≥ 3 distinct silo-fill splits.
 3. **`number-bonds`.** Auto-revealing the third value short-circuits the math. Hide the third until the kid commits a guess; then reveal as confirmation.
 4. **`shape-matcher`.** Hide the target picture; show count-words only ("2 triangles, 1 square") so the kid must count what they place rather than visually match.
