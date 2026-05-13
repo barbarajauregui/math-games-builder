@@ -63,7 +63,7 @@ Two users. One product. Different modes.
 
 **Why they come back:** Their games are being played. New standards unlock. Their impact stats grow. They can outrank classmates on the builder leaderboard. Building is genuinely fun because it's scenario-rich and creative.
 
-**What we hide from them:** The 466-standard graph. Pedagogical frameworks by name. Agent internal workings. The "designer's view" of the curriculum.
+**What we hide from them:** The 509-standard graph. Pedagogical frameworks by name. Agent internal workings. The "designer's view" of the curriculum.
 
 **Builder home screen:** The Galaxy. Moons show how many games each standard has — brightest-glowing moons are the ones calling for a Builder. The Builder's authored moons show small markers; live plays-this-week appear as orbiting dots around those markers. A floating "Build next" beacon points toward the highest-priority unstocked standard (the Builder can ignore it and pick anything). A "+" beacon next to it lets the Builder describe a game idea in plain words — AI matches it to candidate standards. When the Builder picks a standard (either path), Mr. Chesure's design brief screen renders before the build tools open.
 
@@ -144,7 +144,7 @@ Math Games Builder has three layers of defensibility. Any one is valuable; toget
 
 1. **The protégé loop.** No existing edtech product operationalizes learning-by-teaching at scale. Khan, Prodigy, DreamBox, DragonBox — all are single-user self-learning apps. Building the cross-age builder-player loop requires a school community and it requires products for two age ranges that talk to each other. That's a system, not a feature. Hard to copy.
 
-2. **The data.** Every game built is a data point on *how a kid translates a math concept into a scenario and mechanic*. Every play is a data point on *how a younger kid interprets that translation*. This dataset — translation + reception pairs across thousands of kids and 466 standards — is proprietary, grows automatically, and is more useful for future AI teaching systems than any answer-correctness dataset in existence.
+2. **The data.** Every game built is a data point on *how a kid translates a math concept into a scenario and mechanic*. Every play is a data point on *how a younger kid interprets that translation*. This dataset — translation + reception pairs across thousands of kids and 509 standards — is proprietary, grows automatically, and is more useful for future AI teaching systems than any answer-correctness dataset in existence.
 
 3. **The school network effect.** A Math Games Builder school has kids building games for its own K-2 kids. When a second school joins, the games built at school A work for kids at school B. Libraries compound. Cross-school leaderboards become possible. Kids in small schools get access to a universe of peer-made content they could never build alone.
 

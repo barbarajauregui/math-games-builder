@@ -48,7 +48,7 @@ If positioning and blueprint disagree, **positioning wins** and the blueprint mu
 ## Quick Reference
 
 - **Live:** https://math-games-builder.vercel.app (Vercel, auto-deploys from main)
-- **Repo:** https://github.com/mrdavola/option-c
+- **Repo:** https://github.com/barbarajauregui/math-games-builder
 - **Local dev:** `cd C:/projects/math-games-builder && npm run dev` -> http://localhost:3000
 - **Firebase project:** option-c-14d3b
 
@@ -86,7 +86,7 @@ locked -> available (blue) -> in_progress (yellow) -> in_review -> approved_unpl
 - `src/app/api/` — API routes: game generation, chat, progress, admin, `/api/game/modify` (vibe coder)
 - `src/components/graph/` — Galaxy view, planet view, knowledge graph
 - `src/components/game/` — Build screen, workshop, game player, library, leaderboard
-- `src/data/standards.json` — Math standards graph (nodes + edges, 466 standards)
+- `src/data/standards.json` — Math standards graph (nodes + edges, 509 standards across 93 clusters)
 - `src/lib/auth.tsx` — Auth context, sign-in flows, token management
 - `src/lib/app-rules.ts` — In-app Rules popover content (KEEP IN SYNC with behavior changes)
 - `docs/agents/` — Agent definitions + knowledge files
@@ -106,8 +106,8 @@ locked -> available (blue) -> in_progress (yellow) -> in_review -> approved_unpl
 
 ## Verified Coverage (honest numbers)
 
-- **Verified games:** 2 of 466 standards (K.OA.A.1 approved, K.OA.A.3 awaiting sign-off)
-- **All other 464 standards:** NO verified game. Legacy games were unmapped April 16.
+- **Verified games:** 2 of 509 standards (K.OA.A.1 approved, K.OA.A.3 awaiting sign-off)
+- **All other 507 standards:** NO verified game. Legacy games were unmapped April 16.
 - We ship **one standard at a time, done perfectly**, via the Learning Contract workflow.
 
 ---

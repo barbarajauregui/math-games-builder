@@ -1129,7 +1129,7 @@ export function GraphPage({ data }: GraphPageProps) {
       {buildMode === "idle" && viewMode === "galaxy" && (
         <div className="absolute bottom-6 left-4 z-20">
           <InfoButton title="Galaxy View">
-            <p><span className="text-zinc-200">Explore 466 math skills</span> across K-12, organized as planets and moons.</p>
+            <p><span className="text-zinc-200">Explore 509 math skills</span> across K-12, organized as planets and moons.</p>
             <p>Each <span className="text-zinc-200">planet</span> is a math domain (e.g. Geometry, Algebra). Each <span className="text-zinc-200">moon</span> is a specific skill.</p>
             <p>Click a planet to zoom in and see its moons. Click a moon to start building a game for that skill.</p>
             <p className="text-zinc-500">Green = demonstrated. Gold = mastered. Grey = locked (finish prerequisites first).</p>

@@ -143,7 +143,7 @@ Honest hours per standard:
 - **External reviewer:** 2 hours per round, typically 1–2 rounds. Budget $100–$300 per reviewer pass.
 - **Calibration pilot:** 10 Players × 5 minutes each, plus Barbara's analysis time (~2 hours).
 
-**Total per standard: ~12–20 hours of Barbara's time + $100–$300 reviewer cost.** At 1 standard per week alongside other work, the K.OA cluster (5 standards) ships in ~5 weeks. The full K-2 OA cluster (~15 standards) ships in ~3–4 months. Full K-5 OA + NBT + MD priority subset (~40 standards) ships in ~10 months. This is realistic; building Mastery Checks for all 466 standards is **not** a v1 goal.
+**Total per standard: ~12–20 hours of Barbara's time + $100–$300 reviewer cost.** At 1 standard per week alongside other work, the K.OA cluster (5 standards) ships in ~5 weeks. The full K-2 OA cluster (~15 standards) ships in ~3–4 months. Full K-5 OA + NBT + MD priority subset (~40 standards) ships in ~10 months. This is realistic; building Mastery Checks for all 509 standards is **not** a v1 goal.
 
 ## 11. What this does NOT solve
 
