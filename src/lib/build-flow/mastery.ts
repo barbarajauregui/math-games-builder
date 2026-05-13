@@ -13,7 +13,10 @@
  * Storage value shape: JSON-encoded `Record<MechanicId, boolean>`.
  */
 
+import { track } from "@/lib/telemetry/posthog-client"
+
 const KEY_PREFIX = "mgb.l1.mechanicWins"
+const UNLOCK_FIRED_PREFIX = "mgb.l1.l2UnlockedFired"
 
 function storageKey(standardId: string): string {
   return `${KEY_PREFIX}.${standardId}`
@@ -52,10 +55,16 @@ export function loadMechanicWins(
 
 /**
  * Mark one mechanic as won for a standard. Idempotent. Writes to localStorage.
+ *
+ * Fires `level_1.mechanic_complete` on the first win for the mechanic, and
+ * `builder.level_2_unlocked` (once per standard, latched in localStorage) when
+ * the win completes the set of `allMechanicIds`. `allMechanicIds` is optional
+ * for backwards-compatibility; without it, the unlock event cannot be fired.
  */
 export function recordMechanicWin(
   standardId: string,
-  mechanicId: string
+  mechanicId: string,
+  allMechanicIds?: string[]
 ): void {
   if (!isBrowser()) return
   try {
@@ -63,6 +72,35 @@ export function recordMechanicWin(
     if (current[mechanicId] === true) return
     const next = { ...current, [mechanicId]: true }
     window.localStorage.setItem(storageKey(standardId), JSON.stringify(next))
+
+    // First win for this mechanic — fire mechanic_complete. We track only
+    // mechanic-level wins (not per-scenario), so scenariosPlayed is 1 at the
+    // moment of completion. A richer count is a Phase 2 enhancement.
+    track({
+      event: "level_1.mechanic_complete",
+      properties: {
+        standardId,
+        mechanicId,
+        scenariosPlayed: 1,
+      },
+    })
+
+    // If this completes the set of required mechanics, fire level_2_unlocked
+    // exactly once per standard (latched in localStorage so it doesn't re-fire
+    // on storage refresh / re-mount).
+    if (allMechanicIds && allMechanicIds.length > 0) {
+      const allWon = allMechanicIds.every((id) => next[id] === true)
+      if (allWon) {
+        const latchKey = `${UNLOCK_FIRED_PREFIX}.${standardId}`
+        if (window.localStorage.getItem(latchKey) !== "1") {
+          window.localStorage.setItem(latchKey, "1")
+          track({
+            event: "builder.level_2_unlocked",
+            properties: { standardId },
+          })
+        }
+      }
+    }
   } catch {
     // Swallow: localStorage may be unavailable (privacy mode, quota).
   }

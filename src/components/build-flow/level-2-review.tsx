@@ -7,6 +7,7 @@ import type { HtmlReviewResult, ReviewBullet } from "@/lib/build-flow/types"
 import type { MechanicId } from "@/data/scenarios/types"
 import { useAuth } from "@/lib/auth"
 import { apiFetch } from "@/lib/api-fetch"
+import { track } from "@/lib/telemetry/posthog-client"
 
 /**
  * Level 2 Gate C — HTML review screen.
@@ -309,11 +310,13 @@ export function Level2Review({ standardId }: Level2ReviewProps) {
       return
     }
 
-    // eslint-disable-next-line no-console
-    console.log("[telemetry] level_2.save_clicked", {
-      standardId,
-      mechanicId: inputs.mechanicId,
-      decision: result.decision,
+    track({
+      event: "level_2.save_clicked",
+      properties: {
+        standardId,
+        mechanicId: inputs.mechanicId,
+        decision: result.decision,
+      },
     })
 
     setSaving(true)

@@ -50,6 +50,7 @@ export default async function PlayPage({ params }: PageProps) {
       allScenariosForMechanic={scenarios.filter(
         (s) => s.mechanicId === scenario.mechanicId
       )}
+      allMechanicIdsForStandard={mechanics.map((m) => m.id)}
     />
   )
 }

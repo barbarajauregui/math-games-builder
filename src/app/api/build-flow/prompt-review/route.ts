@@ -34,6 +34,7 @@
 import { NextRequest } from "next/server"
 import Anthropic from "@anthropic-ai/sdk"
 import type { PromptReviewResult, ReviewBullet } from "@/lib/build-flow/types"
+import { trackServer } from "@/lib/telemetry/posthog-server"
 
 export const maxDuration = 30
 
@@ -231,12 +232,15 @@ export async function POST(req: NextRequest) {
   if (!process.env.ANTHROPIC_API_KEY) {
     console.error("[prompt-review] ANTHROPIC_API_KEY is not set")
     const latencyMs = Date.now() - startedAt
-    console.log("[telemetry] level_2.prompt_review_run", {
-      standardId,
-      mechanicId,
-      decision: FALLBACK_BLOCK.decision,
-      latencyMs,
-      descriptionLength: builderDescription.length,
+    trackServer(`standard_${standardId}`, {
+      event: "level_2.prompt_review_run",
+      properties: {
+        standardId,
+        mechanicId,
+        decision: FALLBACK_BLOCK.decision,
+        latencyMs,
+        descriptionLength: builderDescription.length,
+      },
     })
     return Response.json(FALLBACK_BLOCK, { status: 500 })
   }
@@ -255,35 +259,44 @@ export async function POST(req: NextRequest) {
   } catch (err) {
     console.error("[prompt-review] Anthropic call failed:", err)
     const latencyMs = Date.now() - startedAt
-    console.log("[telemetry] level_2.prompt_review_run", {
-      standardId,
-      mechanicId,
-      decision: FALLBACK_BLOCK.decision,
-      latencyMs,
-      descriptionLength: builderDescription.length,
+    trackServer(`standard_${standardId}`, {
+      event: "level_2.prompt_review_run",
+      properties: {
+        standardId,
+        mechanicId,
+        decision: FALLBACK_BLOCK.decision,
+        latencyMs,
+        descriptionLength: builderDescription.length,
+      },
     })
     return Response.json(FALLBACK_BLOCK, { status: 500 })
   }
 
   if (!result) {
     const latencyMs = Date.now() - startedAt
-    console.log("[telemetry] level_2.prompt_review_run", {
-      standardId,
-      mechanicId,
-      decision: FALLBACK_BLOCK.decision,
-      latencyMs,
-      descriptionLength: builderDescription.length,
+    trackServer(`standard_${standardId}`, {
+      event: "level_2.prompt_review_run",
+      properties: {
+        standardId,
+        mechanicId,
+        decision: FALLBACK_BLOCK.decision,
+        latencyMs,
+        descriptionLength: builderDescription.length,
+      },
     })
     return Response.json(FALLBACK_BLOCK, { status: 500 })
   }
 
   const latencyMs = Date.now() - startedAt
-  console.log("[telemetry] level_2.prompt_review_run", {
-    standardId,
-    mechanicId,
-    decision: result.decision,
-    latencyMs,
-    descriptionLength: builderDescription.length,
+  trackServer(`standard_${standardId}`, {
+    event: "level_2.prompt_review_run",
+    properties: {
+      standardId,
+      mechanicId,
+      decision: result.decision,
+      latencyMs,
+      descriptionLength: builderDescription.length,
+    },
   })
 
   return Response.json(result)

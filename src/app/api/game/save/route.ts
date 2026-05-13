@@ -1,6 +1,7 @@
 import { getAdminDb } from "@/lib/firebase-admin"
 import { sanitizeGameHtml } from "@/lib/html-sanitizer"
 import { verifyAuth } from "@/lib/api-auth"
+import { trackServer } from "@/lib/telemetry/posthog-server"
 
 /**
  * Game-save endpoint.
@@ -50,11 +51,15 @@ export async function POST(req: Request) {
 
   // Telemetry: Level 2 save path reached the gate as pending_review.
   if (!existing.exists && game.source === "level-2") {
-    // eslint-disable-next-line no-console
-    console.log("[telemetry] level_2.saved_pending_review", {
-      standardId: game.standardId,
-      mechanicId: game.mechanicId,
-      gameId,
+    const standardId = typeof game.standardId === "string" ? game.standardId : ""
+    const mechanicId = typeof game.mechanicId === "string" ? game.mechanicId : ""
+    trackServer(`game_${gameId}`, {
+      event: "level_2.saved_pending_review",
+      properties: {
+        standardId,
+        mechanicId,
+        gameId,
+      },
     })
   }
 

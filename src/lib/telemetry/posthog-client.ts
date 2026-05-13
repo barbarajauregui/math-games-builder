@@ -42,6 +42,7 @@ let currentBands: { age_band: AgeBand; grade_band: GradeBand } = {
 
 function deriveSource(eventName: TelemetryEventName): "builder" | "player" | "mastery_check" | "guide" | "system" {
   if (eventName.startsWith("builder.")) return "builder"
+  if (eventName.startsWith("level_1.") || eventName.startsWith("level_2.")) return "builder"
   if (eventName.startsWith("player.")) return "player"
   if (eventName.startsWith("mastery_check.")) return "mastery_check"
   if (eventName.startsWith("guide_") || eventName.startsWith("admin_")) return "guide"

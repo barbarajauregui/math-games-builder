@@ -3,6 +3,7 @@
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { useCallback, useEffect, useRef, useState } from "react"
+import { track } from "@/lib/telemetry/posthog-client"
 
 /**
  * Level 2 Gate B — paste-HTML + Builder-must-win-their-own-game playtest.
@@ -197,10 +198,9 @@ export function Level2Paste({ standardId }: Level2PasteProps) {
           if (prev) return prev
           const durationMs = Date.now() - mountedAtRef.current
           writePersistedWin(standardId)
-          // eslint-disable-next-line no-console
-          console.log("[telemetry] level_2.playtest_win", {
-            standardId,
-            durationMs,
+          track({
+            event: "level_2.playtest_win",
+            properties: { standardId, durationMs },
           })
           return true
         })
@@ -219,8 +219,10 @@ export function Level2Paste({ standardId }: Level2PasteProps) {
     if (playtestStartedLoggedRef.current) return
     playtestStartedLoggedRef.current = true
     mountedAtRef.current = Date.now()
-    // eslint-disable-next-line no-console
-    console.log("[telemetry] level_2.playtest_started", { standardId })
+    track({
+      event: "level_2.playtest_started",
+      properties: { standardId },
+    })
   }, [loadedHtml, standardId])
 
   // ---- "Load game" handler ----
@@ -228,10 +230,9 @@ export function Level2Paste({ standardId }: Level2PasteProps) {
     const failure = validateHtml(pastedHtml)
     if (failure) {
       setValidationFailure(failure)
-      // eslint-disable-next-line no-console
-      console.log("[telemetry] level_2.local_validation_failed", {
-        standardId,
-        reason: failure.reason,
+      track({
+        event: "level_2.local_validation_failed",
+        properties: { standardId, reason: failure.reason },
       })
       return
     }
@@ -262,11 +263,11 @@ export function Level2Paste({ standardId }: Level2PasteProps) {
     const durationMs = Date.now() - mountedAtRef.current
     writePersistedWin(standardId)
     setBuilderWonOwnGame(true)
-    // eslint-disable-next-line no-console
-    console.log("[telemetry] level_2.playtest_win", {
-      standardId,
-      durationMs,
-      fake: true,
+    // Note: dev-only "Fake win" still fires the real event so the wire-up can
+    // be verified in Network DevTools without a real game.
+    track({
+      event: "level_2.playtest_win",
+      properties: { standardId, durationMs },
     })
   }, [builderWonOwnGame, standardId])
 

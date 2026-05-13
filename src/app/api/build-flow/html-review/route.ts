@@ -38,6 +38,7 @@ import type {
 } from "@/lib/agent-prompts"
 import { runCritiqueLadder } from "@/lib/critique-ladder"
 import type { HtmlReviewResult, ReviewBullet } from "@/lib/build-flow/types"
+import { trackServer } from "@/lib/telemetry/posthog-server"
 
 export const maxDuration = 60
 
@@ -227,12 +228,15 @@ export async function POST(req: NextRequest) {
   if (!process.env.ANTHROPIC_API_KEY) {
     console.error("[html-review] ANTHROPIC_API_KEY is not set")
     const latencyMs = Date.now() - startedAt
-    console.log("[telemetry] level_2.html_review_run", {
-      standardId,
-      mechanicId,
-      decision: SERVICE_ERROR_RESULT.decision,
-      latencyMs,
-      bulletsCount: SERVICE_ERROR_RESULT.bullets.length,
+    trackServer(`standard_${standardId}`, {
+      event: "level_2.html_review_run",
+      properties: {
+        standardId,
+        mechanicId,
+        decision: SERVICE_ERROR_RESULT.decision,
+        latencyMs,
+        bulletsCount: SERVICE_ERROR_RESULT.bullets.length,
+      },
     })
     return Response.json(SERVICE_ERROR_RESULT, { status: 500 })
   }
@@ -257,25 +261,34 @@ export async function POST(req: NextRequest) {
   } catch (err) {
     console.error("[html-review] runCritiqueLadder threw:", err)
     const latencyMs = Date.now() - startedAt
-    console.log("[telemetry] level_2.html_review_run", {
-      standardId,
-      mechanicId,
-      decision: SERVICE_ERROR_RESULT.decision,
-      latencyMs,
-      bulletsCount: SERVICE_ERROR_RESULT.bullets.length,
+    trackServer(`standard_${standardId}`, {
+      event: "level_2.html_review_run",
+      properties: {
+        standardId,
+        mechanicId,
+        decision: SERVICE_ERROR_RESULT.decision,
+        latencyMs,
+        bulletsCount: SERVICE_ERROR_RESULT.bullets.length,
+      },
     })
     return Response.json(SERVICE_ERROR_RESULT, { status: 500 })
   }
 
   if (ladderResult.serviceError) {
     const latencyMs = Date.now() - startedAt
-    console.log("[telemetry] level_2.html_review_run", {
-      standardId,
-      mechanicId,
-      decision: SERVICE_ERROR_RESULT.decision,
-      latencyMs,
-      bulletsCount: SERVICE_ERROR_RESULT.bullets.length,
-      serviceError: ladderResult.serviceError,
+    // Keep the serviceError detail on the server log for debugging — it isn't
+    // in the typed event contract.
+    // eslint-disable-next-line no-console
+    console.log("[html-review] serviceError:", ladderResult.serviceError)
+    trackServer(`standard_${standardId}`, {
+      event: "level_2.html_review_run",
+      properties: {
+        standardId,
+        mechanicId,
+        decision: SERVICE_ERROR_RESULT.decision,
+        latencyMs,
+        bulletsCount: SERVICE_ERROR_RESULT.bullets.length,
+      },
     })
     return Response.json(SERVICE_ERROR_RESULT, { status: 500 })
   }
@@ -306,17 +319,25 @@ export async function POST(req: NextRequest) {
   const result: HtmlReviewResult = { decision, bullets }
 
   const latencyMs = Date.now() - startedAt
-  console.log("[telemetry] level_2.html_review_run", {
-    standardId,
-    mechanicId,
-    decision: result.decision,
-    latencyMs,
-    bulletsCount: result.bullets.length,
+  // Per-stage pass/fail and cost are useful for dev debugging but not in the
+  // typed event contract — keep as a server-side console log.
+  // eslint-disable-next-line no-console
+  console.log("[html-review] stages", {
     stage1: ladderResult.stages[0]?.passed,
     stage2: ladderResult.stages[1]?.passed,
     stage3: ladderResult.stages[2]?.passed,
     stage4: ladderResult.stages[3]?.passed,
     costUsd: ladderResult.totalCostEstimateUsd,
+  })
+  trackServer(`standard_${standardId}`, {
+    event: "level_2.html_review_run",
+    properties: {
+      standardId,
+      mechanicId,
+      decision: result.decision,
+      latencyMs,
+      bulletsCount: result.bullets.length,
+    },
   })
 
   return Response.json(result)

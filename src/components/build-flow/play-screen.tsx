@@ -8,6 +8,7 @@ import {
   loadMechanicWins,
   recordMechanicWin,
 } from "@/lib/build-flow/mastery"
+import { track } from "@/lib/telemetry/posthog-client"
 
 interface PlayScreenProps {
   standardId: string
@@ -15,6 +16,8 @@ interface PlayScreenProps {
   mechanic: Mechanic | null
   /** All scenarios for this mechanic, in display order. Used to pick the next un-won one. */
   allScenariosForMechanic: Scenario[]
+  /** All mechanic IDs required for the standard. Used to detect Level 2 unlock. */
+  allMechanicIdsForStandard?: string[]
 }
 
 /**
@@ -36,6 +39,7 @@ export function PlayScreen({
   scenario,
   mechanic,
   allScenariosForMechanic,
+  allMechanicIdsForStandard,
 }: PlayScreenProps) {
   const router = useRouter()
   const iframeRef = useRef<HTMLIFrameElement | null>(null)
@@ -50,12 +54,13 @@ export function PlayScreen({
   // ---- Telemetry stubs (Task 14 will replace with real PostHog) ----
   useEffect(() => {
     startedAtRef.current = Date.now()
-    // TODO(task-14): replace with posthog.capture("level_1.scenario_started", ...)
-    // eslint-disable-next-line no-console
-    console.log("[telemetry] level_1.scenario_started", {
-      standard: standardId,
-      mechanic: scenario.mechanicId,
-      scenario: scenario.id,
+    track({
+      event: "level_1.scenario_started",
+      properties: {
+        standardId,
+        mechanicId: scenario.mechanicId,
+        scenarioId: scenario.id,
+      },
     })
   }, [standardId, scenario.id, scenario.mechanicId])
 
@@ -63,17 +68,18 @@ export function PlayScreen({
   const handleWin = useCallback(() => {
     if (won) return
     setWon(true)
-    recordMechanicWin(standardId, scenario.mechanicId)
+    recordMechanicWin(standardId, scenario.mechanicId, allMechanicIdsForStandard)
     const durationMs = Date.now() - startedAtRef.current
-    // TODO(task-14): replace with posthog.capture("level_1.scenario_won", ...)
-    // eslint-disable-next-line no-console
-    console.log("[telemetry] level_1.scenario_won", {
-      standard: standardId,
-      mechanic: scenario.mechanicId,
-      scenario: scenario.id,
-      durationMs,
+    track({
+      event: "level_1.scenario_won",
+      properties: {
+        standardId,
+        mechanicId: scenario.mechanicId,
+        scenarioId: scenario.id,
+        durationMs,
+      },
     })
-  }, [won, standardId, scenario.id, scenario.mechanicId])
+  }, [won, standardId, scenario.id, scenario.mechanicId, allMechanicIdsForStandard])
 
   useEffect(() => {
     function onMessage(e: MessageEvent) {

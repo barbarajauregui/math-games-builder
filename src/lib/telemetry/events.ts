@@ -88,6 +88,19 @@ export type BuilderEvent =
   | { event: "builder.critique_stage_failed"; properties: BuilderBaseProps & { game_id: string; stage: CritiqueStage; reason_key: string; tokens_used: number } }
   | { event: "builder.revision_submitted"; properties: BuilderBaseProps & { game_id: string; revision_count: number } }
   | { event: "builder.guide_submitted"; properties: BuilderBaseProps & { game_id: string; revision_count: number; total_time_seconds: number } }
+  // Build flow — Level 1 + Level 2 (spec 2026-05-12-koa-a-1-build-flow §13)
+  | { event: "level_1.scenario_started"; properties: { standardId: string; mechanicId: string; scenarioId: string } }
+  | { event: "level_1.scenario_won"; properties: { standardId: string; mechanicId: string; scenarioId: string; durationMs: number } }
+  | { event: "level_1.mechanic_complete"; properties: { standardId: string; mechanicId: string; scenariosPlayed: number } }
+  | { event: "builder.level_2_unlocked"; properties: { standardId: string } }
+  | { event: "level_2.prompt_scaffold_copied"; properties: { standardId: string; mechanicId: string; descriptionLength: number } }
+  | { event: "level_2.prompt_review_run"; properties: { standardId: string; mechanicId: string; decision: "pass" | "block"; latencyMs: number; descriptionLength: number } }
+  | { event: "level_2.playtest_started"; properties: { standardId: string } }
+  | { event: "level_2.playtest_win"; properties: { standardId: string; durationMs: number } }
+  | { event: "level_2.local_validation_failed"; properties: { standardId: string; reason: string } }
+  | { event: "level_2.html_review_run"; properties: { standardId: string; mechanicId: string; decision: "pass" | "soft_warn" | "block"; latencyMs: number; bulletsCount: number } }
+  | { event: "level_2.save_clicked"; properties: { standardId: string; mechanicId: string; decision: "pass" | "soft_warn" } }
+  | { event: "level_2.saved_pending_review"; properties: { standardId: string; mechanicId: string; gameId: string } }
 
 // -----------------------------------------------------------------------------
 // Category B — Player events (Phase 1 subset of spec §4.2)

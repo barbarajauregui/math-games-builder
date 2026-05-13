@@ -9,6 +9,7 @@ import {
   type StandardBlockInput,
 } from "@/lib/build-flow/prompt-composer"
 import type { PromptReviewResult } from "@/lib/build-flow/types"
+import { track } from "@/lib/telemetry/posthog-client"
 
 /**
  * Level 2 prompt scaffold composer screen.
@@ -162,12 +163,13 @@ export function Level2Scaffold({
     try {
       await navigator.clipboard.writeText(composedPrompt)
       setCopied(true)
-      // Placeholder telemetry (real PostHog wires in Task 17).
-      // eslint-disable-next-line no-console
-      console.log("[telemetry] level_2.prompt_scaffold_copied", {
-        standardId,
-        mechanicId: chosenMechanicId,
-        descriptionLength: builderDescription.length,
+      track({
+        event: "level_2.prompt_scaffold_copied",
+        properties: {
+          standardId,
+          mechanicId: chosenMechanicId,
+          descriptionLength: builderDescription.length,
+        },
       })
       if (copiedTimerRef.current) clearTimeout(copiedTimerRef.current)
       copiedTimerRef.current = setTimeout(() => setCopied(false), 2000)
