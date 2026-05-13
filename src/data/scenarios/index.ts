@@ -9,4 +9,4 @@ export function loadScenarios(standardId: string): Scenario[] {
   return SCENARIOS_BY_STANDARD[standardId] ?? []
 }
 
-export type { Scenario, StoryTemplate, BlankKind, NumberBlank, DropdownBlank, StoryBlank, Operation } from "./types"
+export type { Scenario, Mechanic, MechanicId } from "./types"
