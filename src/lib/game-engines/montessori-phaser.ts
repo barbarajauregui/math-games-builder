@@ -11,15 +11,19 @@ export function montessoriPhaserEngine(
   math: MathParams,
   option: GameOption = "golden-beads"
 ): string {
-  const validOptions = ["golden-beads", "hundred-board", "hundred-board-count-trail", "stamp-game", "fraction-circles", "bead-chain", "checkerboard-multiply"]
+  const validOptions = ["golden-beads", "hundred-board", "hundred-board-count-trail", "hundred-board-count-on-from-n", "stamp-game", "fraction-circles", "bead-chain", "checkerboard-multiply"]
   const activeOption = validOptions.includes(option) ? option : "golden-beads"
   const optDef = getOptionDef(activeOption)
-  // Both hundred-board options route to HundredBoardScene; the scene reads
-  // GAME_OPTION at runtime and branches on mode (find-cell vs count-trail).
+  // All three hundred-board options route to HundredBoardScene; the scene
+  // reads GAME_OPTION at runtime and branches on mode:
+  //  - hundred-board                    → find-cell (default)
+  //  - hundred-board-count-trail        → count-trail (always starts at 1)
+  //  - hundred-board-count-on-from-n    → count-trail with per-round startCell
   const sceneMap: Record<string, string> = {
     "golden-beads": "GoldenBeadsScene",
     "hundred-board": "HundredBoardScene",
     "hundred-board-count-trail": "HundredBoardScene",
+    "hundred-board-count-on-from-n": "HundredBoardScene",
     "stamp-game": "StampGameScene",
     "fraction-circles": "FractionCirclesScene",
     "bead-chain": "BeadChainScene",
@@ -273,18 +277,31 @@ class HundredBoardScene extends Phaser.Scene {
 
     // Mode: 'find-cell' (default) or 'count-trail'. Read from GAME_OPTION
     // (exposed by base-phaser-template). Default to find-cell so existing
-    // scenarios are unaffected.
-    this.mode = (typeof GAME_OPTION !== 'undefined' && GAME_OPTION === 'hundred-board-count-trail') ? 'count-trail' : 'find-cell';
+    // scenarios are unaffected. Both 'hundred-board-count-trail' and
+    // 'hundred-board-count-on-from-n' use count-trail mode; the difference is
+    // only that count-on-from-n honors per-round startCell from scenario data.
+    const isCountTrail = (typeof GAME_OPTION !== 'undefined' && (GAME_OPTION === 'hundred-board-count-trail' || GAME_OPTION === 'hundred-board-count-on-from-n'));
+    this.mode = isCountTrail ? 'count-trail' : 'find-cell';
 
     // Target number
     const targetNum=this.target;
+
+    // Per-round start cell for count-trail mode. Defaults to 1 (so the
+    // original count-trail scenarios behave identically). For
+    // 'hundred-board-count-on-from-n', the Builder authors a startCell per
+    // round (e.g. 47) and the kid must tap that cell first, then count up.
+    const startCell = (typeof data.startCell === 'number' && data.startCell >= 1 && data.startCell <= 100) ? data.startCell : 1;
+    this.startCell = startCell;
 
     // Prompt
     this.rg.add(this.add.text(W/2,H*0.06,data.prompt,{fontSize:'18px',color:COL_ACCENT,fontFamily:"'Space Grotesk', sans-serif",fontStyle:'bold',wordWrap:{width:W-40}}).setOrigin(0.5).setDepth(6));
 
     // Mode-specific top-line callout
     if(this.mode === 'count-trail'){
-      this.rg.add(this.add.text(W/2,H*0.13,'Count to '+targetNum+' — tap 1, 2, 3, ...',{fontSize:'20px',color:COL_PRIMARY,fontFamily:"'Space Grotesk', sans-serif",fontStyle:'bold'}).setOrigin(0.5).setDepth(6));
+      const calloutText = (startCell > 1)
+        ? ('Start at '+startCell+' — count up to '+targetNum)
+        : ('Count to '+targetNum+' — tap 1, 2, 3, ...');
+      this.rg.add(this.add.text(W/2,H*0.13,calloutText,{fontSize:'20px',color:COL_PRIMARY,fontFamily:"'Space Grotesk', sans-serif",fontStyle:'bold'}).setOrigin(0.5).setDepth(6));
     } else {
       this.rg.add(this.add.text(W/2,H*0.13,'Place: '+targetNum,{fontSize:'22px',color:COL_PRIMARY,fontFamily:"'Space Grotesk', sans-serif",fontStyle:'bold'}).setOrigin(0.5).setDepth(6));
     }
@@ -295,7 +312,7 @@ class HundredBoardScene extends Phaser.Scene {
     const gridY=H*0.2;
 
     // Count-trail state
-    this.expectedNext = 1;
+    this.expectedNext = startCell;
     this.trailCells = new Set();
     this.cellByNum = {};            // num -> {cell, label, cx, cy}
     this.statusLbl = null;
@@ -341,7 +358,8 @@ class HundredBoardScene extends Phaser.Scene {
 
     // Count-trail status line below the grid
     if(this.mode === 'count-trail'){
-      this.statusLbl = this.add.text(W/2, gridY + gridSize*10 + 16, 'Tap 1 to start.', {fontSize:'14px',color:COL_TEXT,fontFamily:"'Lexend', system-ui",alpha:0.85}).setOrigin(0.5).setDepth(6);
+      const startText = 'Tap '+startCell+' to start.';
+      this.statusLbl = this.add.text(W/2, gridY + gridSize*10 + 16, startText, {fontSize:'14px',color:COL_TEXT,fontFamily:"'Lexend', system-ui",alpha:0.85}).setOrigin(0.5).setDepth(6);
       this.rg.add(this.statusLbl);
     }
   }
@@ -381,16 +399,19 @@ class HundredBoardScene extends Phaser.Scene {
       }
     } else {
       // Wrong: reset trail. Single redraw of cell tints, not per-cell tweens.
+      // Reset target is startCell (not always 1) so count-on-from-N scenarios
+      // restart at N, not 1.
+      const startCell = this.startCell || 1;
       this.trailCells.clear();
-      this.expectedNext = 1;
+      this.expectedNext = startCell;
       this._renderTrail();
       this.cameras.main.shake(160,0.008);
       heroShake(this,this.hero);
       this.lives--; this._rh();
       if(this.statusLbl){
-        this.statusLbl.setText('Oops — start again from 1.');
+        this.statusLbl.setText('Oops — start again from '+startCell+'.');
         this.statusLbl.setColor(COL_DANGER);
-        this.time.delayedCall(900,()=>{ if(this.statusLbl){this.statusLbl.setColor(COL_TEXT);this.statusLbl.setText('Tap 1 to start.');} });
+        this.time.delayedCall(900,()=>{ if(this.statusLbl){this.statusLbl.setColor(COL_TEXT);this.statusLbl.setText('Tap '+startCell+' to start.');} });
       }
       if(this.lives <= 0) this.time.delayedCall(500,()=>this.scene.start('LoseScene',{score:gameScore}));
     }

@@ -1686,7 +1686,7 @@
         },
         {
           "engineId": "hundred-board",
-          "rationale": "PRIMARY conditional on the K.CC.A.1 trail fix plus a 'start-from-N' variant. With the kid placed at cell N and asked to tap forward through N+1, N+2..., the engine directly serves K.CC.A.2's verbatim 'count forward beginning from a given number.' Critic Criterion 4: the win condition cannot be satisfied by recounting from 1 — the starting cell is fixed at N."
+          "rationale": "Clean PRIMARY via the 'hundred-board-count-on-from-n' GameOption (Engine Fix 3, shipped 2026-05-12). Each round names a startCell N and a target T; the kid must tap cell N first, then count forward N+1, N+2, ... up to T. Wrong taps reset the trail to N (not to 1). Directly enacts the standard's verbatim 'count forward beginning from a given number ... instead of having to begin at 1.' Critic Criterion 4: the win condition cannot be satisfied by recounting from 1 — expectedNext is initialized to startCell and any tap other than startCell on the first move resets the trail."
         },
         {
           "engineId": "free-collect",
@@ -1695,8 +1695,8 @@
       ],
       "secondary": [],
       "revisable": [],
-      "coverageGap": "Partial. `number-frames` is clean PRIMARY (Engine Fix 4 shipped 2026-05-12, 'number-frames-count-on' GameOption). `free-collect` is clean PRIMARY (Engine Fix 5 shipped 2026-05-12, 'free-collect-count-on' GameOption). `hundred-board` still needs the K.CC.A.1 trail fix plus a start-from-N variant — remains conditional. With 2 of 3 PRIMARY engines clean the standard has sufficient coverage to ship.",
-      "notes": "Critical foundational gap for 1.OA strategies. number-frames + free-collect coverage unblocked 2026-05-12 via Engine Fixes 4 and 5."
+      "coverageGap": null,
+      "notes": "Critical foundational gap for 1.OA strategies. All 3 PRIMARY engines (number-frames, free-collect, hundred-board) are clean PRIMARY as of 2026-05-12 via Engine Fixes 3, 4, and 5."
     },
     "K.CC.A.3": {
       "standardText": "Write numbers from 0 to 20. Represent a number of objects with a written numeral 0-20 (with 0 representing a count of no objects).",

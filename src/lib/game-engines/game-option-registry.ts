@@ -547,6 +547,14 @@ export const GAME_OPTIONS: GameOptionDef[] = [
     helpText: "Tap cells in order from 1 up to the target.\n\n✅ Target 10 → tap 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 → win!\n❌ Skip a number (tap 1, 2, 4) → the trail clears, start again from 1\n\nThe glowing trail IS your count.",
   },
   {
+    id: "hundred-board-count-on-from-n",
+    mechanicId: "montessori-materials",
+    name: "Hundred Board — Count On From N",
+    description: "Kid starts at a given cell (e.g. 47) and counts up to a target cell (e.g. 60) by tapping in order. Required for K.CC.A.2 (count forward beginning from a number other than 1).",
+    introText: "A 10×10 hundred board with every number shown. Each round names a START cell and a TARGET cell — for example, 'Start at 47, count up to 60.' Tap the start cell first, then tap each next number in order (48, 49, 50, ...) all the way to the target. Every correct tap lights up that cell and stays glowing as a trail. If you skip a number, the trail clears and you restart from the START cell — NOT from 1.",
+    helpText: "Each round you start at a cell and count up to a target.\n\n✅ Start 47, target 60 → tap 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60 → win!\n❌ Tap 1 first → wrong; you must start at the named start cell\n❌ Skip a number (47, 48, 50) → trail clears, restart from 47\n\nThe glowing trail IS your count-on. This is the K.CC.A.2 skill: counting forward from a given number other than 1.",
+  },
+  {
     id: "stamp-game",
     mechanicId: "montessori-materials",
     name: "Stamp Game",
