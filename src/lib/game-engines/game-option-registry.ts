@@ -531,6 +531,14 @@ export const GAME_OPTIONS: GameOptionDef[] = [
     helpText: "Place each number in the right cell.\n\nNumbers go left to right: 1-10 in the first row, 11-20 in the second, etc.\n\n✅ 35 → row 4, column 5\n❌ 35 is not in row 3 — that's 21-30!",
   },
   {
+    id: "hundred-board-count-trail",
+    mechanicId: "montessori-materials",
+    name: "Hundred Board — Count Trail",
+    description: "Count from 1 up to the target by tapping cells in order. The trail glows behind you.",
+    introText: "A 10×10 hundred board with every number shown. A target appears at the top. Tap 1, then 2, then 3, all the way up to the target — each correct tap lights up that cell and stays glowing as a trail behind you. If you skip a number, the trail resets and you start again from 1.",
+    helpText: "Tap cells in order from 1 up to the target.\n\n✅ Target 10 → tap 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 → win!\n❌ Skip a number (tap 1, 2, 4) → the trail clears, start again from 1\n\nThe glowing trail IS your count.",
+  },
+  {
     id: "stamp-game",
     mechanicId: "montessori-materials",
     name: "Stamp Game",

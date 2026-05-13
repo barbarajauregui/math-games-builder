@@ -1659,7 +1659,7 @@
       "primary": [
         {
           "engineId": "hundred-board",
-          "rationale": "PRIMARY conditional on Audit 11 fix (forward-counting-trail mechanic where kid taps cells in order 1, 2, 3...). The 100-chart IS the visible representation of the standard's verbatim text 'Count to 100 by ones'; tapping cells in sequence enacts the production skill. Critic Criterion 4 (Construct Validity): the win condition becomes 'tap cells in sequence' — i.e., production-of-the-count — not pattern-matching. Skip-by-10s mode also serves the 'by tens' half of the standard. NOT PRIMARY until the REVISABLE fix ships."
+          "rationale": "PRIMARY. The `hundred-board-count-trail` game option enacts the count-sequence production skill verbatim: the kid taps cells 1 → 2 → 3 → ... → target and a glow trail lights up behind them; any skip clears the trail and forces a restart from 1. The 10×10 board IS the visible representation of 'Count to 100 by ones'; tapping cells in order IS the production. Critic Criterion 4 (Construct Validity): the win condition cannot be satisfied except by producing the count in stable order — pattern-matching or random-tap is impossible. Skip-by-10s would be a future variant; the by-ones half ships now."
         },
         {
           "engineId": "sequence-builder",
@@ -1676,13 +1676,8 @@
           "rationale": "Skip-counting by N on a chain is structurally related; but bead-chain is 3.OA framed and exceeds K range."
         }
       ],
-      "revisable": [
-        {
-          "engineId": "hundred-board",
-          "fix": "Currently click-correct-cell (binary); revise to a forward-counting-trail mechanic where kid taps cells in order 1, 2, 3... and the trail glows. Then becomes a count-sequence enforcer."
-        }
-      ],
-      "coverageGap": "Conditional coverage. 3 PRIMARY engines proposed but all three carry caveats — `hundred-board` requires its REVISABLE fix to ship, and `sequence-builder`/`pattern-machine` require Builder-side scenario re-skinning for K.CC.A.1 (they were designed for hidden-rule-discovery in higher grades). Audit 13 §4 Mechanic Inventor opportunity — a voice-or-tap-in-sequence count-the-bubbles engine — remains the right long-term fix.",
+      "revisable": [],
+      "coverageGap": "`hundred-board` clean PRIMARY now via the `hundred-board-count-trail` option (shipped 2026-05-12). `sequence-builder` and `pattern-machine` still require Builder-side scenario re-skinning for K.CC.A.1 (they were designed for hidden-rule-discovery in higher grades). Audit 13 §4 Mechanic Inventor opportunity — a voice-or-tap-in-sequence count-the-bubbles engine — remains a worthwhile long-term addition but is no longer load-bearing for K.CC.A.1 coverage.",
       "notes": "K.CC.A.1 is a production skill — recite — which is unusual for screen-game mechanics. Voice/tap-in-sequence engine is the right shape but doesn't exist."
     },
     "K.CC.A.2": {

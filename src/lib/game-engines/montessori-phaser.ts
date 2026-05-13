@@ -11,12 +11,15 @@ export function montessoriPhaserEngine(
   math: MathParams,
   option: GameOption = "golden-beads"
 ): string {
-  const validOptions = ["golden-beads", "hundred-board", "stamp-game", "fraction-circles", "bead-chain", "checkerboard-multiply"]
+  const validOptions = ["golden-beads", "hundred-board", "hundred-board-count-trail", "stamp-game", "fraction-circles", "bead-chain", "checkerboard-multiply"]
   const activeOption = validOptions.includes(option) ? option : "golden-beads"
   const optDef = getOptionDef(activeOption)
+  // Both hundred-board options route to HundredBoardScene; the scene reads
+  // GAME_OPTION at runtime and branches on mode (find-cell vs count-trail).
   const sceneMap: Record<string, string> = {
     "golden-beads": "GoldenBeadsScene",
     "hundred-board": "HundredBoardScene",
+    "hundred-board-count-trail": "HundredBoardScene",
     "stamp-game": "StampGameScene",
     "fraction-circles": "FractionCirclesScene",
     "bead-chain": "BeadChainScene",
@@ -268,26 +271,47 @@ class HundredBoardScene extends Phaser.Scene {
     const data=getRound(this.round);this.target=data.target;this._rd();
     const W=this.W,H=this.H;
 
-    // Target number to place
+    // Mode: 'find-cell' (default) or 'count-trail'. Read from GAME_OPTION
+    // (exposed by base-phaser-template). Default to find-cell so existing
+    // scenarios are unaffected.
+    this.mode = (typeof GAME_OPTION !== 'undefined' && GAME_OPTION === 'hundred-board-count-trail') ? 'count-trail' : 'find-cell';
+
+    // Target number
     const targetNum=this.target;
 
     // Prompt
     this.rg.add(this.add.text(W/2,H*0.06,data.prompt,{fontSize:'18px',color:COL_ACCENT,fontFamily:"'Space Grotesk', sans-serif",fontStyle:'bold',wordWrap:{width:W-40}}).setOrigin(0.5).setDepth(6));
 
-    // Number to place shown prominently
-    this.rg.add(this.add.text(W/2,H*0.13,'Place: '+targetNum,{fontSize:'22px',color:COL_PRIMARY,fontFamily:"'Space Grotesk', sans-serif",fontStyle:'bold'}).setOrigin(0.5).setDepth(6));
+    // Mode-specific top-line callout
+    if(this.mode === 'count-trail'){
+      this.rg.add(this.add.text(W/2,H*0.13,'Count to '+targetNum+' — tap 1, 2, 3, ...',{fontSize:'20px',color:COL_PRIMARY,fontFamily:"'Space Grotesk', sans-serif",fontStyle:'bold'}).setOrigin(0.5).setDepth(6));
+    } else {
+      this.rg.add(this.add.text(W/2,H*0.13,'Place: '+targetNum,{fontSize:'22px',color:COL_PRIMARY,fontFamily:"'Space Grotesk', sans-serif",fontStyle:'bold'}).setOrigin(0.5).setDepth(6));
+    }
 
     // 10x10 grid
     const gridSize=Math.min((W-40)/10,(H-H*0.22-40)/10);
     const gridX=(W-gridSize*10)/2;
     const gridY=H*0.2;
 
-    // Progressive guides: show some numbers already placed (more in early rounds)
-    const guidesCount=this.round<2?15:this.round<4?8:3;
-    const guideNums=new Set();
-    while(guideNums.size<guidesCount){
-      const n=Math.floor(Math.random()*100)+1;
-      if(n!==targetNum)guideNums.add(n);
+    // Count-trail state
+    this.expectedNext = 1;
+    this.trailCells = new Set();
+    this.cellByNum = {};            // num -> {cell, label, cx, cy}
+    this.statusLbl = null;
+
+    // Find-cell mode: show some guide numbers as faded hints.
+    // Count-trail mode: show ALL cell numbers (so the kid can find 1, then 2, etc.).
+    let visibleNums;
+    if(this.mode === 'count-trail'){
+      visibleNums = null; // means "show all"
+    } else {
+      const guidesCount=this.round<2?15:this.round<4?8:3;
+      visibleNums=new Set();
+      while(visibleNums.size<guidesCount){
+        const n=Math.floor(Math.random()*100)+1;
+        if(n!==targetNum)visibleNums.add(n);
+      }
     }
 
     for(let r=0;r<10;r++){for(let c=0;c<10;c++){
@@ -297,28 +321,99 @@ class HundredBoardScene extends Phaser.Scene {
       const cell=this.add.rectangle(cx,cy,gridSize-2,gridSize-2,hexToNum(COL_SECONDARY),0.12).setStrokeStyle(1,hexToNum(COL_TEXT),0.2).setInteractive({useHandCursor:true}).setDepth(5);
       this.rg.add(cell);
 
-      // Show guide numbers
-      if(guideNums.has(num)){
-        this.rg.add(this.add.text(cx,cy,String(num),{fontSize:Math.max(9,gridSize*0.4)+'px',color:COL_TEXT,fontFamily:"'Lexend', system-ui",alpha:0.4}).setOrigin(0.5).setDepth(6));
+      // Render cell number
+      let label = null;
+      const showNumber = (this.mode === 'count-trail') || (visibleNums && visibleNums.has(num));
+      if(showNumber){
+        label = this.add.text(cx,cy,String(num),{fontSize:Math.max(9,gridSize*0.4)+'px',color:COL_TEXT,fontFamily:"'Lexend', system-ui",alpha:this.mode==='count-trail'?0.7:0.4}).setOrigin(0.5).setDepth(6);
+        this.rg.add(label);
       }
+      this.cellByNum[num] = { cell, label, cx, cy, gridSize };
 
       cell.on('pointerdown',()=>{
-        if(num===targetNum){
-          // Correct cell
-          this.add.text(cx,cy,String(num),{fontSize:Math.max(10,gridSize*0.45)+'px',color:COL_ACCENT,fontFamily:"'Space Grotesk', sans-serif",fontStyle:'bold'}).setOrigin(0.5).setDepth(7);
-          cell.setFillStyle(hexToNum(COL_ACCENT),0.3);
-          gameScore+=10*(this.round+1);this.scoreLbl.setText('Score: '+gameScore);this.cameras.main.flash(200,34,197,94);heroCheer(this,this.hero);
-          this.round++;if(this.round>=TOTAL_ROUNDS)this.time.delayedCall(600,()=>this.scene.start('VictoryScene',{score:gameScore}));
-          else this.time.delayedCall(800,()=>this.startRound());
-        }else{
-          // Wrong cell
-          cell.setFillStyle(hexToNum(COL_DANGER),0.3);
-          this.time.delayedCall(300,()=>cell.setFillStyle(hexToNum(COL_SECONDARY),0.12));
-          this.lives--;this._rh();this.cameras.main.shake(200,0.01);heroShake(this,this.hero);
-          if(this.lives<=0)this.time.delayedCall(500,()=>this.scene.start('LoseScene',{score:gameScore}));
+        if(this.mode === 'count-trail'){
+          this._handleCountTrailTap(num,targetNum);
+        } else {
+          this._handleFindCellTap(num,targetNum,cell,cx,cy,gridSize);
         }
       });
     }}
+
+    // Count-trail status line below the grid
+    if(this.mode === 'count-trail'){
+      this.statusLbl = this.add.text(W/2, gridY + gridSize*10 + 16, 'Tap 1 to start.', {fontSize:'14px',color:COL_TEXT,fontFamily:"'Lexend', system-ui",alpha:0.85}).setOrigin(0.5).setDepth(6);
+      this.rg.add(this.statusLbl);
+    }
+  }
+
+  _handleFindCellTap(num,targetNum,cell,cx,cy,gridSize){
+    if(num===targetNum){
+      this.add.text(cx,cy,String(num),{fontSize:Math.max(10,gridSize*0.45)+'px',color:COL_ACCENT,fontFamily:"'Space Grotesk', sans-serif",fontStyle:'bold'}).setOrigin(0.5).setDepth(7);
+      cell.setFillStyle(hexToNum(COL_ACCENT),0.3);
+      gameScore+=10*(this.round+1);this.scoreLbl.setText('Score: '+gameScore);this.cameras.main.flash(200,34,197,94);heroCheer(this,this.hero);
+      this.round++;if(this.round>=TOTAL_ROUNDS)this.time.delayedCall(600,()=>this.scene.start('VictoryScene',{score:gameScore}));
+      else this.time.delayedCall(800,()=>this.startRound());
+    }else{
+      cell.setFillStyle(hexToNum(COL_DANGER),0.3);
+      this.time.delayedCall(300,()=>cell.setFillStyle(hexToNum(COL_SECONDARY),0.12));
+      this.lives--;this._rh();this.cameras.main.shake(200,0.01);heroShake(this,this.hero);
+      if(this.lives<=0)this.time.delayedCall(500,()=>this.scene.start('LoseScene',{score:gameScore}));
+    }
+  }
+
+  _handleCountTrailTap(num,targetNum){
+    if(num === this.expectedNext){
+      // Correct: add to trail, advance, redraw.
+      this.trailCells.add(num);
+      this.expectedNext++;
+      this._renderTrail();
+      if(this.statusLbl) this.statusLbl.setText('Up to '+num+'. Next: '+this.expectedNext+'.');
+      // Win when we've covered 1..target.
+      if(this.expectedNext - 1 === targetNum){
+        gameScore += 10 * (this.round + 1);
+        this.scoreLbl.setText('Score: '+gameScore);
+        this.cameras.main.flash(200,34,197,94);
+        heroCheer(this,this.hero);
+        if(this.statusLbl) this.statusLbl.setText('You counted to '+targetNum+'!');
+        this.round++;
+        if(this.round >= TOTAL_ROUNDS) this.time.delayedCall(700,()=>this.scene.start('VictoryScene',{score:gameScore}));
+        else this.time.delayedCall(900,()=>this.startRound());
+      }
+    } else {
+      // Wrong: reset trail. Single redraw of cell tints, not per-cell tweens.
+      this.trailCells.clear();
+      this.expectedNext = 1;
+      this._renderTrail();
+      this.cameras.main.shake(160,0.008);
+      heroShake(this,this.hero);
+      this.lives--; this._rh();
+      if(this.statusLbl){
+        this.statusLbl.setText('Oops — start again from 1.');
+        this.statusLbl.setColor(COL_DANGER);
+        this.time.delayedCall(900,()=>{ if(this.statusLbl){this.statusLbl.setColor(COL_TEXT);this.statusLbl.setText('Tap 1 to start.');} });
+      }
+      if(this.lives <= 0) this.time.delayedCall(500,()=>this.scene.start('LoseScene',{score:gameScore}));
+    }
+  }
+
+  _renderTrail(){
+    // Single pass over all cells: tint trail cells gold, others neutral.
+    // Avoids 100 per-cell tweens for Chromebook perf.
+    const accentNum = hexToNum(COL_ACCENT);
+    const secNum = hexToNum(COL_SECONDARY);
+    for(let n=1;n<=100;n++){
+      const rec = this.cellByNum[n];
+      if(!rec) continue;
+      if(this.trailCells.has(n)){
+        rec.cell.setFillStyle(accentNum, 0.45);
+        rec.cell.setStrokeStyle(2, accentNum, 0.9);
+        if(rec.label){ rec.label.setColor(COL_ACCENT); rec.label.setAlpha(1); rec.label.setFontStyle('bold'); }
+      } else {
+        rec.cell.setFillStyle(secNum, 0.12);
+        rec.cell.setStrokeStyle(1, hexToNum(COL_TEXT), 0.2);
+        if(rec.label){ rec.label.setColor(COL_TEXT); rec.label.setAlpha(0.7); rec.label.setFontStyle('normal'); }
+      }
+    }
   }
 }
 
