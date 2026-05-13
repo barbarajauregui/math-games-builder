@@ -64,3 +64,7 @@ __pycache__/
 /.clerk/
 .env*.local
 .env.local
+
+# research source PDF + derived per-page text dump (large, locally regenerated)
+docs/research/Progressions-K-5.pdf
+docs/research/_progressions_pages/
