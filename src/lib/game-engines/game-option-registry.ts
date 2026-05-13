@@ -23,6 +23,14 @@ export const GAME_OPTIONS: GameOptionDef[] = [
     helpText: "Tap a cluster — its dots fly up and join your field.\n\nTarget has 12 dots → combine 5 + 7 = 12 → field snaps.\nYour field grows past the target → lose a life.",
   },
   {
+    id: "free-collect-count-on",
+    mechanicId: "resource-management",
+    name: "Free Collect — Count On",
+    description: "Field starts pre-stocked with N dots; tap to count on from N+1 up to the target",
+    introText: "The field already has some dots in it — that's your given starting number. Tap item clusters to add more dots. The first dot you add is N+1, not 1 — you're counting on from a given start, all the way to the target.",
+    helpText: "Some dots are already in the field at the start — that's your starting count.\n\n✅ Field starts with 9 dots, target is 10 → tap a 1-cluster → 9 + 1 = 10 → field snaps.\n✅ The first tap is N+1, not 1. You never recount from 1.\n❌ Going over the target loses a life.",
+  },
+  {
     id: "conveyor-belt",
     mechanicId: "resource-management",
     name: "Liquid Mixing Tank",
@@ -790,6 +798,14 @@ export const GAME_OPTIONS: GameOptionDef[] = [
     description: "Split a number into two groups across two ten-frames",
     introText: "A number is given. Split it into two groups by placing counters across the two ten-frames.",
     helpText: "Break a number into two pairs.\n\nPlace some counters in the left frame and some in the right frame so the total matches the target. Both frames must have at least one counter.",
+  },
+  {
+    id: "number-frames-count-on",
+    mechanicId: "number-frames",
+    name: "Number Frames — Count On",
+    description: "Start with N counters already in the first frame, count forward by tapping the second",
+    introText: "The left ten-frame is already filled with some counters — that's your starting count. Tap the right ten-frame to count forward (N+1, N+2, ...) until the total matches the target.",
+    helpText: "Count forward from a given number.\n\nThe left frame holds the starting count — you can't change it. Tap empty cells in the right frame to count on. Press Done when the total matches the target, then pick the number.\n\n✅ Start at 4, target 7 → tap right frame 3 times → 5, 6, 7 → win.\n❌ Don't try to count from 1 — the left frame is the given start.",
   },
 ]
 

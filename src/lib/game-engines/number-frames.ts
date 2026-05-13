@@ -24,7 +24,15 @@
 
 import type { ThemeConfig, MathParams, GameOption } from "./engine-types"
 
-interface AddRound { kind: "add"; a: number; b: number; answer: number }
+// prefillCount (optional, default 0): number of counters pre-rendered in
+// frame-a at round start. When > 0, frame-a is non-interactive (the
+// pre-filled counters are a given starting count, not the kid's work),
+// and the kid only taps frame-b to add more. Used by the
+// "number-frames-count-on" mode for K.CC.A.2 ("Count forward beginning
+// from a given number ... instead of having to begin at 1"). When
+// prefillCount === 0 (the default everywhere today), behavior is
+// identical to the original engine.
+interface AddRound { kind: "add"; a: number; b: number; answer: number; prefillCount?: number }
 interface SubRound { kind: "sub"; total: number; remove: number; answer: number }
 interface DecomposeRound { kind: "decompose"; total: number; minWays: number }
 type Round = AddRound | SubRound | DecomposeRound
@@ -49,6 +57,19 @@ const ROUNDS_ADD_SUB: Round[] = [
 // Unit 4's "ways to make N" chart structure.
 //   - totals ≤ 5: minWays = 2 (only a few pairs exist with each piece ≥1)
 //   - totals ≥ 6: minWays = 3 (more pairs available; deeper exploration)
+// K.CC.A.2 — "Count forward beginning from a given number within the known
+// sequence (instead of having to begin at 1)." Frame-a is pre-filled with
+// `prefillCount` counters as the given starting count. The kid taps frame-b
+// to count forward (N+1, N+2, ...). The win-check is unchanged: total
+// (prefill + taps) must match the target via frameA === a && frameB === b.
+const ROUNDS_COUNT_ON: Round[] = [
+  { kind: "add", a: 3, b: 1, answer: 4, prefillCount: 3 },
+  { kind: "add", a: 4, b: 2, answer: 6, prefillCount: 4 },
+  { kind: "add", a: 5, b: 3, answer: 8, prefillCount: 5 },
+  { kind: "add", a: 6, b: 2, answer: 8, prefillCount: 6 },
+  { kind: "add", a: 7, b: 3, answer: 10, prefillCount: 7 },
+]
+
 const ROUNDS_DECOMPOSE: Round[] = [
   { kind: "decompose", total: 3, minWays: 2 },
   { kind: "decompose", total: 5, minWays: 2 },
@@ -62,8 +83,15 @@ export function numberFramesEngine(
   _math: MathParams,
   option: GameOption = "number-frames",
 ): string {
-  const mode: "add" | "decompose" = option === "number-frames-decompose" ? "decompose" : "add"
-  const rounds = JSON.stringify(mode === "decompose" ? ROUNDS_DECOMPOSE : ROUNDS_ADD_SUB)
+  const mode: "add" | "decompose" | "count-on" =
+    option === "number-frames-decompose" ? "decompose"
+    : option === "number-frames-count-on" ? "count-on"
+    : "add"
+  const roundsForMode =
+    mode === "decompose" ? ROUNDS_DECOMPOSE
+    : mode === "count-on" ? ROUNDS_COUNT_ON
+    : ROUNDS_ADD_SUB
+  const rounds = JSON.stringify(roundsForMode)
 
   return `<!DOCTYPE html>
 <html lang="en">
@@ -430,6 +458,10 @@ export function numberFramesEngine(
     $("done-btn").disabled = false;
 
     if (r.kind === "add") {
+      // prefillCount > 0 = count-on mode (K.CC.A.2). Frame-a starts with
+      // N counters as the "given start"; the kid only taps frame-b to
+      // count forward. prefillCount defaults to 0 elsewhere (no change).
+      var prefill = (typeof r.prefillCount === "number") ? r.prefillCount : 0;
       // Show dot clusters as prompt (no digits). Fix #4.
       $("dot-prompt").innerHTML =
         renderDotCluster(r.a) +
@@ -438,11 +470,23 @@ export function numberFramesEngine(
         '<span class="prompt-symbol">=</span>' +
         '<span class="prompt-question">?</span>';
       $("operator").textContent = "+";
-      $("instruction").textContent = "Count the dots above. Fill each frame to match, then press Done.";
-      $("frame-a").className = "frame active";
-      $("frame-b").className = "frame active";
-      drawFrame("frame-a", 0, true);
-      drawFrame("frame-b", 0, true);
+      if (prefill > 0) {
+        $("instruction").textContent =
+          "Start with " + prefill + ". Tap the other frame to count forward, then press Done.";
+        // Lock frame-a (the given start) — non-interactive. Same render
+        // path as tapped dots, so visually identical.
+        frameA = prefill;
+        $("frame-a").className = "frame locked";
+        $("frame-b").className = "frame active";
+        drawFrame("frame-a", prefill, false);
+        drawFrame("frame-b", 0, true);
+      } else {
+        $("instruction").textContent = "Count the dots above. Fill each frame to match, then press Done.";
+        $("frame-a").className = "frame active";
+        $("frame-b").className = "frame active";
+        drawFrame("frame-a", 0, true);
+        drawFrame("frame-b", 0, true);
+      }
     } else if (r.kind === "sub") {
       // Subtraction: show total dots, then "take away" N dots
       $("dot-prompt").innerHTML =

@@ -1151,7 +1151,7 @@
         },
         {
           "engineId": "number-frames",
-          "rationale": "PRIMARY conditional on the K.CC.A.2 'counting-on mode' fix already queued in the JSON map (`standard-mechanic-map.json`'s K.CC.A.2 entry, REVISABLE). With the fix: pre-fill first frame with N counters as a 'given start,' kid taps additional counters and the running count begins at N+1, not 1. Critic Criterion 4: the standard's 'count on by 2 to add 2' is the literal mechanic — count starts at N. Without the fix, the engine recounts from 1 and FAILS the standard's verbatim definition. MOVE FROM CONDITIONAL TO CLEAN PRIMARY ONCE THE COUNTING-ON FIX SHIPS."
+          "rationale": "Clean PRIMARY via the 'number-frames-count-on' GameOption (Engine Fix 4, shipped 2026-05-12). Frame-a is pre-filled with N counters as the given start and is locked non-interactive; the kid taps frame-b to count forward (N+1, N+2, ...). Critic Criterion 4: the standard's 'count on by 2 to add 2' is the literal mechanic — count starts at N, the engine cannot satisfy its win condition via recount-from-1."
         },
         {
           "engineId": "hundred-board",
@@ -1170,16 +1170,12 @@
       ],
       "revisable": [
         {
-          "engineId": "number-frames",
-          "fix": "Add 'counting-on' mode (already queued in K.CC.A.2 entry): pre-fill first frame with N counters as a given start; child taps additional counters and the count starts at N+1, not 1. Critical for 1.OA.C.5 to clean-PRIMARY."
-        },
-        {
           "engineId": "hundred-board",
           "fix": "Forward-counting-trail mechanic (kid taps cells in order; trail glows) PLUS start-from-N variant (kid begins at cell N rather than cell 1). Both queued in Audit 11 §2 and the K.CC.A.2 entry."
         }
       ],
-      "coverageGap": "Only 1 clean PRIMARY (`cuisenaire-rods`). The other two PRIMARY engines depend on engine fixes that have already been queued in Audit 11 §2 and in the K.CC.A.2 JSON entry but have not shipped. Audit 11 §5 #2 names this as an open gap. Mechanic Inventor opportunity: a 'count-on number-line hop' engine where the kid taps the starting number and then taps each successive integer in order, with no option to recount from 1.",
-      "notes": "1.OA.C.5 is the standard that depends most heavily on the K.CC.A.2 counting-on fixes. Cross-cluster cross-cutting concern. Bus-stop number line, hundred-board trail, and pre-stocked free-collect all need to ship for this standard to have robust coverage."
+      "coverageGap": "2 clean PRIMARY (`cuisenaire-rods`, `number-frames` via 'number-frames-count-on' shipped 2026-05-12). `hundred-board` still conditional on trail + start-from-N fix. Mechanic Inventor opportunity remains: a 'count-on number-line hop' engine where the kid taps the starting number and then taps each successive integer in order, with no option to recount from 1.",
+      "notes": "1.OA.C.5 is the standard that depends most heavily on the K.CC.A.2 counting-on fixes. number-frames coverage unblocked 2026-05-12; hundred-board fix still pending."
     },
     "1.OA.C.6": {
       "standardText": "Add and subtract within 20, demonstrating fluency for addition and subtraction within 10. Use strategies such as counting on; making ten (e.g., 8 + 6 = 8 + 2 + 4 = 10 + 4 = 14); decomposing a number leading to a ten (e.g., 13 – 4 = 13 – 3 – 1 = 10 – 1 = 9); using the relationship between addition and subtraction (e.g., knowing that 8 + 4 = 12, one knows 12 – 8 = 4); and creating equivalent but easier or known sums (e.g., adding 6 + 7 by creating the known equivalent 6 + 6 + 1 = 12 + 1 = 13).",
@@ -1686,7 +1682,7 @@
       "primary": [
         {
           "engineId": "number-frames",
-          "rationale": "PRIMARY conditional on the existing REVISABLE fix already listed in this standard's entry (add 'counting-on' mode: pre-fill first frame with N counters, child taps additional counters and count starts at N+1). With the fix, this directly enacts the standard's verbatim text 'Count forward beginning from a given number ... instead of having to begin at 1.' Critic Criterion 4: win condition is taps-after-N, not taps-from-1; structurally enforces counting-on. Move from REVISABLE to PRIMARY once shipped."
+          "rationale": "Clean PRIMARY via the 'number-frames-count-on' GameOption (Engine Fix 4, shipped 2026-05-12). Frame-a is pre-filled with N counters as the given starting count and is locked non-interactive; the kid taps frame-b to count forward (N+1, N+2, ...) until the total reaches the target. The win condition can only be satisfied by counting-on (taps-after-N) — there is no path that lets the kid recount from 1. Directly enacts the standard's verbatim text 'Count forward beginning from a given number ... instead of having to begin at 1.' Critic Criterion 4 structurally enforced."
         },
         {
           "engineId": "hundred-board",
@@ -1698,14 +1694,9 @@
         }
       ],
       "secondary": [],
-      "revisable": [
-        {
-          "engineId": "number-frames",
-          "fix": "Add 'counting-on' mode: pre-fill first frame with N counters as a given start, child taps additional counters and the count starts at N+1, not 1. Currently the kid counts all from 1."
-        }
-      ],
-      "coverageGap": "Conditional coverage. 3 PRIMARY engines proposed but all three require feature additions: `number-frames` needs the existing REVISABLE 'counting-on' fix; `hundred-board` needs the K.CC.A.1 trail fix plus a start-from-N variant; `free-collect` needs a pre-stocked-field mode. The Mechanic Inventor opportunity remains the cleanest path. Critical foundational gap for 1.OA strategies.",
-      "notes": "Critical foundational gap for 1.OA strategies."
+      "revisable": [],
+      "coverageGap": "Partial. `number-frames` is now clean PRIMARY (Engine Fix 4 shipped 2026-05-12, 'number-frames-count-on' GameOption). `hundred-board` still needs the K.CC.A.1 trail fix plus a start-from-N variant; `free-collect` still needs a pre-stocked-field mode (Engine Fix 5, in parallel). Once Fix 5 lands the gap closes to ≥1 clean PRIMARY plus 2 hundred-board-conditional, which is sufficient for K.CC.A.2 to ship.",
+      "notes": "Critical foundational gap for 1.OA strategies. number-frames coverage unblocked 2026-05-12 via 'number-frames-count-on'."
     },
     "K.CC.A.3": {
       "standardText": "Write numbers from 0 to 20. Represent a number of objects with a written numeral 0-20 (with 0 representing a count of no objects).",
