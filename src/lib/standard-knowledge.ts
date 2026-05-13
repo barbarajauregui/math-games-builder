@@ -125,9 +125,13 @@ async function loadKnowledgeFileForCluster(
   const cached = knowledgeFileCache.get(cluster)
   if (cached !== undefined) return cached
 
+  // docs/agents is a git submodule pointing at math-pedagogy-toolkit.
+  // The toolkit repo has agents/ and skills/ at its root, so chesure-
+  // knowledge sits at docs/agents/agents/chesure-knowledge/.
   const filePath = path.join(
     process.cwd(),
     'docs',
+    'agents',
     'agents',
     'chesure-knowledge',
     filename

@@ -1,0 +1,3 @@
+[submodule "docs/agents"]
+	path = docs/agents
+	url = https://github.com/barbarajauregui/math-pedagogy-toolkit.git

@@ -55,8 +55,9 @@ next-env.d.ts
 __pycache__/
 *.pyc
 
-# shared toolkit (symlinked from c:/projects/math-pedagogy-toolkit)
-/docs/agents
+# shared toolkit at .claude/skills/eric-search is symlinked from
+# c:/projects/math-pedagogy-toolkit. docs/agents is a git submodule
+# (see .gitmodules) pointing at the same toolkit repo on GitHub.
 /.claude/skills/eric-search
 
 # clerk configuration (can include secrets)
