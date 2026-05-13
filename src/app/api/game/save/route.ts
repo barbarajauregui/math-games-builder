@@ -48,5 +48,15 @@ export async function POST(req: Request) {
     createdAt: game.createdAt || Date.now(),
   })
 
+  // Telemetry: Level 2 save path reached the gate as pending_review.
+  if (!existing.exists && game.source === "level-2") {
+    // eslint-disable-next-line no-console
+    console.log("[telemetry] level_2.saved_pending_review", {
+      standardId: game.standardId,
+      mechanicId: game.mechanicId,
+      gameId,
+    })
+  }
+
   return Response.json({ id: gameId, status: game.status })
 }

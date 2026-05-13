@@ -5,6 +5,8 @@ import { useRouter } from "next/navigation"
 import { useCallback, useEffect, useRef, useState } from "react"
 import type { HtmlReviewResult, ReviewBullet } from "@/lib/build-flow/types"
 import type { MechanicId } from "@/data/scenarios/types"
+import { useAuth } from "@/lib/auth"
+import { apiFetch } from "@/lib/api-fetch"
 
 /**
  * Level 2 Gate C — HTML review screen.
@@ -154,11 +156,14 @@ interface Inputs {
 
 export function Level2Review({ standardId }: Level2ReviewProps) {
   const router = useRouter()
+  const { activeProfile } = useAuth()
   const [hydrated, setHydrated] = useState(false)
   const [inputs, setInputs] = useState<Inputs | null>(null)
   const [running, setRunning] = useState(false)
   const [result, setResult] = useState<HtmlReviewResult | null>(null)
   const [error, setError] = useState<string | null>(null)
+  const [saving, setSaving] = useState(false)
+  const [saveError, setSaveError] = useState<string | null>(null)
   // Drive the 4 dots: number of stages "completed" so far. We don't get
   // per-stage progress from the endpoint (single call), so we fake forward
   // motion with a slow tick while the request is in flight.
@@ -295,14 +300,75 @@ export function Level2Review({ standardId }: Level2ReviewProps) {
     router.push(`/build/${encodeURIComponent(standardId)}/level-2/paste`)
   }, [router, standardId])
 
-  const handleSave = useCallback(() => {
-    // Save endpoint wired in Task 13. For now, just log + alert.
+  const handleSave = useCallback(async () => {
+    if (!result || saving) return
+    if (result.decision !== "pass" && result.decision !== "soft_warn") return
+    if (!inputs) return
+    if (!activeProfile) {
+      setSaveError("You need to be signed in to save.")
+      return
+    }
+
     // eslint-disable-next-line no-console
     console.log("[telemetry] level_2.save_clicked", {
       standardId,
-      decision: result?.decision,
+      mechanicId: inputs.mechanicId,
+      decision: result.decision,
     })
-  }, [result, standardId])
+
+    setSaving(true)
+    setSaveError(null)
+    try {
+      const mechanicLabel = inputs.mechanicId || "game"
+      const title = `${standardId} — ${mechanicLabel} by ${activeProfile.name || "Anonymous"}`
+      const res = await apiFetch("/api/game/save", {
+        method: "POST",
+        body: JSON.stringify({
+          title,
+          authorUid: activeProfile.uid,
+          authorName: activeProfile.name || "Anonymous",
+          designerName: activeProfile.name || "Anonymous",
+          standardId,
+          gameHtml: inputs.pastedHtml,
+          status: "pending_review",
+          designDoc: inputs.builderDescription,
+          source: "level-2",
+          mechanicId: inputs.mechanicId,
+          playCount: 0,
+          ratingSum: 0,
+          ratingCount: 0,
+        }),
+      })
+      if (!res.ok) {
+        throw new Error(`Save failed (${res.status})`)
+      }
+      const data = (await res.json().catch(() => null)) as
+        | { id?: string; status?: string }
+        | null
+
+      // Clear Level 2 localStorage for this standard (Level 1 mastery untouched).
+      if (typeof window !== "undefined") {
+        try {
+          window.localStorage.removeItem(`mgb.l2.${standardId}.scaffold`)
+          window.localStorage.removeItem(`mgb.l2.${standardId}.paste`)
+          window.localStorage.removeItem(`mgb.l2.${standardId}.playtest`)
+          window.localStorage.removeItem(`mgb.l2.${standardId}.review`)
+        } catch {
+          // ignore
+        }
+      }
+
+      const qs = data?.id ? `?gameId=${encodeURIComponent(data.id)}` : ""
+      router.push(
+        `/build/${encodeURIComponent(standardId)}/level-2/saved${qs}`
+      )
+    } catch (e) {
+      setSaveError(
+        e instanceof Error ? e.message : "Couldn't save — try again."
+      )
+      setSaving(false)
+    }
+  }, [activeProfile, inputs, result, router, saving, standardId])
 
   // ---- derived dot statuses ----
   const dotStatuses: DotStatus[] = (() => {
@@ -394,6 +460,8 @@ export function Level2Review({ standardId }: Level2ReviewProps) {
             bullets={result.bullets}
             onEdit={handleEdit}
             onSave={handleSave}
+            saving={saving}
+            saveError={saveError}
           />
         )}
       </div>
@@ -415,9 +483,18 @@ interface ResultBandProps {
   bullets: ReviewBullet[]
   onEdit: () => void
   onSave: () => void
+  saving: boolean
+  saveError: string | null
 }
 
-function ResultBand({ decision, bullets, onEdit, onSave }: ResultBandProps) {
+function ResultBand({
+  decision,
+  bullets,
+  onEdit,
+  onSave,
+  saving,
+  saveError,
+}: ResultBandProps) {
   const band =
     decision === "pass"
       ? {
@@ -477,11 +554,13 @@ function ResultBand({ decision, bullets, onEdit, onSave }: ResultBandProps) {
               <button
                 type="button"
                 onClick={onSave}
-                className="inline-flex items-center justify-center rounded-md border border-cyan-400/60 bg-cyan-400/10 px-4 py-2 text-sm font-medium text-cyan-200 transition-colors hover:bg-cyan-400/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-950"
+                disabled={saving}
+                aria-busy={saving}
+                className="inline-flex items-center justify-center rounded-md border border-cyan-400/60 bg-cyan-400/10 px-4 py-2 text-sm font-medium text-cyan-200 transition-colors hover:bg-cyan-400/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-950 disabled:cursor-not-allowed disabled:opacity-60"
               >
-                Save and send to Guide →
+                {saving ? "Saving…" : "Save and send to Guide →"}
               </button>
-              {decision === "soft_warn" && (
+              {decision === "soft_warn" && !saving && (
                 <button
                   type="button"
                   onClick={onEdit}
@@ -493,6 +572,21 @@ function ResultBand({ decision, bullets, onEdit, onSave }: ResultBandProps) {
             </>
           )}
         </div>
+
+        {saveError && decision !== "block" && (
+          <div className="mt-3 flex items-center gap-3">
+            <p className="text-xs text-rose-300" role="alert">
+              Couldn&apos;t save — try again.
+            </p>
+            <button
+              type="button"
+              onClick={onSave}
+              className="text-xs text-cyan-300 underline hover:text-cyan-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-950 rounded-sm"
+            >
+              Retry
+            </button>
+          </div>
+        )}
       </div>
     </section>
   )
