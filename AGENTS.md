@@ -19,7 +19,7 @@ design milestone**, including:
 - Before a new agent definition lands
 - Before a new pilot starts (school deployment, cross-age experiment,
   fellowship demo)
-- Before the cluster of engines for a new math domain (1.OA, 2.OA, 3.OA,
+- Before the cluster of game mechanics for a new math domain (1.OA, 2.OA, 3.OA,
   etc.) gets exposed to Builders
 - At a minimum: quarterly, even with no other trigger
 

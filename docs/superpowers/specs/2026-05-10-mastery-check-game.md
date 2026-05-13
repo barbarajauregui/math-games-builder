@@ -60,7 +60,7 @@ Common pattern across all three: **same world, harder items, no quiz chrome.** W
 
 Concretely for MGB:
 
-- **Same engine vocabulary** as the practice games for the standard. For K.OA.A.1, the Mastery Check uses the `number-frames`-style ten-frame engine (the reference engine per Mr. Chesure §2.1), with mode-cycling rounds (one per representation mode).
+- **Same game-mechanic vocabulary** as the practice games for the standard. For K.OA.A.1, the Mastery Check uses the `number-frames`-style ten-frame mechanic (the reference mechanic per Mr. Chesure §2.1), with mode-cycling rounds (one per representation mode).
 - **Same world flavor** as the practice games (the steampunk Star Atlas Library aesthetic for Player-facing rounds).
 - **Difficulty cranked.** Numbers near the top of the standard's range. No on-screen hints. No "try again" within a round — wrong answer commits and moves on. (Mistakes are diagnostic data, not a soft fail.)
 - **Hand-authored items, not procedural.** Each item exists as data in the item bank; no random generation; no Builder authorship.
@@ -139,7 +139,7 @@ This data drives three things:
 Honest hours per standard:
 
 - **Item bank authoring:** 4–8 hours per standard (12 items × 20–40 minutes each, including writing distractors and choosing numbers).
-- **Engine wrapper:** 4 hours per standard for the first standard in a cluster (reuses existing practice engine for that standard); ~1 hour per subsequent standard sharing the same engine.
+- **Game-mechanic wrapper:** 4 hours per standard for the first standard in a cluster (reuses existing practice mechanic for that standard); ~1 hour per subsequent standard sharing the same mechanic.
 - **External reviewer:** 2 hours per round, typically 1–2 rounds. Budget $100–$300 per reviewer pass.
 - **Calibration pilot:** 10 Players × 5 minutes each, plus Barbara's analysis time (~2 hours).
 
@@ -172,7 +172,7 @@ Per the brainstorming skill flow:
 
 1. Barbara reviews this v1 spec; approves or requests changes.
 2. On approval, draft the K.OA.A.1 item bank (12 items) using §7 as the seed. Ship to external reviewer.
-3. Invoke `writing-plans` for the engine wrapper + state-machine integration + PostHog wiring.
+3. Invoke `writing-plans` for the game-mechanic wrapper + state-machine integration + PostHog wiring.
 4. `executing-plans` + `subagent-driven-development` for the build.
 5. Pause for Barbara's visual review when the K.OA.A.1 Check is playable end-to-end.
 6. Run the 10+10 calibration pilot.

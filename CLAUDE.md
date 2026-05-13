@@ -212,7 +212,7 @@ Eight background agents covering: protégé thesis, standards graph correctness,
 Early audit findings worth flagging (more arriving):
 - **Token economy is misaligned with north-star** (Audit 4) — 2000:100:10 ratio rewards approval-gate clearance ~200× more than real audience reception. Recommends demoting publish bonus, replacing tokens-for-plays with public unmonetized impact display, splitting wallet by stream.
 - **Discovery + SRT framework is ~80% derivative** of established research (Audit 3) — Habgood & Ainsworth's intrinsic integration, Shute's stealth assessment, Papert's constructionism (with Kirschner-Sweller-Clark caveats). Recommends adopting field's names; Productive Failure (Kapur) is the missing citation for "build first, learn as needed."
-- **Sum Jumper and Wall Builder fail Discovery + SRT** (Audit 8) — both use extrinsic-integration pattern (hidden equality check). 4-line rewrite proposed. Circuit Board Builder's 65-option library is ~58% strong / 42% should be flagged `practiceOnly`. Note: the "deprecated" flag in this CLAUDE.md is misleading per the audit — only the meta-picker is being demoted; the 65-option engine library should be preserved.
+- **Sum Jumper and Wall Builder fail Discovery + SRT** (Audit 8) — both use extrinsic-integration pattern (hidden equality check). 4-line rewrite proposed. Circuit Board Builder's 65-option library is ~58% strong / 42% should be flagged `practiceOnly`. Note: the "deprecated" flag in this CLAUDE.md is misleading per the audit — only the meta-picker is being demoted; the 65-option game-mechanic library should be preserved.
 
 **Memory rules added during the session:**
 
