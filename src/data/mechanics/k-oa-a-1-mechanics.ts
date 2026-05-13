@@ -1,6 +1,16 @@
 import type { Mechanic } from "@/data/scenarios/types"
 
 /**
+ * NOTE (2026-05-12, Barbara's decision): the pedagogical-mechanic IDs here
+ * (`counting-collection`, `group-then-combine`, `take-from`) describe what the
+ * Builder does at Level 1. They do NOT 1:1 match the Phaser engine IDs in
+ * `src/data/standard-mechanic-map.json` (`number-frames`, `free-collect`,
+ * `cuisenaire-rods`) — the relationship is many-to-many and only becomes
+ * load-bearing at Level 2 (prompt scaffold), when we'll formalize a
+ * `pedagogicalMechanics: string[]` field per engine entry. Deferred until then.
+ */
+
+/**
  * K.OA.A.1 PRIMARY Game Mechanics for the Level 1 picker.
  *
  * Per spec v3 (`docs/superpowers/specs/2026-05-12-koa-a-1-build-flow.md` §3):

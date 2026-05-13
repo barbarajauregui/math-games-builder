@@ -108,8 +108,16 @@ export function Level1Picker({
                     <li key={scenario.id} className="shrink-0">
                       <Link
                         href={`/build/${encodeURIComponent(standardId)}/play/${scenario.id}`}
-                        className="block w-48 rounded-lg border border-zinc-800 bg-zinc-900 p-3 text-left transition-all hover:border-cyan-400/60 hover:bg-zinc-800/80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-950"
+                        className="relative block w-48 rounded-lg border border-zinc-800 bg-zinc-900 p-3 text-left transition-all hover:border-cyan-400/60 hover:bg-zinc-800/80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-950"
                       >
+                        {won && (
+                          <span
+                            aria-label="Mechanic complete"
+                            className="absolute right-2 top-2 inline-flex h-5 w-5 items-center justify-center rounded-full bg-emerald-400/20 text-xs text-emerald-300 ring-1 ring-emerald-400/40"
+                          >
+                            ✓
+                          </span>
+                        )}
                         <h3 className="text-sm font-semibold text-white">
                           {scenario.title}
                         </h3>
@@ -144,13 +152,22 @@ export function Level1Picker({
             ? "You've played one game in each Game Mechanic. Tap to start Level 2."
             : "Ready to build your own — play one game in each Game Mechanic first."}
         </p>
-        <button
-          type="button"
-          disabled={!allMechanicsWon}
-          className="mt-3 inline-flex items-center justify-center rounded-md border border-cyan-400/60 bg-cyan-400/10 px-4 py-2 text-sm font-medium text-cyan-200 transition-colors hover:bg-cyan-400/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-950 disabled:cursor-not-allowed disabled:opacity-50"
-        >
-          Start Level 2
-        </button>
+        {allMechanicsWon ? (
+          <Link
+            href={`/build/${encodeURIComponent(standardId)}/level-2`}
+            className="mt-3 inline-flex items-center justify-center rounded-md border border-cyan-400/60 bg-cyan-400/10 px-4 py-2 text-sm font-medium text-cyan-200 transition-colors hover:bg-cyan-400/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-950"
+          >
+            Start Level 2
+          </Link>
+        ) : (
+          <button
+            type="button"
+            disabled
+            className="mt-3 inline-flex items-center justify-center rounded-md border border-cyan-400/60 bg-cyan-400/10 px-4 py-2 text-sm font-medium text-cyan-200 disabled:cursor-not-allowed disabled:opacity-50"
+          >
+            Start Level 2
+          </button>
+        )}
       </div>
     </div>
   )

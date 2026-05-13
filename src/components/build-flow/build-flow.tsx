@@ -1,9 +1,10 @@
 "use client"
 
-import { useMemo } from "react"
+import { useEffect, useMemo, useState } from "react"
 import { loadScenarios } from "@/data/scenarios"
 import { K_OA_A_1_MECHANICS } from "@/data/mechanics/k-oa-a-1-mechanics"
 import type { Mechanic, MechanicId } from "@/data/scenarios/types"
+import { loadMechanicWins } from "@/lib/build-flow/mastery"
 import { Level1Picker } from "./level-1-picker"
 
 interface BuildFlowProps {
@@ -13,27 +14,38 @@ interface BuildFlowProps {
 /**
  * Top-level build-flow component for spec v3.
  *
- * Currently renders the Level 1 picker only. Level 1 play screen, mastery
- * wiring, and Level 2 are spec §16 Tasks 6–13.
+ * Currently renders the Level 1 picker only. Level 2 routes (`/build/[std]/level-2`)
+ * are spec §16 Tasks 9–13 and will 404 until built.
  *
- * Mastery state (`mechanicWinsRecorded`) is a placeholder here — Task 7 wires
- * it through Firestore + reducer.
+ * Mastery is read from localStorage (`mgb.l1.mechanicWins.${standardId}`) on
+ * mount and re-read on `storage` / `focus` events so the picker reflects wins
+ * recorded on the play screen the moment the Builder navigates back.
  */
 export function BuildFlow({ standardId }: BuildFlowProps) {
   const scenarios = useMemo(() => loadScenarios(standardId), [standardId])
 
-  // Per-standard mechanic list. K.OA.A.1 ships with 3 PRIMARY mechanics.
-  // Other standards will plug in their own mechanics file as they come online.
   const mechanics: Mechanic[] = useMemo(() => {
     if (standardId === "K.OA.A.1") return K_OA_A_1_MECHANICS
     return []
   }, [standardId])
 
-  // Task 7 will wire this from BuildState / Firestore. For now, none-won.
-  const mechanicWins: Record<MechanicId, boolean> = {} as Record<
-    MechanicId,
-    boolean
-  >
+  const [mechanicWins, setMechanicWins] = useState<
+    Record<MechanicId, boolean>
+  >({} as Record<MechanicId, boolean>)
+
+  useEffect(() => {
+    function refresh() {
+      const fresh = loadMechanicWins(standardId) as Record<MechanicId, boolean>
+      setMechanicWins(fresh)
+    }
+    refresh()
+    window.addEventListener("storage", refresh)
+    window.addEventListener("focus", refresh)
+    return () => {
+      window.removeEventListener("storage", refresh)
+      window.removeEventListener("focus", refresh)
+    }
+  }, [standardId])
 
   return (
     <div className="min-h-screen bg-zinc-950 text-white">
