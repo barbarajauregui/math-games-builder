@@ -1,0 +1,14 @@
+# CCSS verbatim — 1.OA.C.6
+
+**Grade:** 1
+**Domain:** Operations & Algebraic Thinking (OA)
+**Cluster:** 1.OA.C — Add and subtract within 20.
+**Classification:** major
+
+## Verbatim text
+
+> Add and subtract within 20, demonstrating fluency for addition and subtraction within 10. Use strategies such as counting on; making ten (e.g., 8 + 6 = 8 + 2 + 4 = 10 + 4 = 14); decomposing a number leading to a ten (e.g., 13 – 4 = 13 – 3 – 1 = 10 – 1 = 9); using the relationship between addition and subtraction (e.g., knowing that 8 + 4 = 12, one knows 12 – 8 = 4); and creating equivalent but easier or known sums (e.g., adding 6 + 7 by creating the known equivalent 6 + 6 + 1 = 12 + 1 = 13).
+
+## Source
+
+Extracted verbatim from `src/data/standards.json` (the project's canonical standards graph).
