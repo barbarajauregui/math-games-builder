@@ -15,7 +15,7 @@ A second pass from a fresh Claude window produced 12 mini-audits (#15–26) and 
 - `docs/audit/16-mr-chesure-brief-missing.md`. The 592-line K.OA briefing content renders nowhere in the build flow UI. The K.OA.A.1 spec accesses it via side-menu "Learn More" but never surfaces it inline. **Decision:** ship K.OA.A.1 with the side-menu access only; watch pilot data. If Builders skip the brief and produce off-pedagogy games, add a mandatory brief step in v1.1 (half a day per the audit).
 
 ### Audit 18 — Standard-engine coverage gaps
-- `docs/audit/18-standard-engine-coverage-gaps.md`. Only ~2.5% of standards (13 of 517 leaves) have 3+ vetted engines. K.OA.A.1 has 3; covered. **Fix: 3-tier mapping plan covering ~30 K-3 standards.** Natural Mechanic Inventor build queue. Sequence after K.OA.A.1 ships; first target is 3.OA cluster (cross-age pilot target).
+- `docs/audit/18-standard-engine-coverage-gaps.md`. Only ~2.5% of standards (13 of 517) have 3+ vetted engines. K.OA.A.1 has 3; covered. **Fix: 3-tier mapping plan covering ~30 K-3 standards.** Natural Mechanic Inventor build queue. Sequence after K.OA.A.1 ships; first target is 3.OA cluster (cross-age pilot target).
 
 ### Audit 19 — Scenario cards flawed (pre-v2)
 - `docs/audit/19-scenario-cards-flawed.md`. Critique of the OLD scenario cards (middle-class US, addition-only, no standardId branching). **Largely addressed in K.OA.A.1 build flow v2:** each scenario has add + subtract templates; cultural broadening is in Audit 14's funds-of-knowledge follow-up. The operation×CGI×culture matrix tagging proposal (~60 cards) is a v1.1 expansion when we extend beyond K.OA.
