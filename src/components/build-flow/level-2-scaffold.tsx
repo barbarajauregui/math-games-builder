@@ -9,6 +9,7 @@ import {
   type StandardBlockInput,
 } from "@/lib/build-flow/prompt-composer"
 import type { PromptReviewResult } from "@/lib/build-flow/types"
+import { apiFetch } from "@/lib/api-fetch"
 import { track } from "@/lib/telemetry/posthog-client"
 
 /**
@@ -189,9 +190,8 @@ export function Level2Scaffold({
     setReviewing(true)
     setReviewError(null)
     try {
-      const res = await fetch("/api/build-flow/prompt-review", {
+      const res = await apiFetch("/api/build-flow/prompt-review", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           standardId,
           mechanicId: chosenMechanicId,

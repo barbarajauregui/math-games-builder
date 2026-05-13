@@ -228,9 +228,8 @@ export function Level2Review({ standardId }: Level2ReviewProps) {
       setRunning(true)
       setError(null)
       try {
-        const res = await fetch("/api/build-flow/html-review", {
+        const res = await apiFetch("/api/build-flow/html-review", {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             standardId,
             mechanicId: current.mechanicId || "(unknown)",
@@ -390,11 +389,22 @@ export function Level2Review({ standardId }: Level2ReviewProps) {
     if (result.decision === "pass") {
       return ["passed", "passed", "passed", "passed"]
     }
-    // soft_warn or block — mark all as completed; we don't know which failed
-    // exactly without the structured stages, and per spec we don't reveal
-    // agent names. Show as "complete" with the colored band below carrying
-    // the verdict.
-    return ["passed", "passed", "passed", "passed"]
+    // soft_warn or block — use failedStageNumber (1..4) to mark earlier stages
+    // as passed, the failed stage as failed, and later stages as not-run
+    // (pending). Drops the misleading "all green" state on block decisions.
+    const failed = result.failedStageNumber
+    if (typeof failed === "number" && failed >= 1 && failed <= 4) {
+      const out: DotStatus[] = []
+      for (let i = 1; i <= 4; i++) {
+        if (i < failed) out.push("passed")
+        else if (i === failed) out.push("failed")
+        else out.push("pending")
+      }
+      return out
+    }
+    // Fallback: failedStageNumber missing — show all as failed rather than
+    // all-green so the user isn't misled.
+    return ["failed", "failed", "failed", "failed"]
   })()
 
   // ---- render ----

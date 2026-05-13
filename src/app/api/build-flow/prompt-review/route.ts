@@ -34,6 +34,7 @@
 import { NextRequest } from "next/server"
 import Anthropic from "@anthropic-ai/sdk"
 import type { PromptReviewResult, ReviewBullet } from "@/lib/build-flow/types"
+import { verifyAuth } from "@/lib/api-auth"
 import { trackServer } from "@/lib/telemetry/posthog-server"
 
 export const maxDuration = 30
@@ -199,6 +200,11 @@ interface RequestBody {
 
 export async function POST(req: NextRequest) {
   const startedAt = Date.now()
+
+  // Gate on signed-in Builder. Endpoint calls Anthropic ($) — must not be
+  // open to anonymous traffic. Pattern matches src/app/api/game/save/route.ts.
+  const user = await verifyAuth(req)
+  if (!user) return Response.json({ error: "Unauthorized" }, { status: 401 })
 
   let body: RequestBody
   try {

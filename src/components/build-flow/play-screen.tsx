@@ -83,7 +83,14 @@ export function PlayScreen({
 
   useEffect(() => {
     function onMessage(e: MessageEvent) {
-      // Be defensive — sandboxed iframe sends from "null" origin.
+      // Filter by source FIRST — only accept messages from our own game iframe.
+      // Sandboxed iframe (no allow-same-origin) reports a "null" origin, so we
+      // can't filter on origin; filter on source window instead. This prevents
+      // browser extensions, other iframes, or other tabs from firing fake wins.
+      // Pattern matches `src/components/build-flow/level-2-paste.tsx`.
+      if (iframeRef.current && e.source !== iframeRef.current.contentWindow) {
+        return
+      }
       const data = e.data as { type?: unknown } | null
       if (data && typeof data === "object" && data.type === "game_win") {
         handleWin()

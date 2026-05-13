@@ -38,6 +38,7 @@ import type {
 } from "@/lib/agent-prompts"
 import { runCritiqueLadder } from "@/lib/critique-ladder"
 import type { HtmlReviewResult, ReviewBullet } from "@/lib/build-flow/types"
+import { verifyAuth } from "@/lib/api-auth"
 import { trackServer } from "@/lib/telemetry/posthog-server"
 
 export const maxDuration = 60
@@ -189,6 +190,12 @@ function lookupStandardText(standardId: string): string | null {
 export async function POST(req: NextRequest) {
   const startedAt = Date.now()
 
+  // Gate on signed-in Builder. Endpoint runs the 4-stage critique ladder
+  // (~$0.05–$0.20 per call) — must not be open to anonymous traffic. Pattern
+  // matches src/app/api/game/save/route.ts.
+  const user = await verifyAuth(req)
+  if (!user) return Response.json({ error: "Unauthorized" }, { status: 401 })
+
   let body: RequestBody
   try {
     body = (await req.json()) as RequestBody
@@ -298,11 +305,13 @@ export async function POST(req: NextRequest) {
   let decision: HtmlReviewResult["decision"]
   let bullets: ReviewBullet[]
 
+  let failedStageNumber: number | null = null
   if (!failedStage) {
     decision = "pass"
     bullets = []
   } else {
     decision = decisionFromStage(failedStage)
+    failedStageNumber = failedStage.stage
     bullets = reduceToBullets(ladderResult.stages)
     if (bullets.length === 0) {
       // Defensive: failed but couldn't extract anything readable. Treat as block.
@@ -316,7 +325,7 @@ export async function POST(req: NextRequest) {
     }
   }
 
-  const result: HtmlReviewResult = { decision, bullets }
+  const result: HtmlReviewResult = { decision, bullets, failedStageNumber }
 
   const latencyMs = Date.now() - startedAt
   // Per-stage pass/fail and cost are useful for dev debugging but not in the

@@ -29,6 +29,15 @@ export interface HtmlReviewResult {
   decision: "pass" | "soft_warn" | "block"
   /** ≤ 6 bullets per spec §13. */
   bullets: ReviewBullet[]
+  /**
+   * Which stage of the 4-stage ladder failed.
+   *   - null on "pass"
+   *   - 1..4 on "soft_warn" or "block" (1 = Haiku Critic, 2 = Haiku Adversary,
+   *     3 = Sonnet Critic, 4 = Sonnet Adversary)
+   * Drives the review screen's 4-dot UI so failed stages render as red and
+   * later stages render as "not run" instead of all-green.
+   */
+  failedStageNumber?: number | null
 }
 
 export interface BuildState {
