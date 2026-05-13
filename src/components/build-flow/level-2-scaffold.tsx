@@ -8,6 +8,7 @@ import {
   composePromptFromBlocks,
   type StandardBlockInput,
 } from "@/lib/build-flow/prompt-composer"
+import type { PromptReviewResult } from "@/lib/build-flow/types"
 
 /**
  * Level 2 prompt scaffold composer screen.
@@ -43,6 +44,7 @@ export interface Level2ScaffoldProps {
 interface PersistedState {
   chosenMechanicId: MechanicId | null
   builderDescription: string
+  promptReview: PromptReviewResult | null
 }
 
 function storageKey(standardId: string): string {
@@ -50,12 +52,15 @@ function storageKey(standardId: string): string {
 }
 
 function readPersisted(standardId: string): PersistedState {
-  if (typeof window === "undefined") {
-    return { chosenMechanicId: null, builderDescription: "" }
+  const empty: PersistedState = {
+    chosenMechanicId: null,
+    builderDescription: "",
+    promptReview: null,
   }
+  if (typeof window === "undefined") return empty
   try {
     const raw = window.localStorage.getItem(storageKey(standardId))
-    if (!raw) return { chosenMechanicId: null, builderDescription: "" }
+    if (!raw) return empty
     const parsed = JSON.parse(raw) as Partial<PersistedState>
     return {
       chosenMechanicId:
@@ -64,9 +69,16 @@ function readPersisted(standardId: string): PersistedState {
         typeof parsed.builderDescription === "string"
           ? parsed.builderDescription
           : "",
+      promptReview:
+        parsed.promptReview &&
+        typeof parsed.promptReview === "object" &&
+        (parsed.promptReview.decision === "pass" ||
+          parsed.promptReview.decision === "block")
+          ? (parsed.promptReview as PromptReviewResult)
+          : null,
     }
   } catch {
-    return { chosenMechanicId: null, builderDescription: "" }
+    return empty
   }
 }
 
@@ -83,12 +95,17 @@ export function Level2Scaffold({
     null
   )
   const [builderDescription, setBuilderDescription] = useState<string>("")
+  const [promptReview, setPromptReview] =
+    useState<PromptReviewResult | null>(null)
+  const [reviewing, setReviewing] = useState(false)
+  const [reviewError, setReviewError] = useState<string | null>(null)
   const [hydrated, setHydrated] = useState(false)
 
   useEffect(() => {
     const persisted = readPersisted(standardId)
     setChosenMechanicId(persisted.chosenMechanicId)
     setBuilderDescription(persisted.builderDescription)
+    setPromptReview(persisted.promptReview)
     setHydrated(true)
   }, [standardId])
 
@@ -100,12 +117,22 @@ export function Level2Scaffold({
     try {
       window.localStorage.setItem(
         storageKey(standardId),
-        JSON.stringify({ chosenMechanicId, builderDescription })
+        JSON.stringify({
+          chosenMechanicId,
+          builderDescription,
+          promptReview,
+        })
       )
     } catch {
       // Quota or private mode — silently degrade.
     }
-  }, [hydrated, standardId, chosenMechanicId, builderDescription])
+  }, [
+    hydrated,
+    standardId,
+    chosenMechanicId,
+    builderDescription,
+    promptReview,
+  ])
 
   // Compose live preview. When no mechanic is picked yet, show a friendly
   // placeholder; once picked, compose the real thing.
@@ -151,12 +178,75 @@ export function Level2Scaffold({
 
   const descriptionFilled =
     builderDescription.trim().length >= MIN_DESCRIPTION_CHARS
-  const ctaEnabled = chosenMechanicId !== null && descriptionFilled
+  const ctaEnabled =
+    chosenMechanicId !== null && descriptionFilled && !reviewing
 
-  function handleNext() {
+  async function handleNext() {
     if (!ctaEnabled) return
-    router.push(`/build/${encodeURIComponent(standardId)}/level-2/paste`)
+    if (!chosenMechanicId) return
+    setReviewing(true)
+    setReviewError(null)
+    try {
+      const res = await fetch("/api/build-flow/prompt-review", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          standardId,
+          mechanicId: chosenMechanicId,
+          builderDescription,
+          composedPrompt,
+        }),
+      })
+      let parsed: PromptReviewResult | null = null
+      try {
+        const data = (await res.json()) as PromptReviewResult
+        if (
+          data &&
+          (data.decision === "pass" || data.decision === "block") &&
+          Array.isArray(data.bullets)
+        ) {
+          parsed = data
+        }
+      } catch {
+        parsed = null
+      }
+      if (!parsed) {
+        setPromptReview({
+          decision: "block",
+          bullets: [
+            {
+              whatsWrong: "Could not check your prompt — try again.",
+              howToFix: "If this keeps happening, ask Barbara.",
+            },
+          ],
+        })
+        setReviewError(
+          "We couldn't reach the reviewer. Try again in a moment."
+        )
+        return
+      }
+      setPromptReview(parsed)
+      if (parsed.decision === "pass") {
+        router.push(`/build/${encodeURIComponent(standardId)}/level-2/paste`)
+      }
+    } catch {
+      setPromptReview({
+        decision: "block",
+        bullets: [
+          {
+            whatsWrong: "Could not check your prompt — try again.",
+            howToFix: "If this keeps happening, ask Barbara.",
+          },
+        ],
+      })
+      setReviewError("We couldn't reach the reviewer. Try again in a moment.")
+    } finally {
+      setReviewing(false)
+    }
   }
+
+  const showBlockCard =
+    promptReview?.decision === "block" && promptReview.bullets.length > 0
 
   return (
     <div className="min-h-screen bg-zinc-950 text-white">
@@ -201,7 +291,16 @@ export function Level2Scaffold({
                     name="level-2-mechanic"
                     value={mechanic.id}
                     checked={selected}
-                    onChange={() => setChosenMechanicId(mechanic.id)}
+                    onChange={() => {
+                      setChosenMechanicId(mechanic.id)
+                      // Mechanic change invalidates any prior block — let the
+                      // Builder retry against the new mechanic.
+                      if (promptReview?.decision === "block") {
+                        setPromptReview(null)
+                      }
+                      setReviewError(null)
+                    }}
+                    disabled={reviewing}
                     className="sr-only"
                   />
                   <h2
@@ -232,11 +331,18 @@ export function Level2Scaffold({
           <textarea
             id="builder-description"
             value={builderDescription}
-            onChange={(e) =>
+            onChange={(e) => {
               setBuilderDescription(
                 e.target.value.slice(0, MAX_DESCRIPTION_CHARS)
               )
-            }
+              // Editing the description invites a retry — clear any prior
+              // block card so the Builder isn't staring at stale feedback.
+              if (promptReview?.decision === "block") {
+                setPromptReview(null)
+              }
+              setReviewError(null)
+            }}
+            disabled={reviewing}
             maxLength={MAX_DESCRIPTION_CHARS}
             rows={3}
             placeholder="e.g. A game about feeding ducks at the pond."
@@ -277,10 +383,53 @@ export function Level2Scaffold({
           type="button"
           onClick={handleNext}
           disabled={!ctaEnabled}
-          className="inline-flex items-center justify-center rounded-md border border-cyan-400/60 bg-cyan-400/10 px-4 py-2 text-sm font-medium text-cyan-200 transition-colors hover:bg-cyan-400/20 disabled:cursor-not-allowed disabled:opacity-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-950"
+          aria-busy={reviewing}
+          className="inline-flex items-center justify-center gap-2 rounded-md border border-cyan-400/60 bg-cyan-400/10 px-4 py-2 text-sm font-medium text-cyan-200 transition-colors hover:bg-cyan-400/20 disabled:cursor-not-allowed disabled:opacity-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-950"
         >
-          Next: Paste your HTML →
+          {reviewing ? (
+            <>
+              <span
+                aria-hidden="true"
+                className="inline-block h-3 w-3 animate-spin rounded-full border-2 border-cyan-200/40 border-t-cyan-200"
+              />
+              <span>Checking your prompt…</span>
+            </>
+          ) : (
+            <span>Next: Paste your HTML →</span>
+          )}
         </button>
+
+        {/* Gate A — block card */}
+        {showBlockCard && promptReview && (
+          <div
+            role="alert"
+            aria-live="polite"
+            className="mt-4 overflow-hidden rounded-lg border border-amber-400/40 bg-amber-400/5"
+          >
+            <div className="h-1 w-full bg-amber-400/80" />
+            <div className="p-4">
+              <h3 className="mb-2 text-sm font-semibold text-amber-200">
+                Let&apos;s tighten this up before you go.
+              </h3>
+              <ul className="space-y-2 text-sm text-amber-50">
+                {promptReview.bullets.map((b, i) => (
+                  <li key={i} className="leading-relaxed">
+                    <span className="font-semibold text-amber-100">
+                      &ldquo;{b.whatsWrong}&rdquo;
+                    </span>
+                    <span className="text-amber-200/90"> → {b.howToFix}</span>
+                  </li>
+                ))}
+              </ul>
+              <p className="mt-3 text-xs text-amber-200/80">
+                Edit your description above and try again.
+              </p>
+              {reviewError && (
+                <p className="mt-2 text-xs text-amber-300/70">{reviewError}</p>
+              )}
+            </div>
+          </div>
+        )}
       </div>
     </div>
   )
