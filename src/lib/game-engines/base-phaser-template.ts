@@ -252,7 +252,8 @@ function getRound(roundIndex) {
     prompt: r.prompt || 'Solve this!',
     target: typeof r.target === 'number' ? r.target : 10,
     items: Array.isArray(r.items) ? r.items : [10, 5, 8, 3, 12, 7],
-    hint: r.hint || null
+    hint: r.hint || null,
+    prefillCount: typeof r.prefillCount === 'number' ? r.prefillCount : 0
   };
 }
 

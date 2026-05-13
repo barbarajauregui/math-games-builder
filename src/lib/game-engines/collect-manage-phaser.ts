@@ -23,13 +23,16 @@ export function collectManagePhaserEngine(
   math: MathParams,
   option: GameOption = "free-collect"
 ): string {
-  const validOptions = ["free-collect", "conveyor-belt", "split-the-loot"]
+  const validOptions = ["free-collect", "free-collect-count-on", "conveyor-belt", "split-the-loot"]
   const activeOption = validOptions.includes(option) ? option : "free-collect"
 
   const optDef = getOptionDef(activeOption)
 
+  // Both free-collect options route to FreeCollectScene; the scene reads
+  // GAME_OPTION at runtime to decide whether to pre-stock the field.
   const sceneMap: Record<string, string> = {
     "free-collect": "FreeCollectScene",
+    "free-collect-count-on": "FreeCollectScene",
     "conveyor-belt": "ConveyorBeltScene",
     "split-the-loot": "SplitTheLootScene",
   }
@@ -252,6 +255,42 @@ class FreeCollectScene extends Phaser.Scene {
       fontSize: '11px', color: COL_PRIMARY, fontFamily: "'Lexend', system-ui", fontStyle: 'bold'
     }).setOrigin(0.5).setDepth(6);
     this._collectedObjs.push(cLbl);
+
+    // ─── PRE-STOCKED FIELD (count-on mode) ────────────────────────────────
+    // K.CC.A.2: when GAME_OPTION === 'free-collect-count-on' and the round
+    // declares prefillCount > 0, seed the collection field with N dots BEFORE
+    // any tap handlers go live. The kid's first tap is N+1, not 1 — directly
+    // enacting "count forward beginning from a given number".
+    const prefillCount = (GAME_OPTION === 'free-collect-count-on' && typeof data.prefillCount === 'number')
+      ? Math.max(0, Math.min(data.prefillCount, this.targetValue))
+      : 0;
+    if (prefillCount > 0) {
+      const boxW = this.W * 0.55;
+      const boxH = 90;
+      const minDist = 12; // collision-avoidance threshold
+      const entry = { val: prefillCount, dots: [] };
+      const placed = [];
+      for (let i = 0; i < prefillCount; i++) {
+        // Try a few times to find a non-overlapping random spot inside the box
+        let px = 0, py = 0, ok = false;
+        for (let attempt = 0; attempt < 18 && !ok; attempt++) {
+          px = this.collectCX + (Math.random() - 0.5) * (boxW - 16);
+          py = this.collectCY + (Math.random() - 0.5) * (boxH - 16);
+          ok = placed.every(p => {
+            const dx = p.x - px, dy = p.y - py;
+            return Math.sqrt(dx * dx + dy * dy) >= minDist;
+          });
+        }
+        placed.push({ x: px, y: py });
+        const dot = this.add.circle(px, py, 4, hexToNum(COL_PRIMARY), 1).setDepth(15);
+        entry.dots.push(dot);
+      }
+      this.collected.push(entry);
+      this.currentTotal = prefillCount;
+      this.collectNumLbl.setText(String(this.currentTotal));
+      // Snap into the grid layout used by tapped dots — same render path.
+      this._relayoutCollection(false);
+    }
 
     // Draw ITEM BANK (bottom) — each item is a small dot-cluster (with number label for reinforcement)
     const bankY = this.H * 0.78;

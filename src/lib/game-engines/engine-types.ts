@@ -59,6 +59,11 @@ export interface RoundData {
   target: number          // the correct answer to collect
   items: number[]         // values shown on items (must include a valid subset summing to target)
   hint?: string           // optional hint shown in help panel
+  // Counting-on / pre-stocked-field support (K.CC.A.2 and 1.OA.C.5).
+  // When the engine is in a count-on variant (e.g. `free-collect-count-on`),
+  // prefillCount seeds the starting cardinality so the kid's first tap is N+1,
+  // not 1. Engines that don't support count-on ignore this field.
+  prefillCount?: number
 }
 
 // Math parameters — what numbers/difficulty to use

@@ -1690,13 +1690,13 @@
         },
         {
           "engineId": "free-collect",
-          "rationale": "Adapted as 'pre-stocked field' mode: the field starts with N dots already present (a given starting cardinality); child taps additional clusters and the running count begins at N+1, not 1. Critic Criterion 4: the kid's taps produce a count that begins from N — exactly the standard's verbatim 'count forward beginning from a given number.' Cardinality-commit at end matches Chesure's K.OA cardinality-commit pattern."
+          "rationale": "Clean PRIMARY via the 'free-collect-count-on' GameOption (Engine Fix 5, shipped 2026-05-12). The collection field is pre-stocked with N dots (round.prefillCount) BEFORE tap handlers bind; child taps additional clusters and the running count begins at N+1, not 1. Critic Criterion 4: the kid's taps produce a count that begins from N — exactly the standard's verbatim 'count forward beginning from a given number.' Cardinality-commit at end matches Chesure's K.OA cardinality-commit pattern."
         }
       ],
       "secondary": [],
       "revisable": [],
-      "coverageGap": "Partial. `number-frames` is now clean PRIMARY (Engine Fix 4 shipped 2026-05-12, 'number-frames-count-on' GameOption). `hundred-board` still needs the K.CC.A.1 trail fix plus a start-from-N variant; `free-collect` still needs a pre-stocked-field mode (Engine Fix 5, in parallel). Once Fix 5 lands the gap closes to ≥1 clean PRIMARY plus 2 hundred-board-conditional, which is sufficient for K.CC.A.2 to ship.",
-      "notes": "Critical foundational gap for 1.OA strategies. number-frames coverage unblocked 2026-05-12 via 'number-frames-count-on'."
+      "coverageGap": "Partial. `number-frames` is clean PRIMARY (Engine Fix 4 shipped 2026-05-12, 'number-frames-count-on' GameOption). `free-collect` is clean PRIMARY (Engine Fix 5 shipped 2026-05-12, 'free-collect-count-on' GameOption). `hundred-board` still needs the K.CC.A.1 trail fix plus a start-from-N variant — remains conditional. With 2 of 3 PRIMARY engines clean the standard has sufficient coverage to ship.",
+      "notes": "Critical foundational gap for 1.OA strategies. number-frames + free-collect coverage unblocked 2026-05-12 via Engine Fixes 4 and 5."
     },
     "K.CC.A.3": {
       "standardText": "Write numbers from 0 to 20. Represent a number of objects with a written numeral 0-20 (with 0 representing a count of no objects).",
