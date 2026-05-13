@@ -26,6 +26,7 @@ const MAX_HTML_BYTES = 200 * 1024 // 200 KB
 
 interface PersistedPaste {
   pastedHtml: string
+  tries?: number
 }
 interface PersistedPlaytest {
   wonAt: string // ISO
@@ -50,6 +51,20 @@ function readPersistedHtml(standardId: string): string {
   }
 }
 
+function readPersistedTries(standardId: string): number {
+  if (typeof window === "undefined") return 0
+  try {
+    const raw = window.localStorage.getItem(pasteStorageKey(standardId))
+    if (!raw) return 0
+    const parsed = JSON.parse(raw) as Partial<PersistedPaste>
+    return typeof parsed.tries === "number" && Number.isFinite(parsed.tries)
+      ? parsed.tries
+      : 0
+  } catch {
+    return 0
+  }
+}
+
 function readPersistedWin(standardId: string): boolean {
   if (typeof window === "undefined") return false
   try {
@@ -62,12 +77,12 @@ function readPersistedWin(standardId: string): boolean {
   }
 }
 
-function writePersistedHtml(standardId: string, html: string) {
+function writePersistedHtml(standardId: string, html: string, tries: number) {
   if (typeof window === "undefined") return
   try {
     window.localStorage.setItem(
       pasteStorageKey(standardId),
-      JSON.stringify({ pastedHtml: html } satisfies PersistedPaste)
+      JSON.stringify({ pastedHtml: html, tries } satisfies PersistedPaste)
     )
   } catch {
     // Quota or private mode — silently degrade.
@@ -149,6 +164,11 @@ export function Level2Paste({ standardId }: Level2PasteProps) {
 
   const [hydrated, setHydrated] = useState(false)
   const [pastedHtml, setPastedHtml] = useState<string>("")
+  // Counter: number of times "Load game" pressed AND validation succeeded
+  // (i.e., the iframe was actually mounted). Persisted in the same paste
+  // storage key so refresh doesn't reset it. Emitted with playtest_win.
+  const [tries, setTries] = useState<number>(0)
+  const triesRef = useRef<number>(0)
   // The HTML currently mounted in the iframe (only set after validation passes).
   const [loadedHtml, setLoadedHtml] = useState<string | null>(null)
   const [validationFailure, setValidationFailure] =
@@ -160,7 +180,10 @@ export function Level2Paste({ standardId }: Level2PasteProps) {
   useEffect(() => {
     const persistedHtml = readPersistedHtml(standardId)
     const persistedWin = readPersistedWin(standardId)
+    const persistedTries = readPersistedTries(standardId)
     setPastedHtml(persistedHtml)
+    setTries(persistedTries)
+    triesRef.current = persistedTries
     // Edge case: pre-fill + auto-load + pre-mark win if both already in storage.
     if (persistedHtml) {
       const failure = validateHtml(persistedHtml)
@@ -174,11 +197,11 @@ export function Level2Paste({ standardId }: Level2PasteProps) {
     setHydrated(true)
   }, [standardId])
 
-  // ---- Persist HTML on change (after hydration) ----
+  // ---- Persist HTML + tries on change (after hydration) ----
   useEffect(() => {
     if (!hydrated) return
-    writePersistedHtml(standardId, pastedHtml)
-  }, [hydrated, standardId, pastedHtml])
+    writePersistedHtml(standardId, pastedHtml, tries)
+  }, [hydrated, standardId, pastedHtml, tries])
 
   // ---- postMessage listener (only while iframe is mounted) ----
   useEffect(() => {
@@ -200,7 +223,7 @@ export function Level2Paste({ standardId }: Level2PasteProps) {
           writePersistedWin(standardId)
           track({
             event: "level_2.playtest_win",
-            properties: { standardId, durationMs },
+            properties: { standardId, durationMs, tries: triesRef.current },
           })
           return true
         })
@@ -240,6 +263,9 @@ export function Level2Paste({ standardId }: Level2PasteProps) {
     setIframeError(false)
     setBuilderWonOwnGame(false)
     clearPersistedWin(standardId)
+    // Validation passed and an iframe will mount — count this as a try.
+    triesRef.current = triesRef.current + 1
+    setTries(triesRef.current)
     setLoadedHtml(pastedHtml)
   }, [pastedHtml, standardId])
 
@@ -267,7 +293,7 @@ export function Level2Paste({ standardId }: Level2PasteProps) {
     // be verified in Network DevTools without a real game.
     track({
       event: "level_2.playtest_win",
-      properties: { standardId, durationMs },
+      properties: { standardId, durationMs, tries: triesRef.current },
     })
   }, [builderWonOwnGame, standardId])
 

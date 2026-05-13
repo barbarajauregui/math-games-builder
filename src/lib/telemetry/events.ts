@@ -96,9 +96,9 @@ export type BuilderEvent =
   | { event: "level_2.prompt_scaffold_copied"; properties: { standardId: string; mechanicId: string; descriptionLength: number } }
   | { event: "level_2.prompt_review_run"; properties: { standardId: string; mechanicId: string; decision: "pass" | "block"; latencyMs: number; descriptionLength: number } }
   | { event: "level_2.playtest_started"; properties: { standardId: string } }
-  | { event: "level_2.playtest_win"; properties: { standardId: string; durationMs: number } }
+  | { event: "level_2.playtest_win"; properties: { standardId: string; durationMs: number; tries: number } }
   | { event: "level_2.local_validation_failed"; properties: { standardId: string; reason: string } }
-  | { event: "level_2.html_review_run"; properties: { standardId: string; mechanicId: string; decision: "pass" | "soft_warn" | "block"; latencyMs: number; bulletsCount: number } }
+  | { event: "level_2.html_review_run"; properties: { standardId: string; mechanicId: string; decision: "pass" | "soft_warn" | "block"; latencyMs: number; bulletsCount: number; stage1: "pass" | "fail" | "not_run"; stage2: "pass" | "fail" | "not_run"; stage3: "pass" | "fail" | "not_run"; stage4: "pass" | "fail" | "not_run" } }
   | { event: "level_2.save_clicked"; properties: { standardId: string; mechanicId: string; decision: "pass" | "soft_warn" } }
   | { event: "level_2.saved_pending_review"; properties: { standardId: string; mechanicId: string; gameId: string } }
 

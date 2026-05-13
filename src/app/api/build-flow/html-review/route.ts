@@ -179,6 +179,32 @@ function reduceToBullets(stages: StageResult[]): ReviewBullet[] {
   return dedupe(collected).slice(0, MAX_BULLETS)
 }
 
+type StageStatus = "pass" | "fail" | "not_run"
+
+/**
+ * Derive per-stage status from a (possibly partial) stages array. The ladder
+ * halts on first failure, so a stage that doesn't appear in the array is
+ * `not_run`. A stage that appears is `pass` (passed === true) or `fail`.
+ */
+function stageStatuses(stages: StageResult[]): {
+  stage1: StageStatus
+  stage2: StageStatus
+  stage3: StageStatus
+  stage4: StageStatus
+} {
+  const lookup = (n: number): StageStatus => {
+    const s = stages.find((x) => x.stage === n)
+    if (!s) return "not_run"
+    return s.passed ? "pass" : "fail"
+  }
+  return {
+    stage1: lookup(1),
+    stage2: lookup(2),
+    stage3: lookup(3),
+    stage4: lookup(4),
+  }
+}
+
 function lookupStandardText(standardId: string): string | null {
   const nodes = (standardsData as {
     nodes: Array<{ id: string; description: string }>
@@ -243,6 +269,7 @@ export async function POST(req: NextRequest) {
         decision: SERVICE_ERROR_RESULT.decision,
         latencyMs,
         bulletsCount: SERVICE_ERROR_RESULT.bullets.length,
+        ...stageStatuses([]),
       },
     })
     return Response.json(SERVICE_ERROR_RESULT, { status: 500 })
@@ -276,6 +303,7 @@ export async function POST(req: NextRequest) {
         decision: SERVICE_ERROR_RESULT.decision,
         latencyMs,
         bulletsCount: SERVICE_ERROR_RESULT.bullets.length,
+        ...stageStatuses([]),
       },
     })
     return Response.json(SERVICE_ERROR_RESULT, { status: 500 })
@@ -295,6 +323,7 @@ export async function POST(req: NextRequest) {
         decision: SERVICE_ERROR_RESULT.decision,
         latencyMs,
         bulletsCount: SERVICE_ERROR_RESULT.bullets.length,
+        ...stageStatuses(ladderResult.stages),
       },
     })
     return Response.json(SERVICE_ERROR_RESULT, { status: 500 })
@@ -346,6 +375,7 @@ export async function POST(req: NextRequest) {
       decision: result.decision,
       latencyMs,
       bulletsCount: result.bullets.length,
+      ...stageStatuses(ladderResult.stages),
     },
   })
 
